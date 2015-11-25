@@ -67,7 +67,7 @@
 	var game = undefined;
 	
 	var init = function init() {
-		game = new Phaser.Game(288, 505, Phaser.AUTO);
+		game = new Phaser.Game(300, 500, Phaser.AUTO);
 		game.state.add('Boot', _classesStatesBoot2['default'], true);
 		game.state.add('Preload', _classesStatesPreload2['default'], false);
 		game.state.add('Menu', _classesStatesMenu2['default'], false);
@@ -107,11 +107,12 @@
 			key: 'preload',
 			value: function preload() {
 				//this.load.image('preloader', 'assets/preloader.gif');
+	
 			}
 		}, {
 			key: 'create',
 			value: function create() {
-	
+				console.log('Boot State');
 				this.game.state.start('Preload');
 			}
 		}]);
@@ -152,12 +153,20 @@
 		_createClass(Preload, [{
 			key: 'preload',
 			value: function preload() {
-				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+				// this.load.onLoadComplete.addOnce(this.onLoadComplete,this);
+				this.game.state.start('Menu');
+			}
+		}, {
+			key: 'create',
+			value: function create() {
+				console.log('Preload State');
 			}
 		}, {
 			key: 'onLoadComplete',
 			value: function onLoadComplete() {
-				this.game.state.start('Play');
+	
+				// this.game.state.start('Menu');
+	
 			}
 		}]);
 	
@@ -171,19 +180,19 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 		value: true
 	});
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Menu = (function (_Phaser$State) {
 		_inherits(Menu, _Phaser$State);
@@ -191,37 +200,50 @@
 		function Menu() {
 			_classCallCheck(this, Menu);
 	
-			_get(Object.getPrototypeOf(Menu.prototype), "constructor", this).apply(this, arguments);
+			_get(Object.getPrototypeOf(Menu.prototype), 'constructor', this).apply(this, arguments);
 		}
 	
 		_createClass(Menu, [{
-			key: "preload",
+			key: 'preload',
 			value: function preload() {}
+		}, {
+			key: 'create',
+			value: function create() {
+				console.log('Menu State');
+	
+				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+				this.key1.onDown.add(this.startGame, this);
+			}
+		}, {
+			key: 'startGame',
+			value: function startGame() {
+				this.game.state.start('Play');
+			}
 		}]);
 	
 		return Menu;
 	})(Phaser.State);
 	
-	exports["default"] = Menu;
-	module.exports = exports["default"];
+	exports['default'] = Menu;
+	module.exports = exports['default'];
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 		value: true
 	});
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Play = (function (_Phaser$State) {
 		_inherits(Play, _Phaser$State);
@@ -229,19 +251,24 @@
 		function Play() {
 			_classCallCheck(this, Play);
 	
-			_get(Object.getPrototypeOf(Play.prototype), "constructor", this).apply(this, arguments);
+			_get(Object.getPrototypeOf(Play.prototype), 'constructor', this).apply(this, arguments);
 		}
 	
 		_createClass(Play, [{
-			key: "preload",
+			key: 'preload',
 			value: function preload() {}
+		}, {
+			key: 'create',
+			value: function create() {
+				console.log('Play State');
+			}
 		}]);
 	
 		return Play;
 	})(Phaser.State);
 	
-	exports["default"] = Play;
-	module.exports = exports["default"];
+	exports['default'] = Play;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
