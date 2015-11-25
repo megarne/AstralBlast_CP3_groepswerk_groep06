@@ -4,22 +4,18 @@ require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DAO.php';
 
 class astralDAO extends DAO {
 
-
-
 	public function selectAll() {
 		$sql = "SELECT * FROM `astral_scores`";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
 	}  
 
 
-public function selectById($id) {
+	public function selectById($id) {
 		$sql = "SELECT * 
-						FROM `astral_scores` 
-						WHERE `id` = :id";
+		FROM `astral_scores` 
+		WHERE `id` = :id";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
@@ -31,12 +27,11 @@ public function selectById($id) {
 	}	
 
 
-		public function selectTop10() {
+	public function selectTop10() {
 		$sql = "SELECT * FROM `astral_scores` ORDER BY `score` DESC LIMIT 10";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 	}  
 
