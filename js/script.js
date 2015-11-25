@@ -156,7 +156,8 @@
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 	
 				this.load.spritesheet('player', 'assets/player.png', 182 / 3, 56, 3);
-				this.load.spritesheet('enemie', 'assets/enemie.png', 250 / 3, 74, 3);
+				this.load.spritesheet('enemie', 'assets/enemie.png', 125 / 3, 37, 3);
+				this.load.spritesheet('bullet', 'assets/bullet.png', 11, 20, 3);
 				this.load.image('logo', 'assets/logo.png');
 				this.load.image('start', 'assets/start.png');
 				this.load.spritesheet('space', 'assets/space.png', 320, 320, 3);
@@ -271,6 +272,10 @@
 	
 	var _objectsSpace2 = _interopRequireDefault(_objectsSpace);
 	
+	var _objectsBullet = __webpack_require__(9);
+	
+	var _objectsBullet2 = _interopRequireDefault(_objectsBullet);
+	
 	var _objectsEnemieGroup = __webpack_require__(8);
 	
 	var _objectsEnemieGroup2 = _interopRequireDefault(_objectsEnemieGroup);
@@ -296,12 +301,16 @@
 	
 				this.player = new _objectsPlayer2['default'](this.game, this.game.width / 2, this.game.height - 100);
 				this.game.add.existing(this.player);
+				this.player.anchor.setTo(0.5, 0.5);
 				this.game.physics.arcade.enable(this.player);
 				this.player.body.collideWorldBounds = true;
 	
 				this.enemies = this.game.add.group();
+				this.playerbullets = this.game.add.group();
+				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
 				this.cursors = this.game.input.keyboard.createCursorKeys();
+				this.key1.onDown.add(this.generatePlayerBullets, this);
 	
 				this.enemieGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generateEnemies, this);
 				this.enemieGenerator.timer.start();
@@ -318,12 +327,34 @@
 				if (!enemie) {
 					enemie = new _objectsEnemieGroup2['default'](this.game, this.enemies);
 				}
-				console.log('create old');
+	
+				console.log(this.playerbullets.children);
 	
 				enemie.reset(enemieX, this.game.height);
 	
 				enemie.y = 0;
 				enemie.x = enemieX;
+			}
+		}, {
+			key: 'generatePlayerBullets',
+			value: function generatePlayerBullets() {
+	
+				var bullet = this.playerbullets.getFirstExists(false);
+	
+				//var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y);
+				//this.game.add.existing(bullet);
+				console.log('schot');
+	
+				if (!bullet) {
+					bullet = new _objectsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
+					this.playerbullets.add(bullet, false);
+					console.log('schot2');
+				}
+	
+				bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
+	
+				bullet.x = this.player.body.x + this.player.body.width / 2;
+				bullet.y = this.player.body.y;
 			}
 		}, {
 			key: 'update',
@@ -532,6 +563,68 @@
 	})(Phaser.Group);
 	
 	exports['default'] = EnemieGroup;
+	module.exports = exports['default'];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Bullet = (function (_Phaser$Sprite) {
+	  _inherits(Bullet, _Phaser$Sprite);
+	
+	  function Bullet(game, x, y, frame) {
+	    _classCallCheck(this, Bullet);
+	
+	    _get(Object.getPrototypeOf(Bullet.prototype), 'constructor', this).call(this, game, x, y, 'bullet', frame);
+	
+	    this.animations.add('vuur');
+	    this.animations.play('vuur', 12, true);
+	
+	    this.anchor.setTo(0.5, 0.5);
+	
+	    this.game.physics.arcade.enableBody(this);
+	
+	    this.body.velocity.y = -300;
+	  }
+	
+	  _createClass(Bullet, [{
+	    key: 'reset',
+	    value: function reset(x, y) {
+	      console.log('test');
+	      //this.reset(0, 0);
+	      this.body.velocity.y = -300;
+	      this.x = 0;
+	      this.y = 0;
+	      this.exists = true;
+	      this.hasScored = false;
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update() {
+	      if (!this.inWorld) {
+	        this.exists = false;
+	      }
+	    }
+	  }]);
+	
+	  return Bullet;
+	})(Phaser.Sprite);
+	
+	exports['default'] = Bullet;
 	module.exports = exports['default'];
 
 /***/ }
