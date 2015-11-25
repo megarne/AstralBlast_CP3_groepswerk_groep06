@@ -1,7 +1,7 @@
 import Player from '../objects/Player';
 import Space from '../objects/Space';
 import Bullet from '../objects/Bullet';
-import EnemieGroup from '../objects/EnemieGroup';
+import Enemie from '../objects/Enemie';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -39,41 +39,35 @@ export default class Play extends Phaser.State{
 	generateEnemies() {
 		var enemieX = this.game.rnd.integerInRange(0, this.game.width); 
 
-		var enemie = this.enemies.getFirstExists(false);
 
-		if (!enemie){
-			enemie = new EnemieGroup(this.game, this.enemies); 
-		}
+		var	enemie = new Enemie(this.game, enemieX, 0); 
+		this.enemies.add(enemie,true);
+		enemie.reset(enemieX, 0);
+		enemie.body.velocity.y = 100;
+		//console.log(this.playerbullets.children);
 
-		console.log(this.playerbullets.children);
+		
+		
 
-		enemie.reset(enemieX, this.game.height);
-
-		enemie.y = 0;
-		enemie.x = enemieX;
+		//enemie.y = 0;
+		//enemie.x = enemieX;
 
 
 	}
 
 	generatePlayerBullets(){
 
-		var bullet = this.playerbullets.getFirstExists(false);
+		var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
+		bullet.body.velocity.y = -300;
+		this.playerbullets.add(bullet,true);
 
-		//var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
-		//this.game.add.existing(bullet);
-		console.log('schot');
-
-		if (!bullet){
-			bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
-			this.playerbullets.add(bullet,false);
-			console.log('schot2');
-		}
 
 
 		bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
 
-		bullet.x = this.player.body.x+this.player.body.width/2;
-		bullet.y = this.player.body.y;
+		bullet.body.velocity.y = -300;
+
+
 
 	}
 
@@ -97,6 +91,21 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.y = 200;
 		}
 
+		this.playerbullets.forEach(playerbulletstest => { 
+			
+			this.enemies.forEach(enemiestest => { 
+
+				this.game.physics.arcade.collide(enemiestest, playerbulletstest,
+					this.hitenemie, null, this); 
+			});
+		});
+
+	}
+
+	hitenemie(a, b){
+		a.destroy();
+		b.destroy();
+		//test.children[0].kill();
 	}
 
 }

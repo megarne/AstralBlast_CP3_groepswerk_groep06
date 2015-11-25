@@ -10,6 +10,10 @@ export default class EnemieGroup extends Phaser.Group {
 
 		this.enemie.body.velocity.y = 100;
 		this.hasScored = false;
+
+
+		    this.game.physics.arcade.enableBody(this);
+
 	}
 
 	reset(x,y){
@@ -26,5 +30,9 @@ export default class EnemieGroup extends Phaser.Group {
 		if(!this.enemie.inWorld) { 
 			this.exists = false;
 		}
+	}
+
+	kill(){
+		this.destroy();
 	}
 }
