@@ -90,53 +90,67 @@ export default class Play extends Phaser.State{
 
 
 	update(){
-		this.player.body.velocity.x = 0;
-		this.player.body.velocity.y = 0;
-		if(this.cursors.left.isDown){
-			this.player.body.velocity.x = -200;
-		}
+		
+		if(this.player.body){
+			this.player.body.velocity.x = 0;
+			this.player.body.velocity.y = 0;
+			if(this.cursors.left.isDown){
+				this.player.body.velocity.x = -200;
+			}
 
-		if(this.cursors.right.isDown){
-			this.player.body.velocity.x = 200;
-		}
+			if(this.cursors.right.isDown){
+				this.player.body.velocity.x = 200;
+			}
 
-		if(this.cursors.up.isDown){
-			this.player.body.velocity.y = -200;
-		}
+			if(this.cursors.up.isDown){
+				this.player.body.velocity.y = -200;
+			}
 
-		if(this.cursors.down.isDown){
-			this.player.body.velocity.y = 200;
-		}
+			if(this.cursors.down.isDown){
+				this.player.body.velocity.y = 200;
+			}
 
-		this.playerbullets.forEach(playerbulletstest => { 
-			
+
+			this.playerbullets.forEach(playerbulletstest => { 
+
+				this.enemies.forEach(enemiestest => { 
+
+					this.game.physics.arcade.collide(enemiestest, playerbulletstest,
+						this.hitenemie, null, this); 
+				});
+			});
+
 			this.enemies.forEach(enemiestest => { 
 
-				this.game.physics.arcade.collide(enemiestest, playerbulletstest,
-					this.hitenemie, null, this); 
+				this.game.physics.arcade.collide(enemiestest, this.player,
+					this.hitplayer, null, this); 
 			});
-		});
+		};
 
 	}
 
 	hitenemie(a, b){
 		this.updateScore(5);
-		this.makeExplosion(a.x,a.y,a.body.velocity.x,a.body.velocity.y)
+		this.makeExplosion(a.x,a.y);
 		a.destroy();
 		b.destroy();
-		//test.children[0].kill();
+
 	}
 
-	makeExplosion(x,y,velox,veloy){
-		//console.log(x);
-		//console.log(y);
-		//console.log(velox);
-		//console.log(veloy);
+	hitplayer(a, b){
+		this.makeExplosion(a.x,a.y);
+		this.makeExplosion(b.x,b.y);
+		a.destroy();
+		b.destroy();
+		console.log('player death');
+	}
+
+	makeExplosion(x,y){
+
 
 		var explosie = new Explosie(this.game, x, y); 
 		this.game.add.existing(explosie);
-		//explosie.body.velocity.y = veloy;
-		//explosie.body.velocity.x = velox;
+
 
 	}
 
