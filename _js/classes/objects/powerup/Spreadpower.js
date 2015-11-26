@@ -1,10 +1,9 @@
-
-export default class Enemie extends Phaser.Sprite {
+export default class Explosie extends Phaser.Sprite {
 	constructor(game, x, y, frame) {
-		super(game, x, y, 'enemie', frame);
+		super(game, x, y, 'spreadpower', frame);
 
-		this.animations.add('vuur');
-		this.animations.play('vuur', 12, true);
+		this.animations.add('flikker');
+		this.animations.play('flikker', 12, true);
 
 		this.anchor.setTo(0.5, 0.5);
 
@@ -14,18 +13,11 @@ export default class Enemie extends Phaser.Sprite {
 
 	}
 	reset(x,y){
-
-		this.body.velocity.y = 100;
+		this.body.velocity.y = 50;
 		this.x = x;
 		this.y = y;
 		this.exists = true;
 		this.hasScored = false;
-	}
-
-	kill(){
-		//this.destroy();
-
-
 	}
 
 	update(){

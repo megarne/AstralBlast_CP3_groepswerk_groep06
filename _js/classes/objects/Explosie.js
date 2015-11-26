@@ -13,8 +13,7 @@ export default class Explosie extends Phaser.Sprite {
 
 	}
 	reset(x,y){
-		console.log('test');
-		//this.reset(0, 0);
+
 		this.body.velocity.y = 100;
 		this.x = x;
 		this.y = y;
