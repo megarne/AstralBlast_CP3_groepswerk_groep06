@@ -371,53 +371,61 @@
 			value: function update() {
 				var _this = this;
 	
-				this.player.body.velocity.x = 0;
-				this.player.body.velocity.y = 0;
-				if (this.cursors.left.isDown) {
-					this.player.body.velocity.x = -200;
-				}
+				if (this.player.body) {
+					this.player.body.velocity.x = 0;
+					this.player.body.velocity.y = 0;
+					if (this.cursors.left.isDown) {
+						this.player.body.velocity.x = -200;
+					}
 	
-				if (this.cursors.right.isDown) {
-					this.player.body.velocity.x = 200;
-				}
+					if (this.cursors.right.isDown) {
+						this.player.body.velocity.x = 200;
+					}
 	
-				if (this.cursors.up.isDown) {
-					this.player.body.velocity.y = -200;
-				}
+					if (this.cursors.up.isDown) {
+						this.player.body.velocity.y = -200;
+					}
 	
-				if (this.cursors.down.isDown) {
-					this.player.body.velocity.y = 200;
-				}
+					if (this.cursors.down.isDown) {
+						this.player.body.velocity.y = 200;
+					}
 	
-				this.playerbullets.forEach(function (playerbulletstest) {
+					this.playerbullets.forEach(function (playerbulletstest) {
 	
-					_this.enemies.forEach(function (enemiestest) {
+						_this.enemies.forEach(function (enemiestest) {
 	
-						_this.game.physics.arcade.collide(enemiestest, playerbulletstest, _this.hitenemie, null, _this);
+							_this.game.physics.arcade.collide(enemiestest, playerbulletstest, _this.hitenemie, null, _this);
+						});
 					});
-				});
+	
+					this.enemies.forEach(function (enemiestest) {
+	
+						_this.game.physics.arcade.collide(enemiestest, _this.player, _this.hitplayer, null, _this);
+					});
+				};
 			}
 		}, {
 			key: 'hitenemie',
 			value: function hitenemie(a, b) {
 				this.updateScore(5);
-				this.makeExplosion(a.x, a.y, a.body.velocity.x, a.body.velocity.y);
+				this.makeExplosion(a.x, a.y);
 				a.destroy();
 				b.destroy();
-				//test.children[0].kill();
+			}
+		}, {
+			key: 'hitplayer',
+			value: function hitplayer(a, b) {
+				this.makeExplosion(a.x, a.y);
+				this.makeExplosion(b.x, b.y);
+				a.destroy();
+				b.destroy();
 			}
 		}, {
 			key: 'makeExplosion',
-			value: function makeExplosion(x, y, velox, veloy) {
-				//console.log(x);
-				//console.log(y);
-				//console.log(velox);
-				//console.log(veloy);
+			value: function makeExplosion(x, y) {
 	
 				var explosie = new _objectsExplosie2['default'](this.game, x, y);
 				this.game.add.existing(explosie);
-				//explosie.body.velocity.y = veloy;
-				//explosie.body.velocity.x = velox;
 			}
 		}]);
 	
