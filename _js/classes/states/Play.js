@@ -142,6 +142,7 @@ export default class Play extends Phaser.State{
 		this.makeExplosion(b.x,b.y);
 		a.destroy();
 		b.destroy();
+		console.log('player death');
 	}
 
 	makeExplosion(x,y){

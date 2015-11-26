@@ -419,6 +419,7 @@
 				this.makeExplosion(b.x, b.y);
 				a.destroy();
 				b.destroy();
+				console.log('player death');
 			}
 		}, {
 			key: 'makeExplosion',
