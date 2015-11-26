@@ -310,6 +310,7 @@
 				this.player.anchor.setTo(0.5, 0.5);
 				this.game.physics.arcade.enable(this.player);
 				this.player.body.collideWorldBounds = true;
+				this.gun = "spread";
 	
 				this.enemies = this.game.add.group();
 				this.playerbullets = this.game.add.group();
@@ -349,22 +350,31 @@
 				this.enemies.add(enemie, true);
 				enemie.reset(enemieX, 0);
 				enemie.body.velocity.y = 100;
-				//console.log(this.playerbullets.children);
-	
-				//enemie.y = 0;
-				//enemie.x = enemieX;
 			}
 		}, {
 			key: 'generatePlayerBullets',
 			value: function generatePlayerBullets() {
+				switch (this.gun) {
+					case "default":
+						var bullet = new _objectsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
+						this.playerbullets.add(bullet, true);
+						bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
+						bullet.body.velocity.y = -300;
+						break;
 	
-				var bullet = new _objectsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
-				bullet.body.velocity.y = -300;
-				this.playerbullets.add(bullet, true);
+					case "spread":
+						for (var i = 0; i < 5; i++) {
 	
-				bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
+							var bullet = new _objectsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
+							this.playerbullets.add(bullet, true);
+							bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
+							bullet.body.velocity.y = -300 + Math.abs(i - 2) * 3;
+							bullet.body.velocity.x = (i - 2) * 25;
+							//bullet.position.rotate(i-2);
+						}
 	
-				bullet.body.velocity.y = -300;
+						break;
+				}
 			}
 		}, {
 			key: 'update',
