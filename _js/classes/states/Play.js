@@ -29,13 +29,29 @@ export default class Play extends Phaser.State{
 
 
 		this.enemieGenerator = 
-		this.game.time.events.loop(Phaser.Timer.SECOND * 1.25,
-			this.generateEnemies, this); 
+		this.game.time.events.loop(Phaser.Timer.SECOND * 1,
+			this.secondLoop, this); 
 		this.enemieGenerator.timer.start();
+
+		this.score = 0;
+		this.scoreText = this.game.add.bitmapText(this.game.width-20, 50, 'gem',"score: "+this.score.toString(), 30);
+		this.scoreText.anchor.setTo(1,1);
 
 		console.log('Play State');
 	}
 
+
+	secondLoop(){
+		this.generateEnemies();
+
+		this.updateScore(10);
+		
+	}
+
+	updateScore(value){
+		this.score = this.score + value;
+		this.scoreText.text = "score: "+this.score.toString();
+	}
 
 	generateEnemies() {
 		var enemieX = this.game.rnd.integerInRange(0, this.game.width); 
@@ -104,6 +120,7 @@ export default class Play extends Phaser.State{
 	}
 
 	hitenemie(a, b){
+		this.updateScore(5);
 		this.makeExplosion(a.x,a.y,a.body.velocity.x,a.body.velocity.y)
 		a.destroy();
 		b.destroy();

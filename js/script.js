@@ -318,10 +318,27 @@
 				this.cursors = this.game.input.keyboard.createCursorKeys();
 				this.key1.onDown.add(this.generatePlayerBullets, this);
 	
-				this.enemieGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generateEnemies, this);
+				this.enemieGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.secondLoop, this);
 				this.enemieGenerator.timer.start();
 	
+				this.score = 0;
+				this.scoreText = this.game.add.bitmapText(this.game.width - 20, 50, 'gem', "score: " + this.score.toString(), 30);
+				this.scoreText.anchor.setTo(1, 1);
+	
 				console.log('Play State');
+			}
+		}, {
+			key: 'secondLoop',
+			value: function secondLoop() {
+				this.generateEnemies();
+	
+				this.updateScore(10);
+			}
+		}, {
+			key: 'updateScore',
+			value: function updateScore(value) {
+				this.score = this.score + value;
+				this.scoreText.text = "score: " + this.score.toString();
 			}
 		}, {
 			key: 'generateEnemies',
@@ -383,6 +400,7 @@
 		}, {
 			key: 'hitenemie',
 			value: function hitenemie(a, b) {
+				this.updateScore(5);
 				this.makeExplosion(a.x, a.y, a.body.velocity.x, a.body.velocity.y);
 				a.destroy();
 				b.destroy();
