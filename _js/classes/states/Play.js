@@ -3,6 +3,7 @@ import Space from '../objects/Space';
 import Bullet from '../objects/Bullet';
 import Enemie from '../objects/Enemie';
 import Explosie from '../objects/Explosie';
+import Spreadpower from '../objects/powerup/Spreadpower';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -18,11 +19,16 @@ export default class Play extends Phaser.State{
 		this.player.anchor.setTo(0.5, 0.5);
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.collideWorldBounds = true;
+
 		this.gun = "spread"
+		this.aantalshots = 1;
 
 
 		this.enemies = this.game.add.group();
 		this.playerbullets = this.game.add.group();
+		this.spreadpowerups = this.game.add.group();
+
+
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -75,24 +81,18 @@ export default class Play extends Phaser.State{
 			break;
 
 			case "spread":
-			for (var i = 0; i < 5; i++) {
+			
+			for (var i = 0; i < this.aantalshots; i++) {
 
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
-				bullet.body.velocity.y = -300+(Math.abs(i-2)*3);
-				bullet.body.velocity.x = (i-2)*25;
-				//bullet.position.rotate(i-2);
+				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
+				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25;
 			}
-
 			break;
+			
 		}
-
-		
-
-		
-
-
 
 	}
 
@@ -133,6 +133,12 @@ export default class Play extends Phaser.State{
 				this.game.physics.arcade.collide(enemiestest, this.player,
 					this.hitplayer, null, this); 
 			});
+
+			this.spreadpowerups.forEach(powerup => { 
+
+				this.game.physics.arcade.collide(powerup, this.player,
+					this.hitspreadpower, null, this); 
+			});
 		};
 
 	}
@@ -143,6 +149,22 @@ export default class Play extends Phaser.State{
 		a.destroy();
 		b.destroy();
 
+		var chancepowerup = this.game.rnd.integerInRange(1, 5); 
+		if (chancepowerup == 1) {
+			this.powerupspreadcreate(a.x,a.y);
+		}
+	}
+
+	hitspreadpower(a, b){
+		a.destroy();
+		this.aantalshots = this.aantalshots + 2;
+	}
+
+	powerupspreadcreate(x, y){
+		var spreadpower = new Spreadpower(this.game, x, y); 
+		this.spreadpowerups.add(spreadpower,true);
+		spreadpower.reset(x, y);
+		spreadpower.body.velocity.y = 50;
 	}
 
 	hitplayer(a, b){
@@ -150,7 +172,7 @@ export default class Play extends Phaser.State{
 		this.makeExplosion(b.x,b.y);
 		a.destroy();
 		b.destroy();
-		console.log('player death');
+		
 	}
 
 	makeExplosion(x,y){
