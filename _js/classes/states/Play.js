@@ -2,6 +2,7 @@ import Player from '../objects/Player';
 import Space from '../objects/Space';
 import Bullet from '../objects/Bullet';
 import Enemie from '../objects/Enemie';
+import Explosie from '../objects/Explosie';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -103,9 +104,23 @@ export default class Play extends Phaser.State{
 	}
 
 	hitenemie(a, b){
+		this.makeExplosion(a.x,a.y,a.body.velocity.x,a.body.velocity.y)
 		a.destroy();
 		b.destroy();
 		//test.children[0].kill();
+	}
+
+	makeExplosion(x,y,velox,veloy){
+		//console.log(x);
+		//console.log(y);
+		//console.log(velox);
+		//console.log(veloy);
+
+		var explosie = new Explosie(this.game, x, y); 
+		this.game.add.existing(explosie);
+		//explosie.body.velocity.y = veloy;
+		//explosie.body.velocity.x = velox;
+
 	}
 
 }

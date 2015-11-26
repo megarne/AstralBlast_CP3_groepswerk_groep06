@@ -158,6 +158,8 @@
 				this.load.spritesheet('player', 'assets/player.png', 182 / 3, 56, 3);
 				this.load.spritesheet('enemie', 'assets/enemie.png', 125 / 3, 37, 3);
 				this.load.spritesheet('bullet', 'assets/bullet.png', 11, 20, 3);
+				this.load.spritesheet('explosie', 'assets/boem.png', 100, 100, 8);
+				this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
 				this.load.image('logo', 'assets/logo.png');
 				this.load.image('start', 'assets/start.png');
 				this.load.spritesheet('space', 'assets/space.png', 320, 320, 3);
@@ -280,6 +282,10 @@
 	
 	var _objectsEnemie2 = _interopRequireDefault(_objectsEnemie);
 	
+	var _objectsExplosie = __webpack_require__(10);
+	
+	var _objectsExplosie2 = _interopRequireDefault(_objectsExplosie);
+	
 	var Play = (function (_Phaser$State) {
 		_inherits(Play, _Phaser$State);
 	
@@ -377,9 +383,23 @@
 		}, {
 			key: 'hitenemie',
 			value: function hitenemie(a, b) {
+				this.makeExplosion(a.x, a.y, a.body.velocity.x, a.body.velocity.y);
 				a.destroy();
 				b.destroy();
 				//test.children[0].kill();
+			}
+		}, {
+			key: 'makeExplosion',
+			value: function makeExplosion(x, y, velox, veloy) {
+				//console.log(x);
+				//console.log(y);
+				//console.log(velox);
+				//console.log(veloy);
+	
+				var explosie = new _objectsExplosie2['default'](this.game, x, y);
+				this.game.add.existing(explosie);
+				//explosie.body.velocity.y = veloy;
+				//explosie.body.velocity.x = velox;
 			}
 		}]);
 	
@@ -501,8 +521,8 @@
 		}
 	
 		_createClass(Enemie, [{
-			key: 'eset',
-			value: function eset(x, y) {
+			key: 'reset',
+			value: function reset(x, y) {
 				console.log('test');
 				//this.reset(0, 0);
 				this.body.velocity.y = 100;
@@ -510,6 +530,12 @@
 				this.y = y;
 				this.exists = true;
 				this.hasScored = false;
+			}
+		}, {
+			key: 'kill',
+			value: function kill() {
+				//this.destroy();
+	
 			}
 		}, {
 			key: 'update',
@@ -588,6 +614,67 @@
 	})(Phaser.Sprite);
 	
 	exports['default'] = Bullet;
+	module.exports = exports['default'];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Explosie = (function (_Phaser$Sprite) {
+		_inherits(Explosie, _Phaser$Sprite);
+	
+		function Explosie(game, x, y, frame) {
+			_classCallCheck(this, Explosie);
+	
+			_get(Object.getPrototypeOf(Explosie.prototype), 'constructor', this).call(this, game, x, y, 'explosie', frame);
+	
+			this.animations.add('boem');
+			this.animations.play('boem', 12, false, true);
+	
+			this.anchor.setTo(0.5, 0.5);
+	
+			//this.game.physics.arcade.enableBody(this);
+		}
+	
+		_createClass(Explosie, [{
+			key: 'reset',
+			value: function reset(x, y) {
+				console.log('test');
+				//this.reset(0, 0);
+				this.body.velocity.y = 100;
+				this.x = x;
+				this.y = y;
+				this.exists = true;
+				this.hasScored = false;
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				if (!this.inWorld) {
+					this.exists = false;
+					this.destroy();
+				}
+			}
+		}]);
+	
+		return Explosie;
+	})(Phaser.Sprite);
+	
+	exports['default'] = Explosie;
 	module.exports = exports['default'];
 
 /***/ }
