@@ -387,6 +387,10 @@
 				this.scoreText = this.game.add.bitmapText(this.game.width - 20, 50, 'gem', "score: " + this.score.toString(), 30);
 				this.scoreText.anchor.setTo(1, 1);
 	
+				this.lives = this.player.lives;
+				this.livesText = this.game.add.bitmapText(20, 50, 'gem', "lives: " + this.lives.toString(), 30);
+				this.livesText.anchor.setTo(0, 1);
+	
 				console.log('Play State');
 	
 				this.teller = 0;
@@ -568,9 +572,23 @@
 			key: 'hitplayer',
 			value: function hitplayer(a, b) {
 				this.makeExplosion(a.x, a.y);
-				this.makeExplosion(b.x, b.y);
+	
 				a.destroy();
-				b.destroy();
+	
+				console.log(this.player.alpha);
+				if (this.player.alpha == 1) {
+					b.kill();
+					console.log(this.player.lives);
+					this.lives = this.player.lives;
+					this.livesText.text = "lives: " + this.lives.toString();
+					if (this.lives == 0) {
+						this.playerDeath();
+					}
+				}
+			}
+		}, {
+			key: 'playerDeath',
+			value: function playerDeath() {
 				this.game.state.restart(true, false, 'Play');
 			}
 		}, {
@@ -595,8 +613,10 @@
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+		value: true
 	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
@@ -605,22 +625,44 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Player = (function (_Phaser$Sprite) {
-	  _inherits(Player, _Phaser$Sprite);
+		_inherits(Player, _Phaser$Sprite);
 	
-	  function Player(game, x, y, frame) {
-	    _classCallCheck(this, Player);
+		function Player(game, x, y, frame) {
+			_classCallCheck(this, Player);
 	
-	    _get(Object.getPrototypeOf(Player.prototype), 'constructor', this).call(this, game, x, y, 'player', frame);
+			_get(Object.getPrototypeOf(Player.prototype), 'constructor', this).call(this, game, x, y, 'player', frame);
 	
-	    this.animations.add('vuur');
-	    this.animations.play('vuur', 12, true);
+			this.animations.add('vuur');
+			this.animations.play('vuur', 12, true);
 	
-	    this.anchor.setTo(0.5, 0.5);
+			this.anchor.setTo(0.5, 0.5);
 	
-	    this.game.physics.arcade.enableBody(this);
-	  }
+			this.game.physics.arcade.enableBody(this);
+			this.lives = 3;
+		}
 	
-	  return Player;
+		_createClass(Player, [{
+			key: 'kill',
+			value: function kill() {
+	
+				this.alpha = 0;
+				this.lives--;
+				if (this.lives == 0) {
+					this.destroy();
+				}
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				if (this.alpha < 1) {
+					this.alpha = this.alpha + 0.05;
+				} else {
+					this.alpha = 1;
+				}
+			}
+		}]);
+	
+		return Player;
 	})(Phaser.Sprite);
 	
 	exports['default'] = Player;
