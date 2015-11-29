@@ -571,6 +571,7 @@
 				this.makeExplosion(b.x, b.y);
 				a.destroy();
 				b.destroy();
+				this.game.state.restart(true, false, 'Play');
 			}
 		}, {
 			key: 'makeExplosion',
