@@ -50,17 +50,20 @@ export default class BigEnemie extends Phaser.Sprite {
 			this.exists = false;
 			this.destroy();
 		}
-		console.log(this.body.width);
 
-		if (this.body.x >= 700) {
-			this.speedx = -this.speedx;
-			this.body.velocity.x = this.speedx;
+		if (this.body) {
+			if (this.body.x >= 700) {
+				this.speedx = -this.speedx;
+				this.body.velocity.x = this.speedx;
+			}
+
+			if(this.body.x <= 0){
+				this.speedx = -this.speedx;
+				this.body.velocity.x = this.speedx;
+			}
 		}
 
-		if(this.body.x <= 0){
-			this.speedx = -this.speedx;
-			this.body.velocity.x = this.speedx;
-		}
+		
 
 		
 	}

@@ -1,6 +1,7 @@
 import Player from '../objects/Player';
 import Space from '../objects/Space';
-import Bullet from '../objects/Bullet';
+import Bullet from '../objects/bullets/Bullet';
+import EnemieBullet from '../objects/bullets/EnemieBullet';
 import Enemie from '../objects/enemies/Enemie';
 import BigEnemie from '../objects/enemies/BigEnemie';
 import Explosie from '../objects/Explosie';
@@ -22,12 +23,14 @@ export default class Play extends Phaser.State{
 		this.player.body.collideWorldBounds = true;
 
 		this.gun = "spread"
-		this.aantalshots = 1;
+		this.aantalshots = 3;
+		this.spread = 10;
 
 
 		this.enemies = this.game.add.group();
 		this.playerbullets = this.game.add.group();
 		this.spreadpowerups = this.game.add.group();
+		this.enemiebullets = this.game.add.group();
 
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -54,10 +57,14 @@ export default class Play extends Phaser.State{
 	secondLoop(){
 		this.teller++;
 		this.generateEnemies();
+
 		if (this.teller % 5 === 0) {
 			this.generateBigEnemies();
 		}
+
 		this.updateScore(10);
+
+		this.checkShoot();
 		
 	}
 
@@ -67,6 +74,7 @@ export default class Play extends Phaser.State{
 	}
 
 	generateBigEnemies() {
+
 		var enemieX = this.game.rnd.integerInRange(100, this.game.width-100); 
 
 
@@ -75,6 +83,29 @@ export default class Play extends Phaser.State{
 		enemie.reset(enemieX, 0);
 		
 
+	}
+
+	checkShoot(){
+		this.enemies.forEach(enemiestest => { 
+
+			if (enemiestest.key == "bigenemie") {
+				this.enemieShoot(enemiestest.x-enemiestest.width,enemiestest.y);
+				this.enemieShoot(enemiestest.x,enemiestest.y);
+			}
+
+
+		});
+	}
+
+
+	enemieShoot(x,y){
+		var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
+
+		var bullet = new EnemieBullet(this.game, x,y); 
+		this.enemiebullets.add(bullet,true);
+		bullet.reset(x,y);
+		bullet.body.velocity.y = 300;
+		bullet.body.velocity.x = randomspread;
 	}
 
 	generateEnemies() {
@@ -101,11 +132,13 @@ export default class Play extends Phaser.State{
 			
 			for (var i = 0; i < this.aantalshots; i++) {
 
+				var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
+
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
-				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25;
+				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
 			}
 			break;
 			
@@ -153,6 +186,12 @@ export default class Play extends Phaser.State{
 			this.enemies.forEach(enemiestest => { 
 
 				this.game.physics.arcade.collide(enemiestest, this.player,
+					this.hitplayer, null, this); 
+			});
+
+			this.enemiebullets.forEach(bulletstest => { 
+
+				this.game.physics.arcade.collide(bulletstest, this.player,
 					this.hitplayer, null, this); 
 			});
 
