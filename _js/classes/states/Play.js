@@ -1,7 +1,9 @@
 import Player from '../objects/Player';
 import Space from '../objects/Space';
-import Bullet from '../objects/Bullet';
-import Enemie from '../objects/Enemie';
+import Bullet from '../objects/bullets/Bullet';
+import EnemieBullet from '../objects/bullets/EnemieBullet';
+import Enemie from '../objects/enemies/Enemie';
+import BigEnemie from '../objects/enemies/BigEnemie';
 import Explosie from '../objects/Explosie';
 import Spreadpower from '../objects/powerup/Spreadpower';
 
@@ -21,12 +23,14 @@ export default class Play extends Phaser.State{
 		this.player.body.collideWorldBounds = true;
 
 		this.gun = "spread"
-		this.aantalshots = 1;
+		this.aantalshots = 3;
+		this.spread = 10;
 
 
 		this.enemies = this.game.add.group();
 		this.playerbullets = this.game.add.group();
 		this.spreadpowerups = this.game.add.group();
+		this.enemiebullets = this.game.add.group();
 
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -45,13 +49,22 @@ export default class Play extends Phaser.State{
 		this.scoreText.anchor.setTo(1,1);
 
 		console.log('Play State');
+
+		this.teller = 0;
 	}
 
 
 	secondLoop(){
+		this.teller++;
 		this.generateEnemies();
 
+		if (this.teller % 5 === 0) {
+			this.generateBigEnemies();
+		}
+
 		this.updateScore(10);
+
+		this.checkShoot();
 		
 	}
 
@@ -60,14 +73,49 @@ export default class Play extends Phaser.State{
 		this.scoreText.text = "score: "+this.score.toString();
 	}
 
+	generateBigEnemies() {
+
+		var enemieX = this.game.rnd.integerInRange(100, this.game.width-100); 
+
+
+		var	enemie = new BigEnemie(this.game, enemieX, 0); 
+		this.enemies.add(enemie,true);
+		enemie.reset(enemieX, 0);
+		
+
+	}
+
+	checkShoot(){
+		this.enemies.forEach(enemiestest => { 
+
+			if (enemiestest.key == "bigenemie") {
+				this.enemieShoot(enemiestest.x-enemiestest.width,enemiestest.y);
+				this.enemieShoot(enemiestest.x,enemiestest.y);
+			}
+
+
+		});
+	}
+
+
+	enemieShoot(x,y){
+		var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
+
+		var bullet = new EnemieBullet(this.game, x,y); 
+		this.enemiebullets.add(bullet,true);
+		bullet.reset(x,y);
+		bullet.body.velocity.y = 300;
+		bullet.body.velocity.x = randomspread;
+	}
+
 	generateEnemies() {
-		var enemieX = this.game.rnd.integerInRange(0, this.game.width); 
+		var enemieX = this.game.rnd.integerInRange(38, this.game.width-38); 
 
 
 		var	enemie = new Enemie(this.game, enemieX, 0); 
 		this.enemies.add(enemie,true);
 		enemie.reset(enemieX, 0);
-		enemie.body.velocity.y = 100;
+		
 
 	}
 
@@ -84,11 +132,13 @@ export default class Play extends Phaser.State{
 			
 			for (var i = 0; i < this.aantalshots; i++) {
 
+				var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
+
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
-				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25;
+				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
 			}
 			break;
 			
@@ -104,18 +154,23 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.y = 0;
 			if(this.cursors.left.isDown){
 				this.player.body.velocity.x = -200;
+				//this.player.rotation = Math.PI*1.5;
 			}
 
 			if(this.cursors.right.isDown){
 				this.player.body.velocity.x = 200;
+				//this.player.rotation = Math.PI*0.5;
 			}
+
 
 			if(this.cursors.up.isDown){
 				this.player.body.velocity.y = -200;
+				//this.player.rotation = Math.PI*0;
 			}
 
 			if(this.cursors.down.isDown){
 				this.player.body.velocity.y = 200;
+				//this.player.rotation = Math.PI;
 			}
 
 
@@ -134,6 +189,12 @@ export default class Play extends Phaser.State{
 					this.hitplayer, null, this); 
 			});
 
+			this.enemiebullets.forEach(bulletstest => { 
+
+				this.game.physics.arcade.collide(bulletstest, this.player,
+					this.hitplayer, null, this); 
+			});
+
 			this.spreadpowerups.forEach(powerup => { 
 
 				this.game.physics.arcade.collide(powerup, this.player,
@@ -145,14 +206,21 @@ export default class Play extends Phaser.State{
 
 	hitenemie(a, b){
 		this.updateScore(5);
-		this.makeExplosion(a.x,a.y);
-		a.destroy();
-		b.destroy();
+		
+		
+		a.kill();
+		
+		b.kill();
 
-		var chancepowerup = this.game.rnd.integerInRange(1, 5); 
-		if (chancepowerup == 1) {
-			this.powerupspreadcreate(a.x,a.y);
+		if (a.lives == 0) {
+			this.makeExplosion(a.x,a.y);
+			var chancepowerup = this.game.rnd.integerInRange(1, 5); 
+			if (chancepowerup == 1) {
+				this.powerupspreadcreate(a.x,a.y);
+			}
 		}
+
+		
 	}
 
 	hitspreadpower(a, b){
@@ -172,6 +240,8 @@ export default class Play extends Phaser.State{
 		this.makeExplosion(b.x,b.y);
 		a.destroy();
 		b.destroy();
+		this.game.state.restart(true,false,'Play');
+
 		
 	}
 

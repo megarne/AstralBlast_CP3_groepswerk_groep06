@@ -1,7 +1,6 @@
-
-export default class Enemie extends Phaser.Sprite {
+export default class EnemieBullet extends Phaser.Sprite {
 	constructor(game, x, y, frame) {
-		super(game, x, y, 'enemie', frame);
+		super(game, x, y, 'enemiebullet', frame);
 
 		this.animations.add('vuur');
 		this.animations.play('vuur', 12, true);
@@ -10,22 +9,19 @@ export default class Enemie extends Phaser.Sprite {
 
 		this.game.physics.arcade.enableBody(this);
 
+}
 
+kill(){
+	this.destroy();
+}
 
-	}
-	reset(x,y){
+reset(x,y){
 
-		this.body.velocity.y = 100;
+		this.body.velocity.y = -300;
 		this.x = x;
 		this.y = y;
 		this.exists = true;
 		this.hasScored = false;
-	}
-
-	kill(){
-		//this.destroy();
-
-
 	}
 
 	update(){
@@ -34,4 +30,5 @@ export default class Enemie extends Phaser.Sprite {
 			this.destroy();
 		}
 	}
+
 }
