@@ -12,7 +12,7 @@ export default class Preload extends Phaser.State{
 		this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
 		this.load.image('logo', 'assets/logo.png');
 		this.load.image('start', 'assets/start.png');
-		this.load.spritesheet('space', 'assets/space.png', 320, 320, 3);
+		this.load.spritesheet('space', 'assets/space.png', 160, 160, 3);
 		this.load.spritesheet('spreadpower', 'assets/spreadpower.png', 30, 30, 3);
 
 	}
