@@ -15,6 +15,10 @@ export default class Bullet extends Phaser.Sprite {
     
 }
 
+kill(){
+	this.destroy();
+}
+
 reset(x,y){
 		//this.reset(0, 0);
 		this.body.velocity.y = -300;

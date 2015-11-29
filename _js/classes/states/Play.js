@@ -1,7 +1,8 @@
 import Player from '../objects/Player';
 import Space from '../objects/Space';
 import Bullet from '../objects/Bullet';
-import Enemie from '../objects/Enemie';
+import Enemie from '../objects/enemies/Enemie';
+import BigEnemie from '../objects/enemies/BigEnemie';
 import Explosie from '../objects/Explosie';
 import Spreadpower from '../objects/powerup/Spreadpower';
 
@@ -45,12 +46,17 @@ export default class Play extends Phaser.State{
 		this.scoreText.anchor.setTo(1,1);
 
 		console.log('Play State');
+
+		this.teller = 0;
 	}
 
 
 	secondLoop(){
+		this.teller++;
 		this.generateEnemies();
-
+		if (this.teller % 5 === 0) {
+			this.generateBigEnemies();
+		}
 		this.updateScore(10);
 		
 	}
@@ -60,14 +66,25 @@ export default class Play extends Phaser.State{
 		this.scoreText.text = "score: "+this.score.toString();
 	}
 
+	generateBigEnemies() {
+		var enemieX = this.game.rnd.integerInRange(100, this.game.width-100); 
+
+
+		var	enemie = new BigEnemie(this.game, enemieX, 0); 
+		this.enemies.add(enemie,true);
+		enemie.reset(enemieX, 0);
+		
+
+	}
+
 	generateEnemies() {
-		var enemieX = this.game.rnd.integerInRange(0, this.game.width); 
+		var enemieX = this.game.rnd.integerInRange(38, this.game.width-38); 
 
 
 		var	enemie = new Enemie(this.game, enemieX, 0); 
 		this.enemies.add(enemie,true);
 		enemie.reset(enemieX, 0);
-		enemie.body.velocity.y = 100;
+		
 
 	}
 
@@ -104,18 +121,23 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.y = 0;
 			if(this.cursors.left.isDown){
 				this.player.body.velocity.x = -200;
+				//this.player.rotation = Math.PI*1.5;
 			}
 
 			if(this.cursors.right.isDown){
 				this.player.body.velocity.x = 200;
+				//this.player.rotation = Math.PI*0.5;
 			}
+
 
 			if(this.cursors.up.isDown){
 				this.player.body.velocity.y = -200;
+				//this.player.rotation = Math.PI*0;
 			}
 
 			if(this.cursors.down.isDown){
 				this.player.body.velocity.y = 200;
+				//this.player.rotation = Math.PI;
 			}
 
 
@@ -145,14 +167,21 @@ export default class Play extends Phaser.State{
 
 	hitenemie(a, b){
 		this.updateScore(5);
-		this.makeExplosion(a.x,a.y);
-		a.destroy();
-		b.destroy();
+		
+		
+		a.kill();
+		
+		b.kill();
 
-		var chancepowerup = this.game.rnd.integerInRange(1, 5); 
-		if (chancepowerup == 1) {
-			this.powerupspreadcreate(a.x,a.y);
+		if (a.lives == 0) {
+			this.makeExplosion(a.x,a.y);
+			var chancepowerup = this.game.rnd.integerInRange(1, 5); 
+			if (chancepowerup == 1) {
+				this.powerupspreadcreate(a.x,a.y);
+			}
 		}
+
+		
 	}
 
 	hitspreadpower(a, b){
