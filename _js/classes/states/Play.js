@@ -48,6 +48,10 @@ export default class Play extends Phaser.State{
 		this.scoreText = this.game.add.bitmapText(this.game.width-20, 50, 'gem',"score: "+this.score.toString(), 30);
 		this.scoreText.anchor.setTo(1,1);
 
+		this.lives = this.player.lives;
+		this.livesText = this.game.add.bitmapText(20, 50, 'gem',"lives: "+this.lives.toString(), 30);
+		this.livesText.anchor.setTo(0,1);
+
 		console.log('Play State');
 
 		this.teller = 0;
@@ -237,12 +241,25 @@ export default class Play extends Phaser.State{
 
 	hitplayer(a, b){
 		this.makeExplosion(a.x,a.y);
-		this.makeExplosion(b.x,b.y);
+		
 		a.destroy();
-		b.destroy();
-		this.game.state.restart(true,false,'Play');
+		
+		console.log(this.player.alpha);
+		if(this.player.alpha == 1){
+			b.kill();
+			console.log(this.player.lives);
+			this.lives = this.player.lives;
+			this.livesText.text = "lives: "+this.lives.toString();
+			if (this.lives == 0) {
+				this.playerDeath();
+			}
+		}
 
 		
+	}
+
+	playerDeath(){
+		this.game.state.restart(true,false,'Play');
 	}
 
 	makeExplosion(x,y){
