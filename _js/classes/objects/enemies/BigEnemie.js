@@ -41,6 +41,19 @@ export default class BigEnemie extends Phaser.Sprite {
 
 	}
 
+	killWithLaser(){
+		this.body.velocity.y = this.speedy;
+		this.body.velocity.x = this.speedx;
+		this.alpha = 0;
+		this.lives-3;
+		if (this.lives == 0) {
+			this.destroy();
+		}
+		
+
+
+	}
+
 	update(){
 		if (this.alpha < 1) {
 			this.alpha = this.alpha + 0.05;

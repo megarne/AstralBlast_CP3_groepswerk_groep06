@@ -1,0 +1,37 @@
+.olwrapper{
+	margin-left: 200px;
+}
+
+ol{
+	z-index: 100;
+	color: white;
+	position: absolute;
+	height: 700px;
+	overflow: hidden;
+	/*width: 500px;*/
+	
+	margin-top: 50px;
+}
+.second{
+	margin-left: 200px;
+}
+li{
+	/*list-style: decimal;*/
+	text-align: center;
+	font-size: 16pt;
+	/*float: left;*/
+	margin-bottom: 20px;
+	/*display: inline;*/
+}
+.points{
+	margin-top: -20px;
+	font-size: 10pt;
+
+}
+
+#double li{
+	/*width: 50%;*/
+}
+.hidden{
+	visibility: hidden;
+}
