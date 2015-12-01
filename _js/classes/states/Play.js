@@ -6,6 +6,8 @@ import Enemie from '../objects/enemies/Enemie';
 import BigEnemie from '../objects/enemies/BigEnemie';
 import Explosie from '../objects/Explosie';
 import Spreadpower from '../objects/powerup/Spreadpower';
+import DeathlaserPowerup from '../objects/powerup/Deathlaser';
+import Deathlaser from '../objects/bullets/Deathlaser';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -29,15 +31,20 @@ export default class Play extends Phaser.State{
 
 		this.enemies = this.game.add.group();
 		this.playerbullets = this.game.add.group();
+		this.playerlasers = this.game.add.group();
 		this.spreadpowerups = this.game.add.group();
 		this.enemiebullets = this.game.add.group();
+		this.deathlaserpowerups = this.game.add.group();
 
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.key1.onDown.add(this.generatePlayerBullets, this);
 
+		// this.cursors = this.game.input.keyboard.createCursorKeys();
+		//this.special.onDown.add(this.launchLaser, this);
 
 		this.enemieGenerator = 
 		this.game.time.events.loop(Phaser.Timer.SECOND * 1,
@@ -52,9 +59,30 @@ export default class Play extends Phaser.State{
 		this.livesText = this.game.add.bitmapText(20, 50, 'gem',"lives: "+this.lives.toString(), 30);
 		this.livesText.anchor.setTo(0,1);
 
+
+		this.laserText = this.game.add.bitmapText(10, this.game.height-20, 'gem',"NO SPECIAL", 20);
+		this.laserText.anchor.setTo(0,1);
+
 		console.log('Play State');
 
 		this.teller = 0;
+	}
+
+	laserReady(a,b){
+		a.destroy();
+		this.special.onDown.addOnce(this.launchLaser, this);
+		this.laserText.text = "DEATHLASER READY";
+		
+	}
+
+	launchLaser(){
+		console.log('launching laser');
+		this.laserText.text = "NO SPECIAL";
+		var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y); 
+		this.playerlasers.add(laser,true);
+		laser.body.immovable = true;
+		laser.reset(this.game.width/2, this.player.body.y);
+		laser.body.velocity.y = -300;
 	}
 
 
@@ -187,6 +215,15 @@ export default class Play extends Phaser.State{
 				});
 			});
 
+			this.playerlasers.forEach(playerlaserstest => { 
+
+				this.enemies.forEach(enemiestest => { 
+
+					this.game.physics.arcade.collide(enemiestest, playerlaserstest,
+						this.hitenemiewithlaser, null, this); 
+				});
+			});
+
 			this.enemies.forEach(enemiestest => { 
 
 				this.game.physics.arcade.collide(enemiestest, this.player,
@@ -204,6 +241,12 @@ export default class Play extends Phaser.State{
 				this.game.physics.arcade.collide(powerup, this.player,
 					this.hitspreadpower, null, this); 
 			});
+
+			this.deathlaserpowerups.forEach(powerup => { 
+				console.log('deathlaser ready');
+				this.game.physics.arcade.collide(powerup, this.player,
+					this.laserReady, null, this); 
+			});
 		};
 
 	}
@@ -218,13 +261,32 @@ export default class Play extends Phaser.State{
 
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
+			var chancepowerup = this.game.rnd.integerInRange(1, 5);
+			console.log(chancepowerup);
+			if (chancepowerup == 1) {
+				this.powerupspreadcreate(a.x,a.y);
+			}else if(chancepowerup == 2){
+				this.poweruplasercreate(a.x,a.y);
+			}
+		}
+
+		
+	}
+	hitenemiewithlaser(a,b){
+		this.updateScore(5);
+		
+		
+		//a.kill();
+		a.killWithLaser();
+		//b.kill();
+
+		if (a.lives == 0) {
+			this.makeExplosion(a.x,a.y);
 			var chancepowerup = this.game.rnd.integerInRange(1, 5); 
 			if (chancepowerup == 1) {
 				this.powerupspreadcreate(a.x,a.y);
 			}
 		}
-
-		
 	}
 
 	hitspreadpower(a, b){
@@ -237,6 +299,20 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups.add(spreadpower,true);
 		spreadpower.reset(x, y);
 		spreadpower.body.velocity.y = 50;
+	}
+	poweruplasercreate(x,y){
+
+		var deathlaser = new DeathlaserPowerup(this.game, x, y); 
+		this.deathlaserpowerups.add(deathlaser,true);
+		deathlaser.reset(x, y);
+		deathlaser.body.velocity.y = 50;
+
+		// this.laserReady = true;
+
+		// if(this.laserReady){
+		// 	console.log('laser is ready');
+		// 	this.special.onDown.addOnce(this.launchLaser, this);
+		// }
 	}
 
 	hitplayer(a, b){
@@ -259,7 +335,7 @@ export default class Play extends Phaser.State{
 	}
 
 	playerDeath(){
-		this.game.state.restart(true,false,'Play');
+		this.game.state.start('Gameover');
 	}
 
 	makeExplosion(x,y){

@@ -37,6 +37,19 @@ export default class Enemie extends Phaser.Sprite {
 
 	}
 
+	killWithLaser(){
+		this.body.velocity.y = 100;
+		this.body.velocity.x = 0;
+		this.alpha = 0;
+		this.lives-3;
+		if (this.lives == 0) {
+			this.destroy();
+		}
+		
+
+
+	}
+
 	update(){
 		if (this.alpha < 1) {
 			this.alpha = this.alpha + 0.05;
