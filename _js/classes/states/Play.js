@@ -150,6 +150,14 @@ export default class Play extends Phaser.State{
 			this.generatePlayerBullets();
 		});
 
+		this.knopSpecial = document.querySelector('.special');
+		this.knopSpecial.addEventListener('mousedown', e =>{
+
+			if (this.laserText.text === "DEATHLASER READY") {
+				this.launchLaser();
+			}
+		});
+
 
 
 		//this.knopRechts.addEventListener('mousedown', this.beweegrechts(this.player));
