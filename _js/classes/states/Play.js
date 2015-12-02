@@ -36,6 +36,10 @@ export default class Play extends Phaser.State{
 		this.enemiebullets = this.game.add.group();
 		this.deathlaserpowerups = this.game.add.group();
 
+		this.gameMusic = this.game.add.audio('music');
+		this.gameMusic.play();
+		this.gameMusic.loopFull(1);
+
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
