@@ -21,12 +21,12 @@ export default class Preload extends Phaser.State{
 		this.load.image('deathlaser', 'assets/laser.png');
 
 
-		this.load.audio('bigdeath', 'assets/sounds/bigdeath.wav');
-		this.load.audio('laser', 'assets/sounds/laser.wav');
-		this.load.audio('music', 'assets/sounds/music.wav');
-		this.load.audio('powerup', 'assets/sounds/powerup.wav');
-		this.load.audio('shoot', 'assets/sounds/shoot.wav');
-		this.load.audio('smalldeath', 'assets/sounds/smalldeath.wav');
+		this.load.audio('bigdeathSound', 'assets/sounds/bigdeath.wav');
+		this.load.audio('laserSound', 'assets/sounds/laser.wav');
+		this.load.audio('musicSound', 'assets/sounds/music.wav');
+		this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
+		this.load.audio('shootSound', 'assets/sounds/shoot.wav');
+		this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 
 	}
 

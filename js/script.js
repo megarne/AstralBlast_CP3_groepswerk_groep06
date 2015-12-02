@@ -178,12 +178,12 @@
 				this.load.spritesheet('deathlaser_power', 'assets/deathlaser_power.png', 58, 60, 3);
 				this.load.image('deathlaser', 'assets/laser.png');
 	
-				this.load.audio('bigdeath', 'assets/sounds/bigdeath.wav');
-				this.load.audio('laser', 'assets/sounds/laser.wav');
-				this.load.audio('music', 'assets/sounds/music.wav');
-				this.load.audio('powerup', 'assets/sounds/powerup.wav');
-				this.load.audio('shoot', 'assets/sounds/shoot.wav');
-				this.load.audio('smalldeath', 'assets/sounds/smalldeath.wav');
+				this.load.audio('bigdeathSound', 'assets/sounds/bigdeath.wav');
+				this.load.audio('laserSound', 'assets/sounds/laser.wav');
+				this.load.audio('musicSound', 'assets/sounds/music.wav');
+				this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
+				this.load.audio('shootSound', 'assets/sounds/shoot.wav');
+				this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 			}
 		}, {
 			key: 'create',
@@ -403,9 +403,15 @@
 				this.enemiebullets = this.game.add.group();
 				this.deathlaserpowerups = this.game.add.group();
 	
-				this.gameMusic = this.game.add.audio('music');
+				this.gameMusic = this.game.add.audio('musicSound');
 				this.gameMusic.play();
 				this.gameMusic.loopFull(1);
+	
+				this.shootSound = this.game.add.audio('shootSound');
+				this.powerupSound = this.game.add.audio('powerupSound');
+				this.laserSound = this.game.add.audio('laserSound');
+				this.powerupSound = this.game.add.audio('powerupSound');
+				//this.sound.mute = true;
 	
 				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 				this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -438,13 +444,15 @@
 			key: 'laserReady',
 			value: function laserReady(a, b) {
 				a.destroy();
+				this.powerupSound.play();
 				this.special.onDown.addOnce(this.launchLaser, this);
 				this.laserText.text = "DEATHLASER READY";
 			}
 		}, {
 			key: 'launchLaser',
 			value: function launchLaser() {
-				console.log('launching laser');
+				this.laserSound.play();
+	
 				this.laserText.text = "NO SPECIAL";
 				var laser = new _objectsBulletsDeathlaser2['default'](this.game, this.game.width / 2, this.player.body.y, 800, 6);
 				this.playerlasers.add(laser, true);
@@ -527,6 +535,7 @@
 						break;
 	
 					case "spread":
+						this.shootSound.play();
 	
 						for (var i = 0; i < this.aantalshots; i++) {
 	
@@ -602,7 +611,7 @@
 					});
 	
 					this.deathlaserpowerups.forEach(function (powerup) {
-						console.log('deathlaser ready');
+	
 						_this2.game.physics.arcade.collide(powerup, _this2.player, _this2.laserReady, null, _this2);
 					});
 				};
@@ -619,7 +628,7 @@
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
 					var chancepowerup = this.game.rnd.integerInRange(1, 5);
-					console.log(chancepowerup);
+	
 					if (chancepowerup == 1) {
 						this.powerupspreadcreate(a.x, a.y);
 					} else if (chancepowerup == 2) {
@@ -633,7 +642,7 @@
 				this.updateScore(5);
 	
 				//a.kill();
-				a.killWithLaser();
+				a.kill();
 				//b.kill();
 	
 				if (a.lives == 0) {
@@ -647,6 +656,7 @@
 		}, {
 			key: 'hitspreadpower',
 			value: function hitspreadpower(a, b) {
+				this.powerupSound.play();
 				a.destroy();
 				this.aantalshots = this.aantalshots + 2;
 			}
@@ -681,10 +691,9 @@
 	
 				a.destroy();
 	
-				console.log(this.player.alpha);
 				if (this.player.alpha == 1) {
 					b.kill();
-					console.log(this.player.lives);
+	
 					this.lives = this.player.lives;
 					this.livesText.text = "lives: " + this.lives.toString();
 					if (this.lives == 0) {
@@ -695,6 +704,7 @@
 		}, {
 			key: 'playerDeath',
 			value: function playerDeath() {
+				this.gameMusic.stop();
 				this.game.state.start('Gameover');
 			}
 		}, {
@@ -940,6 +950,7 @@
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.lives = 3;
+			this.deathSound = this.game.add.audio('smalldeathSound');
 		}
 	
 		_createClass(Enemie, [{
@@ -960,6 +971,7 @@
 				this.alpha = 0;
 				this.lives--;
 				if (this.lives == 0) {
+					this.deathSound.play();
 					this.destroy();
 				}
 			}
@@ -1031,6 +1043,8 @@
 	
 			this.speedy = 20;
 			this.speedx = 30;
+	
+			this.deathSound = this.game.add.audio('bigdeathSound');
 		}
 	
 		_createClass(BigEnemie, [{
@@ -1052,6 +1066,7 @@
 				this.alpha = 0;
 				this.lives--;
 				if (this.lives == 0) {
+					this.deathSound.play();
 					this.destroy();
 				}
 			}
