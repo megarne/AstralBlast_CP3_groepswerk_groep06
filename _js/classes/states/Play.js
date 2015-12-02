@@ -24,6 +24,7 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.collideWorldBounds = true;
 
+
 		this.speedPlayer = 300;
 
 		this.muteSoundBtn = this.game.add.button(this.game.width - 30,this.game.height - 30,'soundmuter', this.muteSPlayound, this);
@@ -90,6 +91,68 @@ export default class Play extends Phaser.State{
 		console.log('Play State');
 
 		this.teller = 0;
+
+
+		this.knopRechts = document.querySelector('.rechts');
+		this.knopRechtsvalue = false; 
+		this.knopRechts.addEventListener('mousedown', e =>{
+
+			this.knopRechtsvalue = true; 
+		});
+		this.knopRechts.addEventListener('mouseup', e=>{
+			this.knopRechtsvalue = false; 
+
+		});
+
+
+
+
+		this.knopLinks = document.querySelector('.links');
+		this.knopLinksvalue = false; 
+		this.knopLinks.addEventListener('mousedown', e =>{
+
+			this.knopLinksvalue = true; 
+		});
+		this.knopLinks.addEventListener('mouseup', e=>{
+			this.knopLinksvalue = false; 
+
+		});
+
+
+				this.knopBoven = document.querySelector('.boven');
+		this.knopBovenvalue = false; 
+		this.knopBoven.addEventListener('mousedown', e =>{
+
+			this.knopBovenvalue = true; 
+		});
+		this.knopBoven.addEventListener('mouseup', e=>{
+			this.knopBovenvalue = false; 
+
+		});
+
+
+
+
+		this.knopOnder = document.querySelector('.onder');
+		this.knopOndervalue = false; 
+		this.knopOnder.addEventListener('mousedown', e =>{
+
+			this.knopOndervalue = true; 
+		});
+		this.knopOnder.addEventListener('mouseup', e=>{
+			this.knopOndervalue = false; 
+
+		});
+
+		this.knopShoot = document.querySelector('.shoot');
+		this.knopShoot.addEventListener('mousedown', e =>{
+
+			this.generatePlayerBullets();
+		});
+
+
+
+		//this.knopRechts.addEventListener('mousedown', this.beweegrechts(this.player));
 
 	}
 
@@ -218,29 +281,40 @@ export default class Play extends Phaser.State{
 
 	}
 
+	beweegrechts(player){
+		player.body.velocity.x = this.speedPlayer;
+		console.log(player);
+	}
+
 
 	update(){
-		
+
+
+		//console.log(this.knopRechtsvalue);
 		if(this.player.body){
 			this.player.body.velocity.x = 0;
 			this.player.body.velocity.y = 0;
-			if(this.cursors.left.isDown){
+
+
+			
+
+			if(this.cursors.left.isDown || this.knopLinksvalue){
 				this.player.body.velocity.x = -this.speedPlayer;
 				//this.player.rotation = Math.PI*1.5;
 			}
 
-			if(this.cursors.right.isDown){
+			if(this.cursors.right.isDown || this.knopRechtsvalue){
 				this.player.body.velocity.x = this.speedPlayer;
 				//this.player.rotation = Math.PI*0.5;
 			}
 
 
-			if(this.cursors.up.isDown){
+			if(this.cursors.up.isDown || this.knopBovenvalue){
 				this.player.body.velocity.y = -this.speedPlayer;
 				//this.player.rotation = Math.PI*0;
 			}
 
-			if(this.cursors.down.isDown){
+			if(this.cursors.down.isDown || this.knopOndervalue) {
 				this.player.body.velocity.y = this.speedPlayer;
 				//this.player.rotation = Math.PI;
 			}

@@ -6,7 +6,8 @@ import Gameover from './classes/states/Gameover';
 
 let game;
 
-const init = () => {
+const init = () => {	
+
 	game = new Phaser.Game(800,600, Phaser.AUTO);
 	game.state.add('Boot', Boot, true);
 	game.state.add('Preload', Preload, false);
