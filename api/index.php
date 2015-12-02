@@ -15,7 +15,7 @@ require_once WWW_ROOT. "api" .DIRECTORY_SEPARATOR. 'Slim' .DIRECTORY_SEPARATOR. 
 $app = new \Slim\Slim();
 
 
-require_once WWW_ROOT. "api" .DIRECTORY_SEPARATOR. 'routes' .DIRECTORY_SEPARATOR. 'astral.php';
+require_once WWW_ROOT. "api" .DIRECTORY_SEPARATOR. 'routes' .DIRECTORY_SEPARATOR. 'Astral.php';
 
 
 $app->run();

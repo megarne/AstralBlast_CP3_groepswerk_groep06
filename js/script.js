@@ -64,7 +64,7 @@
 	
 	var _classesStatesPlay2 = _interopRequireDefault(_classesStatesPlay);
 	
-	var _classesStatesGameover = __webpack_require__(14);
+	var _classesStatesGameover = __webpack_require__(15);
 	
 	var _classesStatesGameover2 = _interopRequireDefault(_classesStatesGameover);
 	
@@ -94,7 +94,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -141,7 +141,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -167,18 +167,26 @@
 				this.load.spritesheet('enemiebullet', 'assets/enemiebullet.png', 11, 20, 3);
 				this.load.spritesheet('explosie', 'assets/boem.png', 100, 100, 8);
 				this.load.spritesheet('bigenemie', 'assets/bigenemie.png', 100, 100, 3);
+				this.load.spritesheet('space', 'assets/space.png', 160, 160, 3);
+				this.load.spritesheet('spreadpower', 'assets/spreadpower.png', 30, 30, 3);
+				this.load.spritesheet('deathlaser_power', 'assets/deathlaser_power.png', 58, 60, 3);
+				this.load.spritesheet('soundmuter', 'assets/soundmuter.png', 50, 50, 2);
+	
 				this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
+	
 				this.load.image('logo', 'assets/logo.png');
 				this.load.image('start', 'assets/start.png');
 				this.load.image('menu', 'assets/menu.png');
 				this.load.image('restartbtn', 'assets/restart.png');
 	
-				this.load.spritesheet('space', 'assets/space.png', 160, 160, 3);
-				this.load.spritesheet('spreadpower', 'assets/spreadpower.png', 30, 30, 3);
-				this.load.spritesheet('deathlaser_power', 'assets/deathlaser_power.png', 58, 60, 3);
-				//this.load.spritesheet('deathlaser', 'assets/laser_test.png', 800, 10, 1);
-				// this.load.spritesheet('deathlaser', 'assets/laser.png', 11, 12, 3);
 				this.load.image('deathlaser', 'assets/laser.png');
+	
+				this.load.audio('bigdeathSound', 'assets/sounds/bigdeath.wav');
+				this.load.audio('laserSound', 'assets/sounds/laser.wav');
+				this.load.audio('musicSound', 'assets/sounds/music.wav');
+				this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
+				this.load.audio('shootSound', 'assets/sounds/shoot.wav');
+				this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 			}
 		}, {
 			key: 'create',
@@ -210,7 +218,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
@@ -273,7 +281,7 @@
 	  value: true
 	});
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -314,7 +322,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
@@ -358,7 +366,7 @@
 	
 	var _objectsPowerupDeathlaser2 = _interopRequireDefault(_objectsPowerupDeathlaser);
 	
-	var _objectsBulletsDeathlaser = __webpack_require__(15);
+	var _objectsBulletsDeathlaser = __webpack_require__(14);
 	
 	var _objectsBulletsDeathlaser2 = _interopRequireDefault(_objectsBulletsDeathlaser);
 	
@@ -387,6 +395,19 @@
 				this.game.physics.arcade.enable(this.player);
 				this.player.body.collideWorldBounds = true;
 	
+				this.speedPlayer = 300;
+	
+				this.muteSoundBtn = this.game.add.button(this.game.width - 30, this.game.height - 30, 'soundmuter', this.muteSPlayound, this);
+				this.muteSoundBtn.alpha = 0.5;
+				this.muteSoundBtn.scale.setTo(.5);
+				//did op false zetten om alle geluid uit te zetten
+				this.sound.mute = true;
+				if (this.sound.mute) {
+					this.muteSoundBtn.frame = 1;
+				} else {
+					this.muteSoundBtn.frame = 0;
+				}
+	
 				this.gun = "spread";
 				this.aantalshots = 3;
 				this.spread = 10;
@@ -397,6 +418,16 @@
 				this.spreadpowerups = this.game.add.group();
 				this.enemiebullets = this.game.add.group();
 				this.deathlaserpowerups = this.game.add.group();
+	
+				this.gameMusic = this.game.add.audio('musicSound');
+				this.gameMusic.play();
+				this.gameMusic.loopFull(1);
+	
+				this.shootSound = this.game.add.audio('shootSound');
+				this.powerupSound = this.game.add.audio('powerupSound');
+				this.laserSound = this.game.add.audio('laserSound');
+				this.powerupSound = this.game.add.audio('powerupSound');
+				//this.sound.mute = true;
 	
 				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 				this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -429,13 +460,26 @@
 			key: 'laserReady',
 			value: function laserReady(a, b) {
 				a.destroy();
+				this.powerupSound.play();
 				this.special.onDown.addOnce(this.launchLaser, this);
 				this.laserText.text = "DEATHLASER READY";
 			}
 		}, {
+			key: 'muteSPlayound',
+			value: function muteSPlayound() {
+				if (this.sound.mute) {
+					this.sound.mute = false;
+					this.muteSoundBtn.frame = 0;
+				} else {
+					this.sound.mute = true;
+					this.muteSoundBtn.frame = 1;
+				}
+			}
+		}, {
 			key: 'launchLaser',
 			value: function launchLaser() {
-				console.log('launching laser');
+				this.laserSound.play();
+	
 				this.laserText.text = "NO SPECIAL";
 				var laser = new _objectsBulletsDeathlaser2['default'](this.game, this.game.width / 2, this.player.body.y, 800, 6);
 				this.playerlasers.add(laser, true);
@@ -529,6 +573,7 @@
 							bullet.body.velocity.y = -300 + Math.abs(i - (this.aantalshots / 2 - 1)) * 3;
 							bullet.body.velocity.x = (i - (this.aantalshots / 2 - 1)) * 25 + randomspread;
 						}
+						this.shootSound.play();
 						break;
 	
 				}
@@ -542,22 +587,22 @@
 					this.player.body.velocity.x = 0;
 					this.player.body.velocity.y = 0;
 					if (this.cursors.left.isDown) {
-						this.player.body.velocity.x = -200;
+						this.player.body.velocity.x = -this.speedPlayer;
 						//this.player.rotation = Math.PI*1.5;
 					}
 	
 					if (this.cursors.right.isDown) {
-						this.player.body.velocity.x = 200;
+						this.player.body.velocity.x = this.speedPlayer;
 						//this.player.rotation = Math.PI*0.5;
 					}
 	
 					if (this.cursors.up.isDown) {
-						this.player.body.velocity.y = -200;
+						this.player.body.velocity.y = -this.speedPlayer;
 						//this.player.rotation = Math.PI*0;
 					}
 	
 					if (this.cursors.down.isDown) {
-						this.player.body.velocity.y = 200;
+						this.player.body.velocity.y = this.speedPlayer;
 						//this.player.rotation = Math.PI;
 					}
 	
@@ -593,7 +638,7 @@
 					});
 	
 					this.deathlaserpowerups.forEach(function (powerup) {
-						console.log('deathlaser ready');
+	
 						_this2.game.physics.arcade.collide(powerup, _this2.player, _this2.laserReady, null, _this2);
 					});
 				};
@@ -610,7 +655,7 @@
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
 					var chancepowerup = this.game.rnd.integerInRange(1, 5);
-					console.log(chancepowerup);
+	
 					if (chancepowerup == 1) {
 						this.powerupspreadcreate(a.x, a.y);
 					} else if (chancepowerup == 2) {
@@ -624,7 +669,7 @@
 				this.updateScore(5);
 	
 				//a.kill();
-				a.killWithLaser();
+				a.kill();
 				//b.kill();
 	
 				if (a.lives == 0) {
@@ -638,6 +683,7 @@
 		}, {
 			key: 'hitspreadpower',
 			value: function hitspreadpower(a, b) {
+				this.powerupSound.play();
 				a.destroy();
 				this.aantalshots = this.aantalshots + 2;
 			}
@@ -672,10 +718,9 @@
 	
 				a.destroy();
 	
-				console.log(this.player.alpha);
 				if (this.player.alpha == 1) {
 					b.kill();
-					console.log(this.player.lives);
+	
 					this.lives = this.player.lives;
 					this.livesText.text = "lives: " + this.lives.toString();
 					if (this.lives == 0) {
@@ -686,6 +731,7 @@
 		}, {
 			key: 'playerDeath',
 			value: function playerDeath() {
+				this.gameMusic.stop();
 				this.game.state.start('Gameover');
 			}
 		}, {
@@ -715,7 +761,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -777,7 +823,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -844,7 +890,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -909,7 +955,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -931,6 +977,7 @@
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.lives = 3;
+			this.deathSound = this.game.add.audio('smalldeathSound');
 		}
 	
 		_createClass(Enemie, [{
@@ -951,6 +998,7 @@
 				this.alpha = 0;
 				this.lives--;
 				if (this.lives == 0) {
+					this.deathSound.play();
 					this.destroy();
 				}
 			}
@@ -997,7 +1045,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -1022,6 +1070,8 @@
 	
 			this.speedy = 20;
 			this.speedx = 30;
+	
+			this.deathSound = this.game.add.audio('bigdeathSound');
 		}
 	
 		_createClass(BigEnemie, [{
@@ -1043,6 +1093,7 @@
 				this.alpha = 0;
 				this.lives--;
 				if (this.lives == 0) {
+					this.deathSound.play();
 					this.destroy();
 				}
 			}
@@ -1101,7 +1152,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -1161,7 +1212,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -1220,7 +1271,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
@@ -1269,6 +1320,94 @@
 
 /***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	// export default class Deathlaser extends Phaser.Sprite {
+	// 	constructor(game, x, y, frame) {
+	// 		super(game, x, y, 'deathlaser', frame);
+	// 		// this.autoScroll(-200,0);
+	
+	// 		this.animations.add('flikker');
+	// 		this.animations.play('flikker', 12, true);
+	
+	// 		this.anchor.setTo(0.5, 0.5);
+	
+	// 		this.game.physics.arcade.enableBody(this);
+	
+	// 	}
+	// 	reset(x,y){
+	// 		this.body.velocity.y = 50;
+	// 		this.x = x;
+	// 		this.y = y;
+	// 		this.exists = true;
+	// 		this.hasScored = false;
+	// 	}
+	
+	// 	update(){
+	// 		if(!this.inWorld) {
+	// 			this.exists = false;
+	// 			this.destroy();
+	// 		}
+	// 	}
+	// }
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Deathlaser = (function (_Phaser$TileSprite) {
+		_inherits(Deathlaser, _Phaser$TileSprite);
+	
+		function Deathlaser(game, x, y, width, height) {
+			_classCallCheck(this, Deathlaser);
+	
+			_get(Object.getPrototypeOf(Deathlaser.prototype), 'constructor', this).call(this, game, x, y, width, height, 'deathlaser');
+			this.autoScroll(-400, 0);
+	
+			// this.animations.add('flikker');
+			// this.animations.play('flikker', 12, true);
+	
+			this.anchor.setTo(0.5, 0.5);
+	
+			this.game.physics.arcade.enableBody(this);
+		}
+	
+		_createClass(Deathlaser, [{
+			key: 'reset',
+			value: function reset(x, y) {
+				this.body.velocity.y = 50;
+				this.x = x;
+				this.y = y;
+				this.exists = true;
+				this.hasScored = false;
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				if (!this.inWorld) {
+					this.exists = false;
+					this.destroy();
+				}
+			}
+		}]);
+	
+		return Deathlaser;
+	})(Phaser.TileSprite);
+	
+	exports['default'] = Deathlaser;
+	module.exports = exports['default'];
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1279,7 +1418,7 @@
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
@@ -1335,94 +1474,6 @@
 	})(Phaser.State);
 	
 	exports['default'] = Gameover;
-	module.exports = exports['default'];
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	// export default class Deathlaser extends Phaser.Sprite {
-	// 	constructor(game, x, y, frame) {
-	// 		super(game, x, y, 'deathlaser', frame);
-	// 		// this.autoScroll(-200,0);
-	
-	// 		this.animations.add('flikker');
-	// 		this.animations.play('flikker', 12, true);
-	
-	// 		this.anchor.setTo(0.5, 0.5);
-	
-	// 		this.game.physics.arcade.enableBody(this);
-	
-	// 	}
-	// 	reset(x,y){
-	// 		this.body.velocity.y = 50;
-	// 		this.x = x;
-	// 		this.y = y;
-	// 		this.exists = true;
-	// 		this.hasScored = false;
-	// 	}
-	
-	// 	update(){
-	// 		if(!this.inWorld) {
-	// 			this.exists = false;
-	// 			this.destroy();
-	// 		}
-	// 	}
-	// }
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Deathlaser = (function (_Phaser$TileSprite) {
-		_inherits(Deathlaser, _Phaser$TileSprite);
-	
-		function Deathlaser(game, x, y, width, height) {
-			_classCallCheck(this, Deathlaser);
-	
-			_get(Object.getPrototypeOf(Deathlaser.prototype), 'constructor', this).call(this, game, x, y, width, height, 'deathlaser');
-			this.autoScroll(-400, 0);
-	
-			// this.animations.add('flikker');
-			// this.animations.play('flikker', 12, true);
-	
-			this.anchor.setTo(0.5, 0.5);
-	
-			this.game.physics.arcade.enableBody(this);
-		}
-	
-		_createClass(Deathlaser, [{
-			key: 'reset',
-			value: function reset(x, y) {
-				this.body.velocity.y = 50;
-				this.x = x;
-				this.y = y;
-				this.exists = true;
-				this.hasScored = false;
-			}
-		}, {
-			key: 'update',
-			value: function update() {
-				if (!this.inWorld) {
-					this.exists = false;
-					this.destroy();
-				}
-			}
-		}]);
-	
-		return Deathlaser;
-	})(Phaser.TileSprite);
-	
-	exports['default'] = Deathlaser;
 	module.exports = exports['default'];
 
 /***/ }

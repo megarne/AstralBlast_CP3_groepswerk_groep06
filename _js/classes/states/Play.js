@@ -24,6 +24,20 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.collideWorldBounds = true;
 
+		this.speedPlayer = 300;
+
+		this.muteSoundBtn = this.game.add.button(this.game.width - 30,this.game.height - 30,'soundmuter', this.muteSPlayound, this);
+		this.muteSoundBtn.alpha = 0.5;
+		this.muteSoundBtn.scale.setTo(.5);
+		//did op false zetten om alle geluid uit te zetten
+		this.sound.mute = true;
+		if(this.sound.mute){
+			this.muteSoundBtn.frame = 1;
+		}else{
+			this.muteSoundBtn.frame = 0;
+		}
+
+		
 		this.gun = "spread"
 		this.aantalshots = 3;
 		this.spread = 10;
@@ -35,6 +49,16 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups = this.game.add.group();
 		this.enemiebullets = this.game.add.group();
 		this.deathlaserpowerups = this.game.add.group();
+
+		this.gameMusic = this.game.add.audio('musicSound');
+		this.gameMusic.play();
+		this.gameMusic.loopFull(1);
+
+		this.shootSound = this.game.add.audio('shootSound');
+		this.powerupSound = this.game.add.audio('powerupSound');
+		this.laserSound = this.game.add.audio('laserSound');
+		this.powerupSound = this.game.add.audio('powerupSound');
+		//this.sound.mute = true;
 
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -71,13 +95,26 @@ export default class Play extends Phaser.State{
 
 	laserReady(a,b){
 		a.destroy();
+		this.powerupSound.play();
 		this.special.onDown.addOnce(this.launchLaser, this);
 		this.laserText.text = "DEATHLASER READY";
 		
 	}
 
+	muteSPlayound(){
+		if(this.sound.mute){
+			this.sound.mute = false;
+			this.muteSoundBtn.frame = 0;
+		}else{
+			this.sound.mute = true;
+			this.muteSoundBtn.frame = 1;
+		}
+		
+	}
+
 	launchLaser(){
-		console.log('launching laser');
+		this.laserSound.play();
+
 		this.laserText.text = "NO SPECIAL";
 		var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y, 800, 6); 
 		this.playerlasers.add(laser,true);
@@ -163,6 +200,7 @@ export default class Play extends Phaser.State{
 
 			case "spread":
 			
+			
 			for (var i = 0; i < this.aantalshots; i++) {
 
 				var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
@@ -173,6 +211,7 @@ export default class Play extends Phaser.State{
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
 				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
 			}
+			this.shootSound.play();
 			break;
 			
 		}
@@ -186,23 +225,23 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.x = 0;
 			this.player.body.velocity.y = 0;
 			if(this.cursors.left.isDown){
-				this.player.body.velocity.x = -200;
+				this.player.body.velocity.x = -this.speedPlayer;
 				//this.player.rotation = Math.PI*1.5;
 			}
 
 			if(this.cursors.right.isDown){
-				this.player.body.velocity.x = 200;
+				this.player.body.velocity.x = this.speedPlayer;
 				//this.player.rotation = Math.PI*0.5;
 			}
 
 
 			if(this.cursors.up.isDown){
-				this.player.body.velocity.y = -200;
+				this.player.body.velocity.y = -this.speedPlayer;
 				//this.player.rotation = Math.PI*0;
 			}
 
 			if(this.cursors.down.isDown){
-				this.player.body.velocity.y = 200;
+				this.player.body.velocity.y = this.speedPlayer;
 				//this.player.rotation = Math.PI;
 			}
 
@@ -244,7 +283,7 @@ export default class Play extends Phaser.State{
 			});
 
 			this.deathlaserpowerups.forEach(powerup => { 
-				console.log('deathlaser ready');
+
 				this.game.physics.arcade.collide(powerup, this.player,
 					this.laserReady, null, this); 
 			});
@@ -263,7 +302,7 @@ export default class Play extends Phaser.State{
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
 			var chancepowerup = this.game.rnd.integerInRange(1, 5);
-			console.log(chancepowerup);
+
 			if (chancepowerup == 1) {
 				this.powerupspreadcreate(a.x,a.y);
 			}else if(chancepowerup == 2){
@@ -278,7 +317,7 @@ export default class Play extends Phaser.State{
 		
 		
 		//a.kill();
-		a.killWithLaser();
+		a.kill();
 		//b.kill();
 
 		if (a.lives == 0) {
@@ -291,6 +330,7 @@ export default class Play extends Phaser.State{
 	}
 
 	hitspreadpower(a, b){
+		this.powerupSound.play();
 		a.destroy();
 		this.aantalshots = this.aantalshots + 2;
 	}
@@ -321,10 +361,10 @@ export default class Play extends Phaser.State{
 		
 		a.destroy();
 		
-		console.log(this.player.alpha);
+
 		if(this.player.alpha == 1){
 			b.kill();
-			console.log(this.player.lives);
+
 			this.lives = this.player.lives;
 			this.livesText.text = "lives: "+this.lives.toString();
 			if (this.lives == 0) {
@@ -336,6 +376,7 @@ export default class Play extends Phaser.State{
 	}
 
 	playerDeath(){
+		this.gameMusic.stop();
 		this.game.state.start('Gameover');
 	}
 

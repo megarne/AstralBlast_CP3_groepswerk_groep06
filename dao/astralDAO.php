@@ -2,7 +2,7 @@
 
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DAO.php';
 
-class astralDAO extends DAO {
+class AstralDAO extends DAO {
 
 	public function selectAll() {
 		$sql = "SELECT * FROM `astral_scores`";
