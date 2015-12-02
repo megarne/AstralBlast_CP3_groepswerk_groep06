@@ -16,6 +16,31 @@ export default class Menu extends Phaser.State{
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     	this.key1.onDown.add(this.startClick, this);
+
+    	this.uitleg = this.game.add.group();
+
+    	this.space = this.game.add.sprite(10,45,'keyboardspace');
+    	this.uitleg.add(this.space,true);
+
+    	this.up = this.game.add.sprite(115, 10,'keyboardmovement');
+    	this.uitleg.add(this.up,true);
+    	
+
+    	this.specialbtn = this.game.add.sprite(10, 10,'keyboardbutton');
+    	this.uitleg.add(this.specialbtn,true);
+
+    	this.uitleg.y = 500;
+
+    	this.moveText = this.game.add.bitmapText(135, 70, 'gem',"MOVEMENT", 16);
+		this.uitleg.add(this.moveText, true);
+		this.spaceText = this.game.add.bitmapText(35, 48, 'gem',"SPACE", 16);
+		this.uitleg.add(this.spaceText, true);
+		this.shootText = this.game.add.bitmapText(35, 70, 'gem',"SHOOT", 16);
+		this.uitleg.add(this.shootText, true);
+		this.specialTextlang = this.game.add.bitmapText(40, 16, 'gem',"SPECIAL", 16);
+		this.uitleg.add(this.specialTextlang, true);
+		this.specialTextlang = this.game.add.bitmapText(20, 15, 'gem',"S", 16);
+		this.uitleg.add(this.specialTextlang, true);
 	}
 
 	startClick(){
