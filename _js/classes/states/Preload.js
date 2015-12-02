@@ -20,6 +20,9 @@ export default class Preload extends Phaser.State{
 		this.load.image('start', 'assets/start.png');
 		this.load.image('menu', 'assets/menu.png');
 		this.load.image('restartbtn', 'assets/restart.png');
+		this.load.image('keyboardspace', 'assets/keyboard_space.png');
+        this.load.image('keyboardbutton', 'assets/keyboard_button.png');
+        this.load.image('keyboardmovement', 'assets/keyboard_movement.png');
 
 		
 		this.load.image('deathlaser', 'assets/laser.png');
