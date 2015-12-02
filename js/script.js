@@ -531,6 +531,14 @@
 					_this.generatePlayerBullets();
 				});
 	
+				this.knopSpecial = document.querySelector('.special');
+				this.knopSpecial.addEventListener('mousedown', function (e) {
+	
+					if (_this.laserText.text === "DEATHLASER READY") {
+						_this.launchLaser();
+					}
+				});
+	
 				//this.knopRechts.addEventListener('mousedown', this.beweegrechts(this.player));
 			}
 		}, {
