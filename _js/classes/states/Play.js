@@ -66,6 +66,7 @@ export default class Play extends Phaser.State{
 		console.log('Play State');
 
 		this.teller = 0;
+
 	}
 
 	laserReady(a,b){
@@ -78,7 +79,7 @@ export default class Play extends Phaser.State{
 	launchLaser(){
 		console.log('launching laser');
 		this.laserText.text = "NO SPECIAL";
-		var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y); 
+		var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y, 800, 6); 
 		this.playerlasers.add(laser,true);
 		laser.body.immovable = true;
 		laser.reset(this.game.width/2, this.player.body.y);
