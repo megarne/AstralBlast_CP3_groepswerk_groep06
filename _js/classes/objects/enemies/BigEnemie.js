@@ -14,6 +14,7 @@ export default class BigEnemie extends Phaser.Sprite {
 
 		this.speedy = 20;
 		this.speedx = 30;
+		this.points = 15;
 
 		this.deathSound = this.game.add.audio('bigdeathSound');
 
