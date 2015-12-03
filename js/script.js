@@ -655,6 +655,10 @@
 							var bullet = new _objectsBulletsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
 							this.playerbullets.add(bullet, true);
 							bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
+							//bullet.body.velocity.y = -300+Math.abs(randomspread);
+							//bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
+							//bullet.rotation = randomspread*360/Math.PI;
+	
 							bullet.body.velocity.y = -300 + Math.abs(i - (this.aantalshots / 2 - 1)) * 3;
 							bullet.body.velocity.x = (i - (this.aantalshots / 2 - 1)) * 25 + randomspread;
 						}
@@ -739,7 +743,7 @@
 		}, {
 			key: 'hitenemie',
 			value: function hitenemie(a, b) {
-				this.updateScore(5);
+				this.updateScore(a.points);
 	
 				a.kill();
 	
@@ -747,13 +751,15 @@
 	
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
-					var chancepowerup = this.game.rnd.integerInRange(1, 5);
+					var chancepowerup = this.game.rnd.integerInRange(1, 10);
 	
 					if (chancepowerup == 1) {
-						this.powerupspreadcreate(a.x, a.y);
+						if (this.aantalshots <= 30) {
+							this.powerupspreadcreate(a.x, a.y);
+						};
 					} else if (chancepowerup == 2) {
 						this.poweruplasercreate(a.x, a.y);
-					}
+					};
 				}
 			}
 		}, {
@@ -761,13 +767,11 @@
 			value: function hitenemiewithlaser(a, b) {
 				this.updateScore(5);
 	
-				//a.kill();
 				a.kill();
-				//b.kill();
 	
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
-					var chancepowerup = this.game.rnd.integerInRange(1, 5);
+					var chancepowerup = this.game.rnd.integerInRange(1, 10);
 					if (chancepowerup == 1) {
 						this.powerupspreadcreate(a.x, a.y);
 					}
@@ -796,13 +800,6 @@
 				this.deathlaserpowerups.add(deathlaser, true);
 				deathlaser.reset(x, y);
 				deathlaser.body.velocity.y = 50;
-	
-				// this.laserReady = true;
-	
-				// if(this.laserReady){
-				// 	console.log('laser is ready');
-				// 	this.special.onDown.addOnce(this.launchLaser, this);
-				// }
 			}
 		}, {
 			key: 'hitplayer',
@@ -1069,6 +1066,7 @@
 	
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
+			this.points = 5;
 			this.lives = 3;
 			this.deathSound = this.game.add.audio('smalldeathSound');
 		}
@@ -1163,6 +1161,7 @@
 	
 			this.speedy = 20;
 			this.speedx = 30;
+			this.points = 15;
 	
 			this.deathSound = this.game.add.audio('bigdeathSound');
 		}

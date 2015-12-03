@@ -10,6 +10,7 @@ export default class Enemie extends Phaser.Sprite {
 
 		this.game.physics.arcade.enableBody(this);
 		this.alive = true;
+		this.points = 5;
 		this.lives = 3;
 		this.deathSound = this.game.add.audio('smalldeathSound');
 

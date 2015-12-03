@@ -279,8 +279,13 @@ export default class Play extends Phaser.State{
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
+				//bullet.body.velocity.y = -300+Math.abs(randomspread);
+				//bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
+				//bullet.rotation = randomspread*360/Math.PI;
+
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
 				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
+
 			}
 			this.shootSound.play();
 			break;
@@ -374,7 +379,7 @@ export default class Play extends Phaser.State{
 	}
 
 	hitenemie(a, b){
-		this.updateScore(5);
+		this.updateScore(a.points);
 		
 		
 		a.kill();
@@ -383,13 +388,16 @@ export default class Play extends Phaser.State{
 
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
-			var chancepowerup = this.game.rnd.integerInRange(1, 5);
+			var chancepowerup = this.game.rnd.integerInRange(1, 10);
 
 			if (chancepowerup == 1) {
-				this.powerupspreadcreate(a.x,a.y);
+				if (this.aantalshots <= 30) {
+					this.powerupspreadcreate(a.x,a.y);
+				};
+				
 			}else if(chancepowerup == 2){
 				this.poweruplasercreate(a.x,a.y);
-			}
+			};
 		}
 
 		
@@ -397,14 +405,11 @@ export default class Play extends Phaser.State{
 	hitenemiewithlaser(a,b){
 		this.updateScore(5);
 		
-		
-		//a.kill();
 		a.kill();
-		//b.kill();
 
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
-			var chancepowerup = this.game.rnd.integerInRange(1, 5); 
+			var chancepowerup = this.game.rnd.integerInRange(1, 10); 
 			if (chancepowerup == 1) {
 				this.powerupspreadcreate(a.x,a.y);
 			}
@@ -430,12 +435,6 @@ export default class Play extends Phaser.State{
 		deathlaser.reset(x, y);
 		deathlaser.body.velocity.y = 50;
 
-		// this.laserReady = true;
-
-		// if(this.laserReady){
-		// 	console.log('laser is ready');
-		// 	this.special.onDown.addOnce(this.launchLaser, this);
-		// }
 	}
 
 	hitplayer(a, b){
