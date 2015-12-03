@@ -13,6 +13,7 @@ export default class Preload extends Phaser.State{
 		this.load.spritesheet('spreadpower', 'assets/spreadpower.png', 30, 30, 3);
 		this.load.spritesheet('deathlaser_power', 'assets/deathlaser_power.png', 58, 60, 3);
 		this.load.spritesheet('soundmuter', 'assets/soundmuter.png', 50, 50, 2);
+		this.load.spritesheet('loadingEvilLaser', 'assets/loadingevillaser.png', 210, 90, 4);
 
 		this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
 
@@ -23,6 +24,7 @@ export default class Preload extends Phaser.State{
 		this.load.image('keyboardspace', 'assets/keyboard_space.png');
         this.load.image('keyboardbutton', 'assets/keyboard_button.png');
         this.load.image('keyboardmovement', 'assets/keyboard_movement.png');
+        this.load.image('evilLaserPattern', 'assets/evillaserpattern.png');
 
 		
 		this.load.image('deathlaser', 'assets/laser.png');

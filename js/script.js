@@ -172,6 +172,7 @@
 				this.load.spritesheet('spreadpower', 'assets/spreadpower.png', 30, 30, 3);
 				this.load.spritesheet('deathlaser_power', 'assets/deathlaser_power.png', 58, 60, 3);
 				this.load.spritesheet('soundmuter', 'assets/soundmuter.png', 50, 50, 2);
+				this.load.spritesheet('loadingEvilLaser', 'assets/loadingevillaser.png', 210, 90, 4);
 	
 				this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
 	
@@ -182,6 +183,7 @@
 				this.load.image('keyboardspace', 'assets/keyboard_space.png');
 				this.load.image('keyboardbutton', 'assets/keyboard_button.png');
 				this.load.image('keyboardmovement', 'assets/keyboard_movement.png');
+				this.load.image('evilLaserPattern', 'assets/evillaserpattern.png');
 	
 				this.load.image('deathlaser', 'assets/laser.png');
 	
@@ -398,6 +400,10 @@
 	
 	var _objectsBulletsDeathlaser2 = _interopRequireDefault(_objectsBulletsDeathlaser);
 	
+	var _objectsEnemiesEvilLaser = __webpack_require__(18);
+	
+	var _objectsEnemiesEvilLaser2 = _interopRequireDefault(_objectsEnemiesEvilLaser);
+	
 	var Play = (function (_Phaser$State) {
 		_inherits(Play, _Phaser$State);
 	
@@ -442,6 +448,7 @@
 				this.spread = 10;
 	
 				this.enemies = this.game.add.group();
+				this.lasers = this.game.add.group();
 				this.playerbullets = this.game.add.group();
 				this.playerlasers = this.game.add.group();
 				this.spreadpowerups = this.game.add.group();
@@ -578,13 +585,23 @@
 				this.teller++;
 				this.generateEnemies();
 	
-				if (this.teller % 5 === 0) {
+				if (this.teller % 5 === 0 && this.aantalshots > 6) {
 					this.generateBigEnemies();
+				}
+	
+				if ((this.teller + 2) % 5 === 0 && this.aantalshots > 10) {
+					this.createEvilLaser();
 				}
 	
 				this.updateScore(10);
 	
 				this.checkShoot();
+			}
+		}, {
+			key: 'createEvilLaser',
+			value: function createEvilLaser() {
+				this.evillaser = new _objectsEnemiesEvilLaser2['default'](this.game, this.lasers);
+				this.evillaser.x = this.player.x;
 			}
 		}, {
 			key: 'updateScore',
@@ -738,7 +755,28 @@
 	
 						_this3.game.physics.arcade.collide(powerup, _this3.player, _this3.laserReady, null, _this3);
 					});
+	
+					this.lasers.forEach(function (laser) {
+	
+						_this3.game.physics.arcade.collide(laser, _this3.player, _this3.laserkill, null, _this3);
+					});
 				};
+			}
+		}, {
+			key: 'laserkill',
+			value: function laserkill(a, b) {
+				console.log(a);
+				console.log(b);
+				b.kill();
+				if (this.player.alpha == 1) {
+					a.kill();
+	
+					this.lives = this.player.lives;
+					this.livesText.text = "lives: " + this.lives.toString();
+					if (this.lives == 0) {
+						this.playerDeath();
+					}
+				}
 			}
 		}, {
 			key: 'hitenemie',
@@ -1566,6 +1604,115 @@
 	})(Phaser.State);
 	
 	exports['default'] = Gameover;
+	module.exports = exports['default'];
+
+/***/ },
+/* 16 */,
+/* 17 */,
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _evilsalerpartsLoadingEvilLaser = __webpack_require__(19);
+	
+	var _evilsalerpartsLoadingEvilLaser2 = _interopRequireDefault(_evilsalerpartsLoadingEvilLaser);
+	
+	var EvilLaser = (function (_Phaser$Group) {
+		_inherits(EvilLaser, _Phaser$Group);
+	
+		function EvilLaser(game, parent) {
+			_classCallCheck(this, EvilLaser);
+	
+			_get(Object.getPrototypeOf(EvilLaser.prototype), 'constructor', this).call(this, game, parent);
+			//this.anchor.setTo(1, 0.5);
+			this.loading = new _evilsalerpartsLoadingEvilLaser2['default'](this.game, 0, 0, 100);
+			this.add(this.loading);
+			this.teller = 0;
+			this.game.physics.arcade.enableBody(this);
+		}
+	
+		_createClass(EvilLaser, [{
+			key: 'kill',
+			value: function kill() {
+				this.destroy();
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				this.teller++;
+	
+				if (this.teller < 299) {
+					this.loading.scale.setTo(this.teller / 450, this.teller / 450);
+				} else if (this.teller == 300) {
+	
+					this.laser = this.game.add.tileSprite(0, -5000, 50, 5000, 'evilLaserPattern');
+					this.add(this.laser, true);
+					this.game.physics.arcade.enableBody(this.laser);
+					this.laser.body.velocity.y = 2500;
+					this.laser.autoScroll(0, -2200);
+					this.laser.anchor.setTo(0.5, 0);
+				} else if (this.teller < 399) {
+					//this.destroy();
+				} else if (this.teller == 400) {
+						this.destroy();
+					}
+			}
+		}]);
+	
+		return EvilLaser;
+	})(Phaser.Group);
+	
+	exports['default'] = EvilLaser;
+	module.exports = exports['default'];
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var loadingEvilLaser = (function (_Phaser$Sprite) {
+		_inherits(loadingEvilLaser, _Phaser$Sprite);
+	
+		function loadingEvilLaser(game, x, y, frame) {
+			_classCallCheck(this, loadingEvilLaser);
+	
+			_get(Object.getPrototypeOf(loadingEvilLaser.prototype), 'constructor', this).call(this, game, x, y, 'loadingEvilLaser', frame);
+			this.anchor.setTo(0.5, 0);
+			this.animations.add('vuur');
+			this.animations.play('vuur', 12, true);
+			this.game.physics.arcade.enableBody(this);
+		}
+	
+		return loadingEvilLaser;
+	})(Phaser.Sprite);
+	
+	exports['default'] = loadingEvilLaser;
 	module.exports = exports['default'];
 
 /***/ }

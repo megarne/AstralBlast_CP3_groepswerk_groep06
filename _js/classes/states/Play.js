@@ -8,6 +8,7 @@ import Explosie from '../objects/Explosie';
 import Spreadpower from '../objects/powerup/Spreadpower';
 import DeathlaserPowerup from '../objects/powerup/Deathlaser';
 import Deathlaser from '../objects/bullets/Deathlaser';
+import Evillaser from '../objects/enemies/EvilLaser';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -23,6 +24,8 @@ export default class Play extends Phaser.State{
 		this.player.anchor.setTo(0.5, 0.5);
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.collideWorldBounds = true;
+
+
 
 
 		this.speedPlayer = 300;
@@ -45,6 +48,7 @@ export default class Play extends Phaser.State{
 
 
 		this.enemies = this.game.add.group();
+		this.lasers = this.game.add.group();
 		this.playerbullets = this.game.add.group();
 		this.playerlasers = this.game.add.group();
 		this.spreadpowerups = this.game.add.group();
@@ -70,6 +74,9 @@ export default class Play extends Phaser.State{
 
 		// this.cursors = this.game.input.keyboard.createCursorKeys();
 		//this.special.onDown.add(this.launchLaser, this);
+
+
+
 
 		this.enemieGenerator = 
 		this.game.time.events.loop(Phaser.Timer.SECOND * 1,
@@ -199,14 +206,23 @@ export default class Play extends Phaser.State{
 		this.teller++;
 		this.generateEnemies();
 
-		if (this.teller % 5 === 0) {
+		if (this.teller % 5 === 0 && this.aantalshots > 6) {
 			this.generateBigEnemies();
+		}
+
+		if ((this.teller+2) % 5 === 0 && this.aantalshots > 10) {
+			this.createEvilLaser();
 		}
 
 		this.updateScore(10);
 
 		this.checkShoot();
 		
+	}
+
+	createEvilLaser(){
+				this.evillaser = new Evillaser(this.game, this.lasers);
+		this.evillaser.x = this.player.x;
 	}
 
 	updateScore(value){
@@ -374,8 +390,30 @@ export default class Play extends Phaser.State{
 				this.game.physics.arcade.collide(powerup, this.player,
 					this.laserReady, null, this); 
 			});
+
+			this.lasers.forEach(laser => { 
+
+				this.game.physics.arcade.collide(laser, this.player,
+					this.laserkill, null, this); 
+			});
 		};
 
+	}
+
+
+	laserkill(a,b){
+		console.log(a);
+		console.log(b);
+		b.kill();
+		if(this.player.alpha == 1){
+			a.kill();
+
+			this.lives = this.player.lives;
+			this.livesText.text = "lives: "+this.lives.toString();
+			if (this.lives == 0) {
+				this.playerDeath();
+			}
+		}
 	}
 
 	hitenemie(a, b){
