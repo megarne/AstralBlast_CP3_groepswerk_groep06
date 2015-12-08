@@ -202,7 +202,7 @@
 			value: function onLoadComplete() {
 	
 				console.log('load complete');
-				this.game.state.start('Menu');
+				this.game.state.start('Gameover');
 			}
 		}]);
 	
@@ -447,7 +447,6 @@
 				this.aantalshots = 3;
 				this.spread = 10;
 				this.aantalspecials = 0;
-				console.log("log 1 " + this.aantalspecials);
 	
 				this.enemies = this.game.add.group();
 				this.lasers = this.game.add.group();
@@ -507,7 +506,6 @@
 				this.knopLinks = document.querySelector('.links');
 				this.knopLinksvalue = false;
 				this.knopLinks.addEventListener('mousedown', function (e) {
-	
 					_this.knopLinksvalue = true;
 				});
 				this.knopLinks.addEventListener('mouseup', function (e) {
@@ -517,7 +515,6 @@
 				this.knopBoven = document.querySelector('.boven');
 				this.knopBovenvalue = false;
 				this.knopBoven.addEventListener('mousedown', function (e) {
-	
 					_this.knopBovenvalue = true;
 				});
 				this.knopBoven.addEventListener('mouseup', function (e) {
@@ -527,7 +524,6 @@
 				this.knopOnder = document.querySelector('.onder');
 				this.knopOndervalue = false;
 				this.knopOnder.addEventListener('mousedown', function (e) {
-	
 					_this.knopOndervalue = true;
 				});
 				this.knopOnder.addEventListener('mouseup', function (e) {
@@ -564,7 +560,6 @@
 				} else if (this.aantalspecials > 1) {
 					this.laserText.text = this.aantalspecials + " DEATHLASERS";
 				}
-				console.log("log 2 " + this.aantalspecials);
 			}
 		}, {
 			key: 'muteSPlayound',
@@ -585,18 +580,19 @@
 				if (this.aantalspecials == 0) {
 					this.laserText.text = "NO SPECIAL";
 				} else if (this.aantalspecials == 1) {
+	
 					this.aantalspecials = 0;
 					this.laserText.text = "NO SPECIAL";
-					console.log("log 3 " + this.aantalspecials);
 					var laser = new _objectsBulletsDeathlaser2['default'](this.game, this.game.width / 2, this.player.body.y, 800, 6);
 					this.playerlasers.add(laser, true);
 					laser.body.immovable = true;
 					laser.reset(this.game.width / 2, this.player.body.y);
 					laser.body.velocity.y = -300;
 				} else if (this.aantalspecials > 1) {
+	
 					this.aantalspecials = this.aantalspecials - 1;
 					this.laserText.text = this.aantalspecials + " DEATHLASERS";
-					console.log("log 4 " + this.aantalspecials);
+	
 					var laser = new _objectsBulletsDeathlaser2['default'](this.game, this.game.width / 2, this.player.body.y, 800, 6);
 					this.playerlasers.add(laser, true);
 					laser.body.immovable = true;
@@ -619,7 +615,6 @@
 				}
 	
 				this.updateScore(10);
-	
 				this.checkShoot();
 			}
 		}, {
@@ -650,7 +645,6 @@
 				var _this2 = this;
 	
 				this.enemies.forEach(function (enemiestest) {
-	
 					if (enemiestest.key == "bigenemie") {
 						_this2.enemieShoot(enemiestest.x - enemiestest.width, enemiestest.y);
 						_this2.enemieShoot(enemiestest.x, enemiestest.y);
@@ -809,7 +803,6 @@
 				this.updateScore(a.points);
 	
 				a.kill();
-	
 				b.kill();
 	
 				if (a.lives == 0) {
@@ -820,7 +813,7 @@
 						if (this.aantalshots <= 30) {
 							this.powerupspreadcreate(a.x, a.y);
 						};
-					} else if ((chancepowerup == 2, 3, 4, 5)) {
+					} else if (chancepowerup == 2) {
 						this.poweruplasercreate(a.x, a.y);
 					};
 				}
@@ -858,7 +851,6 @@
 		}, {
 			key: 'poweruplasercreate',
 			value: function poweruplasercreate(x, y) {
-	
 				var deathlaser = new _objectsPowerupDeathlaser2['default'](this.game, x, y);
 				this.deathlaserpowerups.add(deathlaser, true);
 				deathlaser.reset(x, y);
@@ -1719,6 +1711,8 @@
 	
 				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 				this.key1.onDown.add(this.startClick, this);
+	
+				this.getData();
 			}
 		}, {
 			key: 'startClick',
@@ -1729,6 +1723,44 @@
 			key: 'menuClick',
 			value: function menuClick() {
 				this.game.state.start('Menu');
+			}
+		}, {
+			key: 'getData',
+			value: function getData() {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', './api/astraltop10');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.onload = function () {
+					if (xhr.status === 200) {
+						var data = xhr.responseText;
+						var json = JSON.parse(data);
+	
+						var itemsResultEl = document.getElementById('leader-result');
+	
+						var resultHTML = '<h1>LEADERBOARD</h1>';
+						resultHTML += '<ol>';
+	
+						json.forEach(function (item) {
+							console.log(item["name"]);
+							console.log(item["score"]);
+							resultHTML += '<li>' + item['name'] + ' --- ' + item['score'] + '</li>';
+						});
+	
+						resultHTML += '</ol>';
+						itemsResultEl.innerHTML = resultHTML;
+						//console.log(xhr.responseText);
+						//var data = ;
+						// var json = JSON.parse(xhr.responseText);
+						// var data = json.Data;
+						// console.log(data);
+						// xhr.responseText.forEach(item => {
+						//resultHTML += `<li><a href="index.php?page=item-detail&amp;id=${item.id}">${item.title}</a></li>`;
+						// console.log(item);
+						// });
+					}
+				};
+	
+				xhr.send();
 			}
 		}]);
 	
