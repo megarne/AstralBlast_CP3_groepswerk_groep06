@@ -25,9 +25,6 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.collideWorldBounds = true;
 
-
-
-
 		this.speedPlayer = 300;
 
 		this.muteSoundBtn = this.game.add.button(this.game.width - 30,this.game.height - 30,'soundmuter', this.muteSPlayound, this);
@@ -45,7 +42,8 @@ export default class Play extends Phaser.State{
 		this.gun = "spread"
 		this.aantalshots = 3;
 		this.spread = 10;
-
+		this.aantalspecials = 0;
+		console.log("log 1 " + this.aantalspecials);
 
 		this.enemies = this.game.add.group();
 		this.lasers = this.game.add.group();
@@ -160,7 +158,7 @@ export default class Play extends Phaser.State{
 		this.knopSpecial = document.querySelector('.special');
 		this.knopSpecial.addEventListener('mousedown', e =>{
 
-			if (this.laserText.text === "DEATHLASER READY") {
+			if (this.aantalspecials > 0) {
 				this.launchLaser();
 			}
 		});
@@ -174,9 +172,17 @@ export default class Play extends Phaser.State{
 	laserReady(a,b){
 		a.destroy();
 		this.powerupSound.play();
-		this.special.onDown.addOnce(this.launchLaser, this);
-		this.laserText.text = "DEATHLASER READY";
-		
+		this.aantalspecials++;
+		if(this.aantalspecials > 0){
+			this.special.onDown.add(this.launchLaser, this);
+		}
+		if(this.aantalspecials == 1){
+			this.laserText.text = this.aantalspecials + " DEATHLASER";
+		}else if(this.aantalspecials > 1){
+			this.laserText.text = this.aantalspecials + " DEATHLASERS";
+		}
+		console.log("log 2 " + this.aantalspecials);
+
 	}
 
 	muteSPlayound(){
@@ -192,13 +198,30 @@ export default class Play extends Phaser.State{
 
 	launchLaser(){
 		this.laserSound.play();
-
-		this.laserText.text = "NO SPECIAL";
-		var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y, 800, 6); 
-		this.playerlasers.add(laser,true);
-		laser.body.immovable = true;
-		laser.reset(this.game.width/2, this.player.body.y);
-		laser.body.velocity.y = -300;
+		
+		if(this.aantalspecials == 0){
+			this.laserText.text = "NO SPECIAL";
+		}else if(this.aantalspecials == 1){
+			this.aantalspecials = 0;
+			this.laserText.text = "NO SPECIAL";
+			console.log("log 3 " + this.aantalspecials);
+			var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y, 800, 6); 
+			this.playerlasers.add(laser,true);
+			laser.body.immovable = true;
+			laser.reset(this.game.width/2, this.player.body.y);
+			laser.body.velocity.y = -300;
+		}else if(this.aantalspecials > 1){
+			this.aantalspecials = this.aantalspecials-1;
+			this.laserText.text = this.aantalspecials + " DEATHLASERS";
+			console.log("log 4 " + this.aantalspecials);
+			var laser = new Deathlaser(this.game, this.game.width/2, this.player.body.y, 800, 6); 
+			this.playerlasers.add(laser,true);
+			laser.body.immovable = true;
+			laser.reset(this.game.width/2, this.player.body.y);
+			laser.body.velocity.y = -300;
+		}
+		
+		
 	}
 
 
@@ -433,7 +456,7 @@ export default class Play extends Phaser.State{
 					this.powerupspreadcreate(a.x,a.y);
 				};
 				
-			}else if(chancepowerup == 2){
+			}else if(chancepowerup == 2,3,4,5){
 				this.poweruplasercreate(a.x,a.y);
 			};
 		}
