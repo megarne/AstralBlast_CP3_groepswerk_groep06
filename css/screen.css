@@ -1,36 +1,43 @@
-.olwrapper{
-	margin-left: 200px;
+@font-face {
+    font-family: 'minecraft';
+    src: url('../assets/fonts/minecraft-webfont.eot');
+    src: url('../assets/fonts/minecraft-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/minecraft-webfont.woff2') format('woff2'),
+         url('../assets/fonts/minecraft-webfont.woff') format('woff'),
+         url('../assets/fonts/minecraft-webfont.ttf') format('truetype'),
+         url('../assets/fonts/minecraft-webfont.svg#minecraftmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
-ol{
+#leader-result{
 	z-index: 100;
-	color: white;
 	position: absolute;
-	height: 700px;
-	overflow: hidden;
-	/*width: 500px;*/
-	
-	margin-top: 50px;
+	margin-top: 130px;
+	margin-left: 650px;
+	width: 400px;
+
 }
-.second{
-	margin-left: 200px;
+h1{
+	z-index: 101;
+	color: white;
+	font-size: 40pt;
+	margin-left: -100px;
+	font-family: "minecraft";
+}
+ol{
+	margin-top: 40px;
+	color: white;
 }
 li{
 	/*list-style: decimal;*/
-	text-align: center;
-	font-size: 16pt;
+	/*text-align: center;*/
+	font-size: 20pt;
+	font-family: "minecraft";
 	/*float: left;*/
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 	/*display: inline;*/
-}
-.points{
-	margin-top: -20px;
-	font-size: 10pt;
-
-}
-
-#double li{
-	/*width: 50%;*/
 }
 .hidden{
 	visibility: hidden;
@@ -43,8 +50,9 @@ body{
 .console{
 	background-image: url('../assets/devinedo.png');
 	background-size: cover;
-	    width: 1502px;
+	width: 1502px;
     height: 800px;
+    position: absolute;
 }
 
 button{
@@ -56,8 +64,8 @@ button{
 	width: 96px;
 	height: 116px;
 	background-color: transparent;
-		position: absolute;
-		    top: 405px;
+	position: absolute;
+	top: 405px;
     left: 154px;
 }
 
@@ -66,8 +74,8 @@ button{
 	width: 96px;
 	height: 116px;
 	background-color: transparent;
-		position: absolute;
-		    left: 154px;
+	position: absolute;
+	left: 154px;
     top: 194px;
 }
 
@@ -76,8 +84,8 @@ button{
 	width: 84px;
 	height: 116px;
 	background-color: transparent;
-		position: absolute;
-		    top: 300px;
+	position: absolute;
+	top: 300px;
     left: 60px;
 }
 
@@ -86,8 +94,8 @@ button{
 	width: 84px;
 	height: 116px;
 	background-color: transparent;
-		position: absolute;
-		top: 300px;
+	position: absolute;
+	top: 300px;
     left: 260px;
 }
 
@@ -96,18 +104,18 @@ button{
 	width: 308px;
 	height: 308px;
 	background-color: transparent;
-		position: absolute;
-		left: 1170px;
+	position: absolute;
+	left: 1170px;
     top: 230px;
 }
 
 .special{
-		background-image: url('../assets/specialknop.png');
+	background-image: url('../assets/specialknop.png');
 	width: 160px;
 	height: 160px;
 	background-color: transparent;
-		position: absolute;
-		left: 1310px;
+	position: absolute;
+	left: 1310px;
     top: 58px;
 }
 

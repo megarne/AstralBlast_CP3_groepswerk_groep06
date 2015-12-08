@@ -28,7 +28,7 @@ class AstralDAO extends DAO {
 
 
 	public function selectTop10() {
-		$sql = "SELECT * FROM `astral_scores` ORDER BY `score` DESC LIMIT 10";
+		$sql = "SELECT * FROM `astral_scores` ORDER BY `score` DESC LIMIT 5";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
