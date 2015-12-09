@@ -707,7 +707,6 @@
 			key: 'beweegrechts',
 			value: function beweegrechts(player) {
 				player.body.velocity.x = this.speedPlayer;
-				console.log(player);
 			}
 		}, {
 			key: 'update',
@@ -806,7 +805,6 @@
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
 					var chancepowerup = this.game.rnd.integerInRange(1, 10);
-	
 					if (chancepowerup == 1) {
 						if (this.aantalshots <= 30) {
 							this.powerupspreadcreate(a.x, a.y);
@@ -826,6 +824,7 @@
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
 					var chancepowerup = this.game.rnd.integerInRange(1, 10);
+	
 					if (chancepowerup == 1) {
 						this.powerupspreadcreate(a.x, a.y);
 					}
@@ -925,7 +924,7 @@
 			this.anchor.setTo(0.5, 0.5);
 	
 			this.game.physics.arcade.enableBody(this);
-			this.lives = 1;
+			this.lives = 3;
 		}
 	
 		_createClass(Player, [{
