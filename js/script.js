@@ -202,7 +202,7 @@
 			value: function onLoadComplete() {
 	
 				console.log('load complete');
-				this.game.state.start('Gameover');
+				this.game.state.start('Menu');
 			}
 		}]);
 	
@@ -784,8 +784,6 @@
 		}, {
 			key: 'laserkill',
 			value: function laserkill(a, b) {
-				console.log(a);
-				console.log(b);
 				b.kill();
 				if (this.player.alpha == 1) {
 					a.kill();
@@ -874,17 +872,18 @@
 				}
 			}
 		}, {
-			key: 'playerDeath',
-			value: function playerDeath() {
-				this.gameMusic.stop();
-				this.game.state.start('Gameover');
-			}
-		}, {
 			key: 'makeExplosion',
 			value: function makeExplosion(x, y) {
 	
 				var explosie = new _objectsExplosie2['default'](this.game, x, y);
 				this.game.add.existing(explosie);
+			}
+		}, {
+			key: 'playerDeath',
+			value: function playerDeath() {
+				this.gameMusic.stop();
+				// this.enemieGenerator.timer.stop();
+				this.game.state.start('Gameover', false, false, this.score);
 			}
 		}]);
 	
@@ -926,7 +925,7 @@
 			this.anchor.setTo(0.5, 0.5);
 	
 			this.game.physics.arcade.enableBody(this);
-			this.lives = 3;
+			this.lives = 1;
 		}
 	
 		_createClass(Player, [{
@@ -1713,25 +1712,47 @@
 				this.key1.onDown.add(this.startClick, this);
 	
 				this.getData();
+				this.sendData();
+			}
+		}, {
+			key: 'init',
+			value: function init(score) {
+				this.score = score;
 			}
 		}, {
 			key: 'startClick',
 			value: function startClick() {
+				document.getElementById('leader-result').className += 'hidden';
 				this.game.state.start('Play');
 			}
 		}, {
 			key: 'menuClick',
 			value: function menuClick() {
+				document.getElementById('leader-result').className += 'hidden';
 				this.game.state.start('Menu');
+			}
+		}, {
+			key: 'sendData',
+			value: function sendData() {
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', './api/astral');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.onload = function () {
+					if (xhr.status === 200) {}
+				};
+				xhr.send();
 			}
 		}, {
 			key: 'getData',
 			value: function getData() {
+				document.getElementById('leader-result').className = '';
 				var xhr = new XMLHttpRequest();
 				xhr.open('GET', './api/astraltop10');
 				xhr.setRequestHeader('Content-Type', 'application/json');
+				var varScore = this.score;
 				xhr.onload = function () {
 					if (xhr.status === 200) {
+	
 						var data = xhr.responseText;
 						var json = JSON.parse(data);
 	
@@ -1741,22 +1762,16 @@
 						resultHTML += '<ol>';
 	
 						json.forEach(function (item) {
-							console.log(item["name"]);
-							console.log(item["score"]);
-							resultHTML += '<li>' + item['name'] + ' --- ' + item['score'] + '</li>';
+							if (varScore > item['score']) {
+								//console.log('nieuwe score = ' + varScore + " //// oude score = " + item["score"]);
+								resultHTML += '<input type="text" name="alias" placeholder="INSERT NAME"><input type="submit" value="enter">';
+							} else {
+								resultHTML += '<li>' + item['name'] + ' --- ' + item['score'] + '</li>';
+							}
 						});
 	
 						resultHTML += '</ol>';
 						itemsResultEl.innerHTML = resultHTML;
-						//console.log(xhr.responseText);
-						//var data = ;
-						// var json = JSON.parse(xhr.responseText);
-						// var data = json.Data;
-						// console.log(data);
-						// xhr.responseText.forEach(item => {
-						//resultHTML += `<li><a href="index.php?page=item-detail&amp;id=${item.id}">${item.title}</a></li>`;
-						// console.log(item);
-						// });
 					}
 				};
 	
