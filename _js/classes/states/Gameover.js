@@ -20,10 +20,10 @@ export default class Gameover extends Phaser.State{
 
         this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.key2.onDown.add(this.upload, this);
-
+ this.gotData = false;
         this.getData();
 
-        this.gotData = false;
+       
     	///this.sendData();
 
     }
@@ -46,80 +46,81 @@ export default class Gameover extends Phaser.State{
     }
 
     startClick(){
+        console.log('tester' + this.gotData);
         if(!document.querySelector('.inputVeld') && this.gotData){
-         document.getElementById('leader-result').className += 'hidden';
-         this.game.state.start('Play');
-     }
- }
+           document.getElementById('leader-result').className += 'hidden';
+           this.game.state.start('Play');
+       }
+   }
 
- menuClick(){
-     document.getElementById('leader-result').className += 'hidden';		
-     this.game.state.start('Menu');
- }
+   menuClick(){
+       document.getElementById('leader-result').className += 'hidden';		
+       this.game.state.start('Menu');
+   }
 
- sendData(data){
+   sendData(data){
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', './api/astral');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
-      if (xhr.status === 200) {
+        if (xhr.status === 200) {
 
-        let inputVeld = document.querySelector('.inputList');
-        inputVeld.innerHTML = `${data.name} --- ${data.score}`;
+            let inputVeld = document.querySelector('.inputList');
+            inputVeld.innerHTML = `${data.name} --- ${data.score}`;
 
+        }
+    };
+    console.log(JSON.stringify(data));
+    xhr.send(JSON.stringify(data));
     }
-};
-console.log(JSON.stringify(data));
-xhr.send(JSON.stringify(data));
-}
 
 
 
 getData(){
- document.getElementById('leader-result').className = '';
- var xhr = new XMLHttpRequest();
- xhr.open('GET', './api/astraltop10');
- xhr.setRequestHeader('Content-Type', 'application/json');
- var varScore = this.score;
- xhr.onload = function() {
-  if (xhr.status === 200) {
+   document.getElementById('leader-result').className = '';
+   var xhr = new XMLHttpRequest();
+   xhr.open('GET', './api/astraltop10');
+   xhr.setRequestHeader('Content-Type', 'application/json');
+   var varScore = this.score;
+   xhr.onload = function() {
+      if (xhr.status === 200) {
 
 
-   var data = xhr.responseText;
-   var json = JSON.parse(data);
+         var data = xhr.responseText;
+         var json = JSON.parse(data);
 
-   let itemsResultEl = document.getElementById('leader-result');
-
-
-   let resultHTML = '<h1>LEADERBOARD</h1>';
-   resultHTML += '<ol>';
-
-   let teller = 0;
-   let inputNotPlaced = true;
-
-   for (var i = 0; i < json.length; i++) {
+         let itemsResultEl = document.getElementById('leader-result');
 
 
-    if ( json[teller].score < varScore && inputNotPlaced ) {
-     resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
-     inputNotPlaced = false;
-     teller--;
- }else{
-     resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
- };
+         let resultHTML = '<h1>LEADERBOARD</h1>';
+         resultHTML += '<ol>';
+
+         let teller = 0;
+         let inputNotPlaced = true;
+
+         for (var i = 0; i < json.length; i++) {
 
 
- teller++;
-};
+            if ( json[teller].score < varScore && inputNotPlaced ) {
+               resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
+               inputNotPlaced = false;
+               teller--;
+           }else{
+               resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
+           };
+
+
+           teller++;
+       };
 
 
 
 
-resultHTML += '</ol>';
-itemsResultEl.innerHTML = resultHTML;
-}
-
+       resultHTML += '</ol>';
+       itemsResultEl.innerHTML = resultHTML;
+   }
+   
 };
 
 xhr.send();
