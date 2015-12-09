@@ -1,24 +1,24 @@
 @font-face {
-    font-family: 'minecraft';
-    src: url('../assets/fonts/minecraft-webfont.eot');
-    src: url('../assets/fonts/minecraft-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../assets/fonts/minecraft-webfont.woff2') format('woff2'),
-         url('../assets/fonts/minecraft-webfont.woff') format('woff'),
-         url('../assets/fonts/minecraft-webfont.ttf') format('truetype'),
-         url('../assets/fonts/minecraft-webfont.svg#minecraftmedium') format('svg');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'minecraft';
+	src: url('../assets/fonts/minecraft-webfont.eot');
+	src: url('../assets/fonts/minecraft-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../assets/fonts/minecraft-webfont.woff2') format('woff2'),
+	url('../assets/fonts/minecraft-webfont.woff') format('woff'),
+	url('../assets/fonts/minecraft-webfont.ttf') format('truetype'),
+	url('../assets/fonts/minecraft-webfont.svg#minecraftmedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
 
 }
 
 #leader-result{
-    z-index: 100;
+	z-index: 100;
 
-    width: 400px;
+	width: 400px;
 
-    margin-right: -650px;
-    padding-left: 250px;
-    padding-bottom: 120px;
+	margin-right: -650px;
+	padding-left: 250px;
+	margin-top: -120px;
 
 }
 h1{
@@ -48,17 +48,17 @@ body{
 	background-color: black;
 	height: 100vh;
 	display: flex;
-			align-items: center;
-				justify-content:center;
+	align-items: center;
+	justify-content:center;
 }
 
 .console{
 	background-image: url('../assets/devinedo.png');
 	background-size: cover;
 	width: 1502px;
-    height: 800px;
-    position: absolute;
-        display: none;
+	height: 800px;
+	position: absolute;
+	display: none;
 }
 
 button{
@@ -72,7 +72,7 @@ button{
 	background-color: transparent;
 	position: absolute;
 	top: 405px;
-    left: 154px;
+	left: 154px;
 }
 
 .boven{
@@ -82,7 +82,7 @@ button{
 	background-color: transparent;
 	position: absolute;
 	left: 154px;
-    top: 194px;
+	top: 194px;
 }
 
 .links{
@@ -92,7 +92,7 @@ button{
 	background-color: transparent;
 	position: absolute;
 	top: 300px;
-    left: 60px;
+	left: 60px;
 }
 
 .rechts{
@@ -102,7 +102,7 @@ button{
 	background-color: transparent;
 	position: absolute;
 	top: 300px;
-    left: 260px;
+	left: 260px;
 }
 
 .shoot{
@@ -112,7 +112,7 @@ button{
 	background-color: transparent;
 	position: absolute;
 	left: 1170px;
-    top: 230px;
+	top: 230px;
 }
 
 .special{
@@ -122,24 +122,24 @@ button{
 	background-color: transparent;
 	position: absolute;
 	left: 1310px;
-    top: 58px;
+	top: 58px;
 }
 
 canvas{
 
-    border: solid white 5px;
+	border: solid white 5px;
 
 
 }
 
 .inputVeld{
-    background-color: black;
-    border-style: solid;
-    border-color: white;
-    border-width: 5px;
-    font-family: "minecraft";
-    color: white;
-    font-size: 0.8em;
-    padding: 9px;
-    width: 186px;
+	background-color: black;
+	border-style: solid;
+	border-color: white;
+	border-width: 5px;
+	font-family: "minecraft";
+	color: white;
+	font-size: 0.8em;
+	padding: 9px;
+	width: 186px;
 }

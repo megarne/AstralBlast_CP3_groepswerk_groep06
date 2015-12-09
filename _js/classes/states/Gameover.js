@@ -22,6 +22,8 @@ export default class Gameover extends Phaser.State{
         this.key2.onDown.add(this.upload, this);
 
         this.getData();
+
+        this.gotData = false;
     	///this.sendData();
 
     }
@@ -44,7 +46,7 @@ export default class Gameover extends Phaser.State{
     }
 
     startClick(){
-        if(!document.querySelector('.inputVeld')){
+        if(!document.querySelector('.inputVeld') && this.gotData){
          document.getElementById('leader-result').className += 'hidden';
          this.game.state.start('Play');
      }
@@ -112,6 +114,8 @@ getData(){
 };
 
 
+
+
 resultHTML += '</ol>';
 itemsResultEl.innerHTML = resultHTML;
 }
@@ -119,6 +123,9 @@ itemsResultEl.innerHTML = resultHTML;
 };
 
 xhr.send();
+this.gotData = true;
+
+
 
 }
 }
