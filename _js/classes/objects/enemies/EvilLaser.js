@@ -8,7 +8,7 @@ export default class EvilLaser extends Phaser.Group {
 		this.add(this.loading);
 		this.teller = 0;
 		this.game.physics.arcade.enableBody(this);
-
+		this.evillaserSound = this.game.add.audio('evillaserSound');
 
 	}
 
@@ -24,7 +24,7 @@ export default class EvilLaser extends Phaser.Group {
 		if (this.teller < 299) {
 			this.loading.scale.setTo((this.teller/450), (this.teller/450));
 		}else if (this.teller == 300) {
-
+			this.evillaserSound.play();
 			this.laser = this.game.add.tileSprite(0,-5000,50,5000,'evilLaserPattern');
 			this.add(this.laser,true);
 			this.game.physics.arcade.enableBody(this.laser);
