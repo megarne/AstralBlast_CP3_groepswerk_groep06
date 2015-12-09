@@ -10,6 +10,8 @@ import DeathlaserPowerup from '../objects/powerup/Deathlaser';
 import Deathlaser from '../objects/bullets/Deathlaser';
 import Evillaser from '../objects/enemies/EvilLaser';
 import Meteor from '../objects/enemies/Meteor';
+import Pikachu from '../objects/enemies/Pikachu';
+import Thunder from '../objects/bullets/Thunder';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -209,6 +211,8 @@ export default class Play extends Phaser.State{
 	secondLoop(){
 		this.teller++;
 		this.generateEnemies();
+		
+		
 
 		if (this.teller % 5 === 0 && this.aantalshots > 6) {
 			this.generateBigEnemies();
@@ -218,12 +222,24 @@ export default class Play extends Phaser.State{
 			this.createEvilLaser();
 		}
 
-		if ((this.teller) % 6 === 0 && this.score > 10) {
+		if ((this.teller) % 6 === 0 && this.score > 1000) {
 			this.createMeteor();
+		}
+
+		if ((this.teller + 3) % 6 === 0 && this.score > 2000) {
+			this.createPikachu();
 		}
 		this.updateScore(10);
 		this.checkShoot();
 		
+	}
+
+	createPikachu(){
+		var enemieX = this.game.rnd.integerInRange(50, this.game.width-50); 
+		var pikachu =  new Pikachu(this.game, enemieX , 300);
+		this.enemies.add(pikachu,true);
+		pikachu.reset(enemieX, 0);
+
 	}
 
 	createEvilLaser(){
@@ -262,7 +278,23 @@ export default class Play extends Phaser.State{
 				this.enemieShoot(enemiestest.x-enemiestest.width,enemiestest.y);
 				this.enemieShoot(enemiestest.x,enemiestest.y);
 			}
+			if (enemiestest.key =="pikachu"){
+				//console.log(enemiestest.x,enemiestest.y);
+				this.schootThunder(enemiestest.x,enemiestest.y);
+			}
 		});
+	}
+
+	schootThunder(x,y){
+		var bullet = new Thunder(this.game, x,y); 
+		this.enemiebullets.add(bullet,true);
+				bullet.reset(x,y);
+		bullet.body.velocity.y = -(y-this.player.y)/2;
+		bullet.body.velocity.x = -(x-this.player.x)/2;
+
+		var angle = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x) - Math.PI / 2;
+		console.log(angle);
+		bullet.rotation = angle;
 	}
 
 

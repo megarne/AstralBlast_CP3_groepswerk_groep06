@@ -15,6 +15,8 @@ export default class Preload extends Phaser.State{
 		this.load.spritesheet('soundmuter', 'assets/soundmuter.png', 50, 50, 2);
 		this.load.spritesheet('loadingEvilLaser', 'assets/loadingevillaser.png', 210, 90, 4);
 		this.load.spritesheet('meteor', 'assets/meteor.png', 445/3, 50, 3);
+		this.load.spritesheet('thunder', 'assets/thunder.png', 126/3, 97, 3);
+		this.load.spritesheet('pikachu', 'assets/pikachu.png', 542/6, 84, 6);
 
 		this.load.bitmapFont('gem', 'assets/fonts/gem.png', 'assets/fonts/gem.xml');
 
@@ -37,6 +39,7 @@ export default class Preload extends Phaser.State{
 		this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
 		this.load.audio('shootSound', 'assets/sounds/shoot.wav');
 		this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
+				this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
 
 	}
 

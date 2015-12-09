@@ -23,7 +23,7 @@ export default class Player extends Phaser.Sprite {
 
 	update(){
 		if (this.alpha < 1) {
-			this.alpha = this.alpha + 0.05;
+			this.alpha = this.alpha + 0.025;
 		}else{
 			this.alpha = 1;
 		}
