@@ -1017,10 +1017,9 @@
 	
 	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 	            this.key2.onDown.add(this.upload, this);
-	
+	            this.gotData = false;
 	            this.getData();
 	
-	            this.gotData = false;
 	            ///this.sendData();
 	        }
 	    }, {
@@ -1044,6 +1043,7 @@
 	    }, {
 	        key: 'startClick',
 	        value: function startClick() {
+	            console.log('tester' + this.gotData);
 	            if (!document.querySelector('.inputVeld') && this.gotData) {
 	                document.getElementById('leader-result').className += 'hidden';
 	                this.game.state.start('Play');
