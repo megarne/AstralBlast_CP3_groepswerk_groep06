@@ -218,7 +218,7 @@ export default class Play extends Phaser.State{
 			this.createEvilLaser();
 		}
 
-		if ((this.teller) % 6 === 0 && this.score > 10) {
+		if ((this.teller) % 6 === 0 && this.score > 1000) {
 			this.createMeteor();
 		}
 		this.updateScore(10);
