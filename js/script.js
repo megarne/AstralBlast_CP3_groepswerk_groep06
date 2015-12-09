@@ -883,6 +883,7 @@
 			value: function playerDeath() {
 				this.gameMusic.stop();
 				// this.enemieGenerator.timer.stop();
+				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
 				this.game.state.start('Gameover', false, false, this.score);
 			}
 		}]);
@@ -1667,7 +1668,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -1685,108 +1686,133 @@
 	var _objectsSpace2 = _interopRequireDefault(_objectsSpace);
 	
 	var Gameover = (function (_Phaser$State) {
-	  _inherits(Gameover, _Phaser$State);
+	    _inherits(Gameover, _Phaser$State);
 	
-	  function Gameover() {
-	    _classCallCheck(this, Gameover);
+	    function Gameover() {
+	        _classCallCheck(this, Gameover);
 	
-	    _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Gameover, [{
-	    key: 'create',
-	    value: function create() {
-	      console.log('Gameover State');
-	
-	      this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
-	      this.game.add.existing(this.space);
-	
-	      this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
-	      //this.start.scale.setTo(.7);
-	      this.start.anchor.setTo(.5, .5);
-	
-	      this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
-	      //this.menu.scale.setTo(.7);
-	      this.menu.anchor.setTo(.5, .5);
-	
-	      this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	      this.key1.onDown.add(this.startClick, this);
-	
-	      this.getData();
-	      ///this.sendData();
+	        _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
 	    }
-	  }, {
-	    key: 'init',
-	    value: function init(score) {
-	      this.score = score;
-	    }
-	  }, {
-	    key: 'startClick',
-	    value: function startClick() {
-	      document.getElementById('leader-result').className += 'hidden';
-	      this.game.state.start('Play');
-	    }
-	  }, {
-	    key: 'menuClick',
-	    value: function menuClick() {
-	      document.getElementById('leader-result').className += 'hidden';
-	      this.game.state.start('Menu');
-	    }
-	  }, {
-	    key: 'sendData',
-	    value: function sendData() {
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('POST', './api/astral');
-	      xhr.setRequestHeader('Content-Type', 'application/json');
-	      xhr.onload = function () {
-	        if (xhr.status === 200) {}
-	      };
-	      xhr.send();
-	    }
-	  }, {
-	    key: 'getData',
-	    value: function getData() {
-	      document.getElementById('leader-result').className = '';
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('GET', './api/astraltop10');
-	      xhr.setRequestHeader('Content-Type', 'application/json');
-	      var varScore = this.score;
-	      xhr.onload = function () {
-	        if (xhr.status === 200) {
 	
-	          var data = xhr.responseText;
-	          var json = JSON.parse(data);
+	    _createClass(Gameover, [{
+	        key: 'create',
+	        value: function create() {
+	            console.log('Gameover State');
 	
-	          var itemsResultEl = document.getElementById('leader-result');
+	            this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
+	            this.game.add.existing(this.space);
 	
-	          var resultHTML = '<h1>LEADERBOARD</h1>';
-	          resultHTML += '<ol>';
+	            this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
+	            //this.start.scale.setTo(.7);
+	            this.start.anchor.setTo(.5, .5);
 	
-	          var teller = 0;
-	          var inputNotPlaced = true;
-	          for (var i = 0; i < json.length; i++) {
+	            this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
+	            //this.menu.scale.setTo(.7);
+	            this.menu.anchor.setTo(.5, .5);
 	
-	            if (json[teller].score < varScore && inputNotPlaced) {
-	              resultHTML += '<li><input type="text" name="alias" placeholder="INSERT NAME"></li>';
-	              inputNotPlaced = false;
-	              teller--;
-	            } else {
-	              resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
+	            this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	            this.key1.onDown.add(this.startClick, this);
+	
+	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+	            this.key2.onDown.add(this.upload, this);
+	
+	            this.getData();
+	            ///this.sendData();
+	        }
+	    }, {
+	        key: 'init',
+	        value: function init(score) {
+	            this.score = score;
+	        }
+	    }, {
+	        key: 'upload',
+	        value: function upload() {
+	            if (document.querySelector('.inputVeld')) {
+	                var inputVeld = document.querySelector('.inputVeld');
+	                if (inputVeld.value != '') {
+	                    var data = {};
+	                    data.name = inputVeld.value;
+	                    data.score = this.score;
+	                    this.sendData(data);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'startClick',
+	        value: function startClick() {
+	            if (!document.querySelector('.inputVeld')) {
+	                document.getElementById('leader-result').className += 'hidden';
+	                this.game.state.start('Play');
+	            }
+	        }
+	    }, {
+	        key: 'menuClick',
+	        value: function menuClick() {
+	            document.getElementById('leader-result').className += 'hidden';
+	            this.game.state.start('Menu');
+	        }
+	    }, {
+	        key: 'sendData',
+	        value: function sendData(data) {
+	
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', './api/astral');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	
+	                    var inputVeld = document.querySelector('.inputList');
+	                    inputVeld.innerHTML = data.name + ' --- ' + data.score;
+	                }
+	            };
+	            console.log(JSON.stringify(data));
+	            xhr.send(JSON.stringify(data));
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            document.getElementById('leader-result').className = '';
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('GET', './api/astraltop10');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            var varScore = this.score;
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	
+	                    var data = xhr.responseText;
+	                    var json = JSON.parse(data);
+	
+	                    var itemsResultEl = document.getElementById('leader-result');
+	
+	                    var resultHTML = '<h1>LEADERBOARD</h1>';
+	                    resultHTML += '<ol>';
+	
+	                    var teller = 0;
+	                    var inputNotPlaced = true;
+	
+	                    for (var i = 0; i < json.length; i++) {
+	
+	                        if (json[teller].score < varScore && inputNotPlaced) {
+	                            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" name="alias" placeholder="INSERT NAME"> --- ' + varScore + '</li>';
+	                            inputNotPlaced = false;
+	                            teller--;
+	                        } else {
+	                            resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
+	                        };
+	
+	                        teller++;
+	                    };
+	
+	                    resultHTML += '</ol>';
+	                    itemsResultEl.innerHTML = resultHTML;
+	                }
 	            };
 	
-	            teller++;
-	          };
-	
-	          resultHTML += '</ol>';
-	          itemsResultEl.innerHTML = resultHTML;
+	            xhr.send();
 	        }
-	      };
+	    }]);
 	
-	      xhr.send();
-	    }
-	  }]);
-	
-	  return Gameover;
+	    return Gameover;
 	})(Phaser.State);
 	
 	exports['default'] = Gameover;

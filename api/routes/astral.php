@@ -20,10 +20,10 @@ $app->get('/astraltop10/?',function() use ($AstralDAO){
 $app->post('/astral/?', function() use ($app, $AstralDAO){
     header("Content-Type: application/json");
      $post = $app->request->post();
+
     if(empty($post)){
         $post = (array) json_decode($app->request()->getBody());
     }
-
     echo json_encode($AstralDAO->insert($post), JSON_NUMERIC_CHECK);
     exit();
 });
