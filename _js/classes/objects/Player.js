@@ -19,8 +19,6 @@ export default class Player extends Phaser.Sprite {
 			this.destroy();
 		}
 		
-
-
 	}
 
 	update(){
