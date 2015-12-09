@@ -36,6 +36,7 @@ export default class Preload extends Phaser.State{
 		this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
 		this.load.audio('shootSound', 'assets/sounds/shoot.wav');
 		this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
+				this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
 
 	}
 
