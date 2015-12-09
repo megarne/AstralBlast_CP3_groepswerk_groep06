@@ -18,7 +18,10 @@ export default class Gameover extends Phaser.State{
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.key1.onDown.add(this.startClick, this);
 
-		this.getData();
+        this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.key2.onDown.add(this.upload, this);
+
+        this.getData();
     	///this.sendData();
 
     }
@@ -26,72 +29,96 @@ export default class Gameover extends Phaser.State{
     	this.score = score;
     }
 
+    upload(){
+        if(document.querySelector('.inputVeld')){
+            let inputVeld = document.querySelector('.inputVeld');
+            if(inputVeld.value != ''){
+                let data = {};
+                data.name = inputVeld.value;
+                data.score = this.score;
+                this.sendData(data);
+            }
+
+        }
+
+    }
+
     startClick(){
-    	document.getElementById('leader-result').className += 'hidden';
-    	this.game.state.start('Play');
+        if(!document.querySelector('.inputVeld')){
+         document.getElementById('leader-result').className += 'hidden';
+         this.game.state.start('Play');
+     }
+ }
+
+ menuClick(){
+     document.getElementById('leader-result').className += 'hidden';		
+     this.game.state.start('Menu');
+ }
+
+ sendData(data){
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './api/astral');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+
+        let inputVeld = document.querySelector('.inputList');
+        inputVeld.innerHTML = `${data.name} --- ${data.score}`;
+
     }
-
-    menuClick(){
-    	document.getElementById('leader-result').className += 'hidden';		
-    	this.game.state.start('Menu');
-    }
-
-    sendData(){
-    	var xhr = new XMLHttpRequest();
-    	xhr.open('POST', './api/astral');
-    	xhr.setRequestHeader('Content-Type', 'application/json');
-    	xhr.onload = function() {
-    		if (xhr.status === 200) {
-
-    		}
-    	};
-    	xhr.send();
-    }
-
-    getData(){
-    	document.getElementById('leader-result').className = '';
-    	var xhr = new XMLHttpRequest();
-    	xhr.open('GET', './api/astraltop10');
-    	xhr.setRequestHeader('Content-Type', 'application/json');
-    	var varScore = this.score;
-    	xhr.onload = function() {
-    		if (xhr.status === 200) {
+};
+console.log(JSON.stringify(data));
+xhr.send(JSON.stringify(data));
+}
 
 
-    			var data = xhr.responseText;
-    			var json = JSON.parse(data);
 
-    			let itemsResultEl = document.getElementById('leader-result');
-
-
-    			let resultHTML = '<h1>LEADERBOARD</h1>';
-    			resultHTML += '<ol>';
-
-    			let teller = 0;
-    			let inputNotPlaced = true;
-     			for (var i = 0; i < json.length; i++) {
-     				
-
-    				if ( json[teller].score < varScore && inputNotPlaced ) {
-    					resultHTML += `<li><input type="text" name="alias" placeholder="INSERT NAME"></li>`
-    					inputNotPlaced = false;
-    					teller--;
-    				}else{
-    					resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
-    				};
+getData(){
+ document.getElementById('leader-result').className = '';
+ var xhr = new XMLHttpRequest();
+ xhr.open('GET', './api/astraltop10');
+ xhr.setRequestHeader('Content-Type', 'application/json');
+ var varScore = this.score;
+ xhr.onload = function() {
+  if (xhr.status === 200) {
 
 
-    				teller++;
-     			};
+   var data = xhr.responseText;
+   var json = JSON.parse(data);
+
+   let itemsResultEl = document.getElementById('leader-result');
 
 
-				resultHTML += '</ol>';
-      			itemsResultEl.innerHTML = resultHTML;
-      		}
+   let resultHTML = '<h1>LEADERBOARD</h1>';
+   resultHTML += '<ol>';
 
-      	};
+   let teller = 0;
+   let inputNotPlaced = true;
 
-      	xhr.send();
+   for (var i = 0; i < json.length; i++) {
 
-      }
-  }
+
+    if ( json[teller].score < varScore && inputNotPlaced ) {
+     resultHTML += `<li class="inputList"><input type="text" class="inputVeld" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
+     inputNotPlaced = false;
+     teller--;
+ }else{
+     resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
+ };
+
+
+ teller++;
+};
+
+
+resultHTML += '</ol>';
+itemsResultEl.innerHTML = resultHTML;
+}
+
+};
+
+xhr.send();
+
+}
+}

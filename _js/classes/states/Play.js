@@ -480,6 +480,7 @@ export default class Play extends Phaser.State{
 	playerDeath(){	
 		this.gameMusic.stop();
 		// this.enemieGenerator.timer.stop();
+				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
 		this.game.state.start('Gameover', false,false, this.score);
 
 	}
