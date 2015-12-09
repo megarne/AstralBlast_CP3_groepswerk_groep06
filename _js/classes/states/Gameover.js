@@ -1,4 +1,5 @@
 import Space from '../objects/Space';
+
 export default class Gameover extends Phaser.State{
 	create(){
 		console.log('Gameover State');
@@ -15,55 +16,82 @@ export default class Gameover extends Phaser.State{
 		this.menu.anchor.setTo(.5,.5);
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    	this.key1.onDown.add(this.startClick, this);
+		this.key1.onDown.add(this.startClick, this);
 
-    	this.getData();
-	}
+		this.getData();
+    	///this.sendData();
 
-	startClick(){
-		this.game.state.start('Play');
-	}
+    }
+    init(score){
+    	this.score = score;
+    }
 
-	menuClick(){
-		this.game.state.start('Menu');
-	}
+    startClick(){
+    	document.getElementById('leader-result').className += 'hidden';
+    	this.game.state.start('Play');
+    }
+
+    menuClick(){
+    	document.getElementById('leader-result').className += 'hidden';		
+    	this.game.state.start('Menu');
+    }
+
+    sendData(){
+    	var xhr = new XMLHttpRequest();
+    	xhr.open('POST', './api/astral');
+    	xhr.setRequestHeader('Content-Type', 'application/json');
+    	xhr.onload = function() {
+    		if (xhr.status === 200) {
+
+    		}
+    	};
+    	xhr.send();
+    }
+
+    getData(){
+    	document.getElementById('leader-result').className = '';
+    	var xhr = new XMLHttpRequest();
+    	xhr.open('GET', './api/astraltop10');
+    	xhr.setRequestHeader('Content-Type', 'application/json');
+    	var varScore = this.score;
+    	xhr.onload = function() {
+    		if (xhr.status === 200) {
 
 
-	getData(){
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', './api/astraltop10');
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				var data = xhr.responseText;
-				var json = JSON.parse(data);
+    			var data = xhr.responseText;
+    			var json = JSON.parse(data);
 
-				let itemsResultEl = document.getElementById('leader-result');
-				
-				let resultHTML = '<h1>LEADERBOARD</h1>';
-				resultHTML += '<ol>';
+    			let itemsResultEl = document.getElementById('leader-result');
 
-				json.forEach(item => {
-					console.log(item["name"]);
-					console.log(item["score"]);
-					resultHTML += `<li>${item['name']} --- ${item['score']}</li>`
-				});
+
+    			let resultHTML = '<h1>LEADERBOARD</h1>';
+    			resultHTML += '<ol>';
+
+    			let teller = 0;
+    			let inputNotPlaced = true;
+     			for (var i = 0; i < json.length; i++) {
+     				
+
+    				if ( json[teller].score < varScore && inputNotPlaced ) {
+    					resultHTML += `<li><input type="text" name="alias" placeholder="INSERT NAME"></li>`
+    					inputNotPlaced = false;
+    					teller--;
+    				}else{
+    					resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
+    				};
+
+
+    				teller++;
+     			};
+
 
 				resultHTML += '</ol>';
       			itemsResultEl.innerHTML = resultHTML;
-				//console.log(xhr.responseText);
-				//var data = ;
-				// var json = JSON.parse(xhr.responseText);
-				// var data = json.Data;
-				// console.log(data);
-				// xhr.responseText.forEach(item => {
-			        //resultHTML += `<li><a href="index.php?page=item-detail&amp;id=${item.id}">${item.title}</a></li>`;
-			        // console.log(item);
-			      // });
-			}
+      		}
 
-		};
+      	};
 
-		xhr.send();
-	}
-}
+      	xhr.send();
+
+      }
+  }

@@ -91,7 +91,6 @@ export default class Play extends Phaser.State{
 
 		this.teller = 0;
 
-
 		this.knopRechts = document.querySelector('.rechts');
 		this.knopRechtsvalue = false; 
 		this.knopRechts.addEventListener('mousedown', e =>{
@@ -308,7 +307,7 @@ export default class Play extends Phaser.State{
 
 	beweegrechts(player){
 		player.body.velocity.x = this.speedPlayer;
-		console.log(player);
+		
 	}
 
 	update(){
@@ -388,8 +387,6 @@ export default class Play extends Phaser.State{
 	}
 
 	laserkill(a,b){
-		console.log(a);
-		console.log(b);
 		b.kill();
 		if(this.player.alpha == 1){
 			a.kill();
@@ -411,7 +408,6 @@ export default class Play extends Phaser.State{
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
 			var chancepowerup = this.game.rnd.integerInRange(1, 10);
-
 			if (chancepowerup == 1) {
 				if (this.aantalshots <= 30) {
 					this.powerupspreadcreate(a.x,a.y);
@@ -431,7 +427,8 @@ export default class Play extends Phaser.State{
 
 		if (a.lives == 0) {
 			this.makeExplosion(a.x,a.y);
-			var chancepowerup = this.game.rnd.integerInRange(1, 10); 
+			var chancepowerup = this.game.rnd.integerInRange(1, 10);
+
 			if (chancepowerup == 1) {
 				this.powerupspreadcreate(a.x,a.y);
 			}
@@ -473,15 +470,17 @@ export default class Play extends Phaser.State{
 		}
 	}
 
-	playerDeath(){
-		this.gameMusic.stop();
-		this.game.state.start('Gameover');
-	}
-
 	makeExplosion(x,y){
 
 		var explosie = new Explosie(this.game, x, y); 
 		this.game.add.existing(explosie);
+
+	}
+
+	playerDeath(){	
+		this.gameMusic.stop();
+		// this.enemieGenerator.timer.stop();
+		this.game.state.start('Gameover', false,false, this.score);
 
 	}
 
