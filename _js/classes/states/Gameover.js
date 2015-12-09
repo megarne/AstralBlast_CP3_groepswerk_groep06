@@ -100,7 +100,7 @@ getData(){
 
 
     if ( json[teller].score < varScore && inputNotPlaced ) {
-     resultHTML += `<li class="inputList"><input type="text" class="inputVeld" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
+     resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
      inputNotPlaced = false;
      teller--;
  }else{

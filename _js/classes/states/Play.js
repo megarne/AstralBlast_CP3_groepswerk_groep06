@@ -9,6 +9,7 @@ import Spreadpower from '../objects/powerup/Spreadpower';
 import DeathlaserPowerup from '../objects/powerup/Deathlaser';
 import Deathlaser from '../objects/bullets/Deathlaser';
 import Evillaser from '../objects/enemies/EvilLaser';
+import Meteor from '../objects/enemies/Meteor';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -50,6 +51,7 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups = this.game.add.group();
 		this.enemiebullets = this.game.add.group();
 		this.deathlaserpowerups = this.game.add.group();
+		this.meteors = this.game.add.group();
 
 		this.gameMusic = this.game.add.audio('musicSound');
 		this.gameMusic.play();
@@ -145,7 +147,6 @@ export default class Play extends Phaser.State{
 		});
 
 
-
 		//this.knopRechts.addEventListener('mousedown', this.beweegrechts(this.player));
 
 	}
@@ -217,6 +218,9 @@ export default class Play extends Phaser.State{
 			this.createEvilLaser();
 		}
 
+		if ((this.teller) % 6 === 0 && this.score > 10) {
+			this.createMeteor();
+		}
 		this.updateScore(10);
 		this.checkShoot();
 		
@@ -230,6 +234,15 @@ export default class Play extends Phaser.State{
 	updateScore(value){
 		this.score = this.score + value;
 		this.scoreText.text = "score: "+this.score.toString();
+	}
+
+	createMeteor(){
+		var meteorY = this.game.rnd.integerInRange(100, this.game.height-200); 
+		var	meteor = new Meteor(this.game, this.game.width, meteorY); 
+		meteor.body.velocity.x = -200;
+		this.meteors.add(meteor,true);
+		
+		meteor.reset(this.game.width, meteorY)
 	}
 
 	generateBigEnemies() {
@@ -343,6 +356,12 @@ export default class Play extends Phaser.State{
 					this.game.physics.arcade.collide(enemiestest, playerbulletstest,
 						this.hitenemie, null, this); 
 				});
+
+				this.meteors.forEach(meteortest => { 
+
+					this.game.physics.arcade.collide(meteortest, playerbulletstest,
+						this.hitmeteor, null, this); 
+				});
 			});
 
 			this.playerlasers.forEach(playerlaserstest => { 
@@ -363,7 +382,8 @@ export default class Play extends Phaser.State{
 			this.enemiebullets.forEach(bulletstest => { 
 
 				this.game.physics.arcade.collide(bulletstest, this.player,
-					this.hitplayer, null, this); 
+					this.hitplayer, null, this);
+				
 			});
 
 			this.spreadpowerups.forEach(powerup => { 
@@ -384,6 +404,11 @@ export default class Play extends Phaser.State{
 					this.laserkill, null, this); 
 			});
 		};
+	}
+
+	hitmeteor(a,b){
+		a.kill();
+		b.kill();
 	}
 
 	laserkill(a,b){
