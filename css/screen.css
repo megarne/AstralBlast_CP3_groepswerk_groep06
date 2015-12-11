@@ -11,6 +11,17 @@
 
 }
 
+a{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-family: minecraft;
+	color: white;
+	text-decoration: none;
+	border-bottom: white solid 4px;
+}
+
+
 #leader-result{
 	z-index: 100;
 
@@ -28,15 +39,23 @@ h1{
 	margin-left: -100px;
 	font-family: "minecraft";
 }
-ol{
+ul,ol{
 	margin-top: 40px;
 	color: white;
 }
+
+ul > li{
+
+	list-style: none;
+
+}
+
+
 li{
 
 	font-size: 20pt;
 	font-family: "minecraft";
-
+	
 	margin-bottom: 25px;
 
 }
@@ -143,3 +162,8 @@ canvas{
 	padding: 9px;
 	width: 186px;
 }
+
+.leaderbord-body{
+	align-items: flex-start;
+}
+

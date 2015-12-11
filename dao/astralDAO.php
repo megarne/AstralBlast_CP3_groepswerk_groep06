@@ -5,7 +5,7 @@ require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DAO.php';
 class AstralDAO extends DAO {
 
 	public function selectAll() {
-		$sql = "SELECT * FROM `astral_scores`";
+		$sql = "SELECT * FROM `astral_scores` ORDER BY `score` DESC";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);

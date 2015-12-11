@@ -1,5 +1,8 @@
 import Space from '../objects/Space';
 
+
+var dataSend = false;
+
 export default class Gameover extends Phaser.State{
 	create(){
 		console.log('Gameover State');
@@ -15,20 +18,38 @@ export default class Gameover extends Phaser.State{
 		//this.menu.scale.setTo(.7);
 		this.menu.anchor.setTo(.5,.5);
 
-		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-		this.key1.onDown.add(this.startClick, this);
+
 
         this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.key2.onDown.add(this.upload, this);
- this.gotData = false;
-        this.getData();
+        this.gotData = false;
+        //this.getData();
 
-       
+
+        let resultHTML = '<h1>Your score:</h1>';
+        resultHTML += '<ul>';
+
+
+        resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${this.score}</li>`
+
+
+        resultHTML += '</ul>';
+        document.getElementById('leader-result').innerHTML = resultHTML;
+
+
     	///this.sendData();
 
     }
     init(score){
     	this.score = score;
+    }
+
+    update(){
+
+        if(dataSend){
+            dataSend = false;
+            this.getData();
+        }
     }
 
     upload(){
@@ -39,14 +60,20 @@ export default class Gameover extends Phaser.State{
                 data.name = inputVeld.value;
                 data.score = this.score;
                 this.sendData(data);
+
+                this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+                this.key1.onDown.add(this.startClick, this);
+
+                
             }
 
         }
 
+
+
     }
 
     startClick(){
-        console.log('tester' + this.gotData);
         if(!document.querySelector('.inputVeld') && this.gotData){
            document.getElementById('leader-result').className += 'hidden';
            this.game.state.start('Play');
@@ -65,15 +92,12 @@ export default class Gameover extends Phaser.State{
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
         if (xhr.status === 200) {
-
-            let inputVeld = document.querySelector('.inputList');
-            inputVeld.innerHTML = `${data.name} --- ${data.score}`;
-
+            dataSend = true;
         }
+        
     };
-    console.log(JSON.stringify(data));
     xhr.send(JSON.stringify(data));
-    }
+}
 
 
 
@@ -102,13 +126,7 @@ getData(){
          for (var i = 0; i < json.length; i++) {
 
 
-            if ( json[teller].score < varScore && inputNotPlaced ) {
-               resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${varScore}</li>`
-               inputNotPlaced = false;
-               teller--;
-           }else{
-               resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
-           };
+           resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
 
 
            teller++;
@@ -120,11 +138,10 @@ getData(){
        resultHTML += '</ol>';
        itemsResultEl.innerHTML = resultHTML;
    }
-   
+
 };
 
 xhr.send();
-this.gotData = true;
 
 
 
