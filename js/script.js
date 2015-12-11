@@ -64,7 +64,7 @@
 	
 	var _classesStatesPlay2 = _interopRequireDefault(_classesStatesPlay);
 	
-	var _classesStatesGameover = __webpack_require__(6);
+	var _classesStatesGameover = __webpack_require__(20);
 	
 	var _classesStatesGameover2 = _interopRequireDefault(_classesStatesGameover);
 	
@@ -364,7 +364,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _objectsPlayer = __webpack_require__(7);
+	var _objectsPlayer = __webpack_require__(6);
 	
 	var _objectsPlayer2 = _interopRequireDefault(_objectsPlayer);
 	
@@ -372,51 +372,51 @@
 	
 	var _objectsSpace2 = _interopRequireDefault(_objectsSpace);
 	
-	var _objectsBulletsBullet = __webpack_require__(8);
+	var _objectsBulletsBullet = __webpack_require__(7);
 	
 	var _objectsBulletsBullet2 = _interopRequireDefault(_objectsBulletsBullet);
 	
-	var _objectsBulletsEnemieBullet = __webpack_require__(9);
+	var _objectsBulletsEnemieBullet = __webpack_require__(8);
 	
 	var _objectsBulletsEnemieBullet2 = _interopRequireDefault(_objectsBulletsEnemieBullet);
 	
-	var _objectsEnemiesEnemie = __webpack_require__(10);
+	var _objectsEnemiesEnemie = __webpack_require__(9);
 	
 	var _objectsEnemiesEnemie2 = _interopRequireDefault(_objectsEnemiesEnemie);
 	
-	var _objectsEnemiesBigEnemie = __webpack_require__(11);
+	var _objectsEnemiesBigEnemie = __webpack_require__(10);
 	
 	var _objectsEnemiesBigEnemie2 = _interopRequireDefault(_objectsEnemiesBigEnemie);
 	
-	var _objectsExplosie = __webpack_require__(12);
+	var _objectsExplosie = __webpack_require__(11);
 	
 	var _objectsExplosie2 = _interopRequireDefault(_objectsExplosie);
 	
-	var _objectsPowerupSpreadpower = __webpack_require__(13);
+	var _objectsPowerupSpreadpower = __webpack_require__(12);
 	
 	var _objectsPowerupSpreadpower2 = _interopRequireDefault(_objectsPowerupSpreadpower);
 	
-	var _objectsPowerupDeathlaser = __webpack_require__(14);
+	var _objectsPowerupDeathlaser = __webpack_require__(13);
 	
 	var _objectsPowerupDeathlaser2 = _interopRequireDefault(_objectsPowerupDeathlaser);
 	
-	var _objectsBulletsDeathlaser = __webpack_require__(15);
+	var _objectsBulletsDeathlaser = __webpack_require__(14);
 	
 	var _objectsBulletsDeathlaser2 = _interopRequireDefault(_objectsBulletsDeathlaser);
 	
-	var _objectsEnemiesEvilLaser = __webpack_require__(16);
+	var _objectsEnemiesEvilLaser = __webpack_require__(15);
 	
 	var _objectsEnemiesEvilLaser2 = _interopRequireDefault(_objectsEnemiesEvilLaser);
 	
-	var _objectsEnemiesMeteor = __webpack_require__(18);
+	var _objectsEnemiesMeteor = __webpack_require__(17);
 	
 	var _objectsEnemiesMeteor2 = _interopRequireDefault(_objectsEnemiesMeteor);
 	
-	var _objectsEnemiesPikachu = __webpack_require__(19);
+	var _objectsEnemiesPikachu = __webpack_require__(18);
 	
 	var _objectsEnemiesPikachu2 = _interopRequireDefault(_objectsEnemiesPikachu);
 	
-	var _objectsBulletsThunder = __webpack_require__(20);
+	var _objectsBulletsThunder = __webpack_require__(19);
 	
 	var _objectsBulletsThunder2 = _interopRequireDefault(_objectsBulletsThunder);
 	
@@ -965,166 +965,6 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _objectsSpace = __webpack_require__(4);
-	
-	var _objectsSpace2 = _interopRequireDefault(_objectsSpace);
-	
-	var Gameover = (function (_Phaser$State) {
-	    _inherits(Gameover, _Phaser$State);
-	
-	    function Gameover() {
-	        _classCallCheck(this, Gameover);
-	
-	        _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
-	    }
-	
-	    _createClass(Gameover, [{
-	        key: 'create',
-	        value: function create() {
-	            console.log('Gameover State');
-	
-	            this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
-	            this.game.add.existing(this.space);
-	
-	            this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
-	            //this.start.scale.setTo(.7);
-	            this.start.anchor.setTo(.5, .5);
-	
-	            this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
-	            //this.menu.scale.setTo(.7);
-	            this.menu.anchor.setTo(.5, .5);
-	
-	            this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	            this.key1.onDown.add(this.startClick, this);
-	
-	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-	            this.key2.onDown.add(this.upload, this);
-	            this.gotData = false;
-	            this.getData();
-	
-	            ///this.sendData();
-	        }
-	    }, {
-	        key: 'init',
-	        value: function init(score) {
-	            this.score = score;
-	        }
-	    }, {
-	        key: 'upload',
-	        value: function upload() {
-	            if (document.querySelector('.inputVeld')) {
-	                var inputVeld = document.querySelector('.inputVeld');
-	                if (inputVeld.value != '') {
-	                    var data = {};
-	                    data.name = inputVeld.value;
-	                    data.score = this.score;
-	                    this.sendData(data);
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'startClick',
-	        value: function startClick() {
-	            console.log('tester' + this.gotData);
-	            if (!document.querySelector('.inputVeld') && this.gotData) {
-	                document.getElementById('leader-result').className += 'hidden';
-	                this.game.state.start('Play');
-	            }
-	        }
-	    }, {
-	        key: 'menuClick',
-	        value: function menuClick() {
-	            document.getElementById('leader-result').className += 'hidden';
-	            this.game.state.start('Menu');
-	        }
-	    }, {
-	        key: 'sendData',
-	        value: function sendData(data) {
-	
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('POST', './api/astral');
-	            xhr.setRequestHeader('Content-Type', 'application/json');
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	
-	                    var inputVeld = document.querySelector('.inputList');
-	                    inputVeld.innerHTML = data.name + ' --- ' + data.score;
-	                }
-	            };
-	            console.log(JSON.stringify(data));
-	            xhr.send(JSON.stringify(data));
-	        }
-	    }, {
-	        key: 'getData',
-	        value: function getData() {
-	            document.getElementById('leader-result').className = '';
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('GET', './api/astraltop10');
-	            xhr.setRequestHeader('Content-Type', 'application/json');
-	            var varScore = this.score;
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	
-	                    var data = xhr.responseText;
-	                    var json = JSON.parse(data);
-	
-	                    var itemsResultEl = document.getElementById('leader-result');
-	
-	                    var resultHTML = '<h1>LEADERBOARD</h1>';
-	                    resultHTML += '<ol>';
-	
-	                    var teller = 0;
-	                    var inputNotPlaced = true;
-	
-	                    for (var i = 0; i < json.length; i++) {
-	
-	                        if (json[teller].score < varScore && inputNotPlaced) {
-	                            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ' + varScore + '</li>';
-	                            inputNotPlaced = false;
-	                            teller--;
-	                        } else {
-	                            resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
-	                        };
-	
-	                        teller++;
-	                    };
-	
-	                    resultHTML += '</ol>';
-	                    itemsResultEl.innerHTML = resultHTML;
-	                }
-	            };
-	
-	            xhr.send();
-	            this.gotData = true;
-	        }
-	    }]);
-	
-	    return Gameover;
-	})(Phaser.State);
-	
-	exports['default'] = Gameover;
-	module.exports = exports['default'];
-
-/***/ },
-/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1186,7 +1026,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1253,7 +1093,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1318,7 +1158,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1409,7 +1249,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1517,7 +1357,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1577,7 +1417,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1636,7 +1476,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1695,7 +1535,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	// export default class Deathlaser extends Phaser.Sprite {
@@ -1783,7 +1623,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1802,7 +1642,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _evilsalerpartsLoadingEvilLaser = __webpack_require__(17);
+	var _evilsalerpartsLoadingEvilLaser = __webpack_require__(16);
 	
 	var _evilsalerpartsLoadingEvilLaser2 = _interopRequireDefault(_evilsalerpartsLoadingEvilLaser);
 	
@@ -1856,7 +1696,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1891,7 +1731,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1964,7 +1804,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2056,7 +1896,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2122,6 +1962,174 @@
 	})(Phaser.Sprite);
 	
 	exports['default'] = Thunder;
+	module.exports = exports['default'];
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _objectsSpace = __webpack_require__(4);
+	
+	var _objectsSpace2 = _interopRequireDefault(_objectsSpace);
+	
+	var dataSend = false;
+	
+	var Gameover = (function (_Phaser$State) {
+	    _inherits(Gameover, _Phaser$State);
+	
+	    function Gameover() {
+	        _classCallCheck(this, Gameover);
+	
+	        _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
+	    }
+	
+	    _createClass(Gameover, [{
+	        key: 'create',
+	        value: function create() {
+	            console.log('Gameover State');
+	
+	            this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
+	            this.game.add.existing(this.space);
+	
+	            this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
+	            //this.start.scale.setTo(.7);
+	            this.start.anchor.setTo(.5, .5);
+	
+	            this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
+	            //this.menu.scale.setTo(.7);
+	            this.menu.anchor.setTo(.5, .5);
+	
+	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+	            this.key2.onDown.add(this.upload, this);
+	            this.gotData = false;
+	            //this.getData();
+	
+	            var resultHTML = '<h1>Your score:</h1>';
+	            resultHTML += '<ul>';
+	
+	            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ' + this.score + '</li>';
+	
+	            resultHTML += '</ul>';
+	            document.getElementById('leader-result').innerHTML = resultHTML;
+	
+	            ///this.sendData();
+	        }
+	    }, {
+	        key: 'init',
+	        value: function init(score) {
+	            this.score = score;
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	
+	            if (dataSend) {
+	                dataSend = false;
+	                this.getData();
+	            }
+	        }
+	    }, {
+	        key: 'upload',
+	        value: function upload() {
+	            if (document.querySelector('.inputVeld')) {
+	                var inputVeld = document.querySelector('.inputVeld');
+	                if (inputVeld.value != '') {
+	                    var data = {};
+	                    data.name = inputVeld.value;
+	                    data.score = this.score;
+	                    this.sendData(data);
+	
+	                    this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	                    this.key1.onDown.add(this.startClick, this);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'startClick',
+	        value: function startClick() {
+	            if (!document.querySelector('.inputVeld') && this.gotData) {
+	                document.getElementById('leader-result').className += 'hidden';
+	                this.game.state.start('Play');
+	            }
+	        }
+	    }, {
+	        key: 'menuClick',
+	        value: function menuClick() {
+	            document.getElementById('leader-result').className += 'hidden';
+	            this.game.state.start('Menu');
+	        }
+	    }, {
+	        key: 'sendData',
+	        value: function sendData(data) {
+	
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', './api/astral');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	                    dataSend = true;
+	                }
+	            };
+	            xhr.send(JSON.stringify(data));
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            document.getElementById('leader-result').className = '';
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('GET', './api/astraltop10');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            var varScore = this.score;
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	
+	                    var data = xhr.responseText;
+	                    var json = JSON.parse(data);
+	
+	                    var itemsResultEl = document.getElementById('leader-result');
+	
+	                    var resultHTML = '<h1>LEADERBOARD</h1>';
+	                    resultHTML += '<ol>';
+	
+	                    var teller = 0;
+	                    var inputNotPlaced = true;
+	
+	                    for (var i = 0; i < json.length; i++) {
+	
+	                        resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
+	
+	                        teller++;
+	                    };
+	
+	                    resultHTML += '</ol>';
+	                    itemsResultEl.innerHTML = resultHTML;
+	                }
+	            };
+	
+	            xhr.send();
+	        }
+	    }]);
+	
+	    return Gameover;
+	})(Phaser.State);
+	
+	exports['default'] = Gameover;
 	module.exports = exports['default'];
 
 /***/ }
