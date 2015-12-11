@@ -18,7 +18,7 @@ export default class Gameover extends Phaser.State{
 		//this.menu.scale.setTo(.7);
 		this.menu.anchor.setTo(.5,.5);
 
-
+        this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.key2.onDown.add(this.upload, this);
@@ -47,6 +47,8 @@ export default class Gameover extends Phaser.State{
     update(){
 
         if(dataSend){
+            
+            this.key1.onDown.add(this.startClick, this);
             dataSend = false;
             this.getData();
         }
@@ -61,8 +63,7 @@ export default class Gameover extends Phaser.State{
                 data.score = this.score;
                 this.sendData(data);
 
-                this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-                this.key1.onDown.add(this.startClick, this);
+                
 
                 
             }
@@ -74,10 +75,10 @@ export default class Gameover extends Phaser.State{
     }
 
     startClick(){
-        if(!document.querySelector('.inputVeld') && this.gotData){
-           document.getElementById('leader-result').className += 'hidden';
+ 
+           document.getElementById('leader-result').innerHTML = '';
            this.game.state.start('Play');
-       }
+       
    }
 
    menuClick(){
