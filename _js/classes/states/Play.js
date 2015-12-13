@@ -539,6 +539,14 @@ export default class Play extends Phaser.State{
 
 	playerDeath(){	
 		this.gameMusic.stop();
+		this.enemies.destroy();
+		this.playerbullets.destroy();
+		this.meteors.destroy();
+		this.playerlasers.destroy();
+		this.enemiebullets.destroy();
+		this.spreadpowerups.destroy();
+		this.deathlaserpowerups.destroy();
+		this.lasers.destroy();
 		// this.enemieGenerator.timer.stop();
 				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
 		this.game.state.start('Gameover', false,false, this.score);
