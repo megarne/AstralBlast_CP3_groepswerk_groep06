@@ -195,6 +195,10 @@
 				this.load.audio('musicSound', 'assets/sounds/music.wav');
 				this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
 				this.load.audio('shootSound', 'assets/sounds/shoot.wav');
+	
+				this.load.audio('pikachuDeathSound', 'assets/sounds/pikadeath.wav');
+				this.load.audio('pikachuSound', 'assets/sounds/pikachu.wav');
+	
 				this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 				this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
 			}
@@ -582,6 +586,7 @@
 			key: 'muteSPlayound',
 			value: function muteSPlayound() {
 				if (this.sound.mute) {
+	
 					this.sound.mute = false;
 					this.muteSoundBtn.frame = 0;
 				} else {
@@ -592,11 +597,11 @@
 		}, {
 			key: 'launchLaser',
 			value: function launchLaser() {
-				this.laserSound.play();
 	
 				if (this.aantalspecials == 0) {
 					this.laserText.text = "NO SPECIAL";
 				} else if (this.aantalspecials == 1) {
+					this.laserSound.play();
 	
 					this.aantalspecials = 0;
 					this.laserText.text = "NO SPECIAL";
@@ -606,7 +611,7 @@
 					laser.reset(this.game.width / 2, this.player.body.y);
 					laser.body.velocity.y = -300;
 				} else if (this.aantalspecials > 1) {
-	
+					this.laserSound.play();
 					this.aantalspecials = this.aantalspecials - 1;
 					this.laserText.text = this.aantalspecials + " DEATHLASERS";
 	
@@ -1839,7 +1844,9 @@
 			this.points = 15;
 			this.lives = 30;
 			this.alpha = 0;
-			this.deathSound = this.game.add.audio('smalldeathSound');
+			this.deathSound = this.game.add.audio('pikachuDeathSound');
+			this.sound = this.game.add.audio('pikachuSound');
+			this.sound.play();
 		}
 	
 		_createClass(Pikachu, [{
