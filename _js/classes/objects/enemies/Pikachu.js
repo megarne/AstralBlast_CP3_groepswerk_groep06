@@ -13,7 +13,9 @@ export default class Pikachu extends Phaser.Sprite {
 		this.points = 15;
 		this.lives = 30;
 		this.alpha = 0;
-		this.deathSound = this.game.add.audio('smalldeathSound');
+		this.deathSound = this.game.add.audio('pikachuDeathSound');
+		this.sound = this.game.add.audio('pikachuSound');
+		this.sound.play();
 
 
 

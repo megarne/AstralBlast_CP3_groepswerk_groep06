@@ -169,21 +169,24 @@ export default class Play extends Phaser.State{
 
 	muteSPlayound(){
 		if(this.sound.mute){
+			
 			this.sound.mute = false;
 			this.muteSoundBtn.frame = 0;
 		}else{
 			this.sound.mute = true;
 			this.muteSoundBtn.frame = 1;
+			
 		}
 		
 	}
 
 	launchLaser(){
-		this.laserSound.play();
+		
 		
 		if(this.aantalspecials == 0){
 			this.laserText.text = "NO SPECIAL";
 		}else if(this.aantalspecials == 1){
+			this.laserSound.play();
 
 			this.aantalspecials = 0;
 			this.laserText.text = "NO SPECIAL";
@@ -194,7 +197,7 @@ export default class Play extends Phaser.State{
 			laser.body.velocity.y = -300;
 
 		}else if(this.aantalspecials > 1){
-
+			this.laserSound.play();
 			this.aantalspecials = this.aantalspecials-1;
 			this.laserText.text = this.aantalspecials + " DEATHLASERS";
 			
