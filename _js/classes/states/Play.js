@@ -34,8 +34,7 @@ export default class Play extends Phaser.State{
 		this.muteSoundBtn = this.game.add.button(this.game.width - 30,this.game.height - 30,'soundmuter', this.muteSPlayound, this);
 		this.muteSoundBtn.alpha = 0.5;
 		this.muteSoundBtn.scale.setTo(.5);
-		//did op false zetten om alle geluid uit te zetten
-		this.sound.mute = true;
+
 		if(this.sound.mute){
 			this.muteSoundBtn.frame = 1;
 		}else{
@@ -65,7 +64,6 @@ export default class Play extends Phaser.State{
 		this.powerupSound = this.game.add.audio('powerupSound');
 		this.laserSound = this.game.add.audio('laserSound');
 		this.powerupSound = this.game.add.audio('powerupSound');
-		//this.sound.mute = true;
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -93,59 +91,6 @@ export default class Play extends Phaser.State{
 		console.log('Play State');
 
 		this.teller = 0;
-
-		this.knopRechts = document.querySelector('.rechts');
-		this.knopRechtsvalue = false; 
-		this.knopRechts.addEventListener('mousedown', e =>{
-
-			this.knopRechtsvalue = true; 
-		});
-		this.knopRechts.addEventListener('mouseup', e=>{
-			this.knopRechtsvalue = false; 
-		});
-
-		this.knopLinks = document.querySelector('.links');
-		this.knopLinksvalue = false; 
-		this.knopLinks.addEventListener('mousedown', e =>{
-			this.knopLinksvalue = true; 
-		});
-		this.knopLinks.addEventListener('mouseup', e=>{
-			this.knopLinksvalue = false; 
-		});
-
-
-				this.knopBoven = document.querySelector('.boven');
-		this.knopBovenvalue = false; 
-		this.knopBoven.addEventListener('mousedown', e =>{
-			this.knopBovenvalue = true; 
-		});
-		this.knopBoven.addEventListener('mouseup', e=>{
-			this.knopBovenvalue = false; 
-
-		});
-
-		this.knopOnder = document.querySelector('.onder');
-		this.knopOndervalue = false; 
-		this.knopOnder.addEventListener('mousedown', e =>{
-			this.knopOndervalue = true; 
-		});
-		this.knopOnder.addEventListener('mouseup', e=>{
-			this.knopOndervalue = false; 
-		});
-
-		this.knopShoot = document.querySelector('.shoot');
-		this.knopShoot.addEventListener('mousedown', e =>{
-
-			this.generatePlayerBullets();
-		});
-
-		this.knopSpecial = document.querySelector('.special');
-		this.knopSpecial.addEventListener('mousedown', e =>{
-
-			if (this.aantalspecials > 0) {
-				this.launchLaser();
-			}
-		});
 	}
 
 	laserReady(a,b){
@@ -249,7 +194,6 @@ export default class Play extends Phaser.State{
 		var	meteor = new Meteor(this.game, this.game.width, meteorY); 
 		meteor.body.velocity.x = -200;
 		this.meteors.add(meteor,true);
-		
 		meteor.reset(this.game.width, meteorY)
 	}
 
@@ -268,7 +212,7 @@ export default class Play extends Phaser.State{
 				this.enemieShoot(enemiestest.x,enemiestest.y);
 			}
 			if (enemiestest.key =="pikachu"){
-				//console.log(enemiestest.x,enemiestest.y);
+				
 				this.schootThunder(enemiestest.x,enemiestest.y);
 			}
 		});
@@ -282,7 +226,6 @@ export default class Play extends Phaser.State{
 		bullet.body.velocity.x = -(x-this.player.x)/2;
 
 		var angle = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x) - Math.PI / 2;
-		console.log(angle);
 		bullet.rotation = angle;
 	}
 
@@ -320,10 +263,6 @@ export default class Play extends Phaser.State{
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
-				//bullet.body.velocity.y = -300+Math.abs(randomspread);
-				//bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
-				//bullet.rotation = randomspread*360/Math.PI;
-
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
 				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
 
@@ -338,29 +277,29 @@ export default class Play extends Phaser.State{
 	}
 
 	update(){
-		//console.log(this.knopRechtsvalue);
+
 		if(this.player.body){
 			this.player.body.velocity.x = 0;
 			this.player.body.velocity.y = 0;
 
-			if(this.cursors.left.isDown || this.knopLinksvalue){
+			if(this.cursors.left.isDown){
 				this.player.body.velocity.x = -this.speedPlayer;
-				//this.player.rotation = Math.PI*1.5;
+
 			}
 
-			if(this.cursors.right.isDown || this.knopRechtsvalue){
+			if(this.cursors.right.isDown ){
 				this.player.body.velocity.x = this.speedPlayer;
-				//this.player.rotation = Math.PI*0.5;
+
 			}
 
-			if(this.cursors.up.isDown || this.knopBovenvalue){
+			if(this.cursors.up.isDown ){
 				this.player.body.velocity.y = -this.speedPlayer;
-				//this.player.rotation = Math.PI*0;
+
 			}
 
-			if(this.cursors.down.isDown || this.knopOndervalue) {
+			if(this.cursors.down.isDown ) {
 				this.player.body.velocity.y = this.speedPlayer;
-				//this.player.rotation = Math.PI;
+
 			}
 
 			this.playerbullets.forEach(playerbulletstest => { 
@@ -541,8 +480,9 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups.destroy();
 		this.deathlaserpowerups.destroy();
 		this.lasers.destroy();
-		// this.enemieGenerator.timer.stop();
-				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
+
+		this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
+		this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 		this.game.state.start('Gameover', false,false, this.score);
 
 	}

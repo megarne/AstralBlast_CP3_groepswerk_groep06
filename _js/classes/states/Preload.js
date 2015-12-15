@@ -40,10 +40,13 @@ export default class Preload extends Phaser.State{
 		this.load.audio('pikachuSound', 'assets/sounds/pikachu.wav');
 		this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 		this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
+
+
 	}
 
 	create(){
 
+			this.sound.mute = true;
 	}
 
 	onLoadComplete(){
