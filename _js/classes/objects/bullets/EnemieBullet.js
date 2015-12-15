@@ -4,19 +4,15 @@ export default class EnemieBullet extends Phaser.Sprite {
 
 		this.animations.add('vuur');
 		this.animations.play('vuur', 12, true);
-
 		this.anchor.setTo(0.5, 0.5);
-
 		this.game.physics.arcade.enableBody(this);
+	}
 
-}
+	kill(){
+		this.destroy();
+	}
 
-kill(){
-	this.destroy();
-}
-
-reset(x,y){
-
+	reset(x,y){
 		this.body.velocity.y = -300;
 		this.x = x;
 		this.y = y;

@@ -4,16 +4,10 @@ export default class Explosie extends Phaser.Sprite {
 
 		this.animations.add('boem');
 		this.animations.play('boem', 12, false, true);
-
 		this.anchor.setTo(0.5, 0.5);
-
-		//this.game.physics.arcade.enableBody(this);
-
-
-
 	}
+	
 	reset(x,y){
-
 		this.body.velocity.y = 100;
 		this.x = x;
 		this.y = y;

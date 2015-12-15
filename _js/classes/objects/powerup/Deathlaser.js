@@ -6,11 +6,7 @@ export default class Deathlaser extends Phaser.Sprite {
 		this.animations.play('flikker', 12, true);
 		this.scale.setTo(.5);
 		this.anchor.setTo(0.5, 0.5);
-
 		this.game.physics.arcade.enableBody(this);
-
-
-
 	}
 	reset(x,y){
 		this.body.velocity.y = 50;
