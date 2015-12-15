@@ -64,7 +64,6 @@ export default class Play extends Phaser.State{
 		this.powerupSound = this.game.add.audio('powerupSound');
 		this.laserSound = this.game.add.audio('laserSound');
 		this.powerupSound = this.game.add.audio('powerupSound');
-		//this.sound.mute = true;
 
 		this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -195,7 +194,6 @@ export default class Play extends Phaser.State{
 		var	meteor = new Meteor(this.game, this.game.width, meteorY); 
 		meteor.body.velocity.x = -200;
 		this.meteors.add(meteor,true);
-		
 		meteor.reset(this.game.width, meteorY)
 	}
 
@@ -482,10 +480,9 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups.destroy();
 		this.deathlaserpowerups.destroy();
 		this.lasers.destroy();
-		
-		// this.enemieGenerator.timer.stop();
-				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
-								this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+
+		this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
+		this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 		this.game.state.start('Gameover', false,false, this.score);
 
 	}

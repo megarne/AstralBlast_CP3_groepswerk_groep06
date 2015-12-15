@@ -78,8 +78,6 @@
 		game.state.add('Menu', _classesStatesMenu2['default'], false);
 		game.state.add('Play', _classesStatesPlay2['default'], false);
 		game.state.add('Gameover', _classesStatesGameover2['default'], false);
-	
-		// $(".hidden").hide();
 	};
 	
 	init();
@@ -487,7 +485,6 @@
 				this.powerupSound = this.game.add.audio('powerupSound');
 				this.laserSound = this.game.add.audio('laserSound');
 				this.powerupSound = this.game.add.audio('powerupSound');
-				//this.sound.mute = true;
 	
 				this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 				this.special = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -618,7 +615,6 @@
 				var meteor = new _objectsEnemiesMeteor2['default'](this.game, this.game.width, meteorY);
 				meteor.body.velocity.x = -200;
 				this.meteors.add(meteor, true);
-	
 				meteor.reset(this.game.width, meteorY);
 			}
 		}, {
@@ -914,7 +910,6 @@
 				this.deathlaserpowerups.destroy();
 				this.lasers.destroy();
 	
-				// this.enemieGenerator.timer.stop();
 				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
 				this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 				this.game.state.start('Gameover', false, false, this.score);
@@ -1967,7 +1962,7 @@
 	            var resultHTML = '<h1>Your score:</h1>';
 	            resultHTML += '<ul>';
 	
-	            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus> --- ' + this.score + '</li>';
+	            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus > --- ' + this.score + '</li>';
 	
 	            resultHTML += '</ul>';
 	            document.getElementById('leader-result').innerHTML = resultHTML;

@@ -23,7 +23,7 @@ export default class Gameover extends Phaser.State{
         let resultHTML = '<h1>Your score:</h1>';
         resultHTML += '<ul>';
 
-        resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus> --- ${this.score}</li>`
+        resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus > --- ${this.score}</li>`
 
         resultHTML += '</ul>';
         document.getElementById('leader-result').innerHTML = resultHTML;
