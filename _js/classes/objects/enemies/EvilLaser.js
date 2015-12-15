@@ -9,14 +9,10 @@ export default class EvilLaser extends Phaser.Group {
 		this.teller = 0;
 		this.game.physics.arcade.enableBody(this);
 		this.evillaserSound = this.game.add.audio('evillaserSound');
-
-
 	}
 
 	kill(){
 		this.destroy();
-
-
 	}
 
 	update(){

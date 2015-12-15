@@ -188,7 +188,6 @@
 				this.load.image('keyboardbutton', 'assets/keyboard_button.png');
 				this.load.image('keyboardmovement', 'assets/keyboard_movement.png');
 				this.load.image('evilLaserPattern', 'assets/evillaserpattern.png');
-	
 				this.load.image('deathlaser', 'assets/laser.png');
 	
 				this.load.audio('bigdeathSound', 'assets/sounds/bigdeath.wav');
@@ -196,10 +195,8 @@
 				this.load.audio('musicSound', 'assets/sounds/music.wav');
 				this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
 				this.load.audio('shootSound', 'assets/sounds/shoot.wav');
-	
 				this.load.audio('pikachuDeathSound', 'assets/sounds/pikadeath.wav');
 				this.load.audio('pikachuSound', 'assets/sounds/pikachu.wav');
-	
 				this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
 				this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
 			}
@@ -209,7 +206,6 @@
 		}, {
 			key: 'onLoadComplete',
 			value: function onLoadComplete() {
-	
 				console.log('load complete');
 				this.game.state.start('Menu');
 			}
@@ -335,10 +331,8 @@
 	    _get(Object.getPrototypeOf(Space.prototype), 'constructor', this).call(this, game, x, y, width, height, 'space');
 	
 	    this.game.physics.arcade.enableBody(this);
-	
 	    this.animations.add('sparkle');
 	    this.animations.play('sparkle', 1, true);
-	
 	    this.body.allowGravity = false;
 	    this.body.immovable = true;
 	  }
@@ -499,9 +493,6 @@
 				this.cursors = this.game.input.keyboard.createCursorKeys();
 				this.key1.onDown.add(this.generatePlayerBullets, this);
 	
-				// this.cursors = this.game.input.keyboard.createCursorKeys();
-				//this.special.onDown.add(this.launchLaser, this);
-	
 				this.enemieGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.secondLoop, this);
 				this.enemieGenerator.timer.start();
 	
@@ -570,8 +561,6 @@
 						_this.launchLaser();
 					}
 				});
-	
-				//this.knopRechts.addEventListener('mousedown', this.beweegrechts(this.player));
 			}
 		}, {
 			key: 'laserReady',
@@ -603,7 +592,6 @@
 		}, {
 			key: 'launchLaser',
 			value: function launchLaser() {
-	
 				if (this.aantalspecials == 0) {
 					this.laserText.text = "NO SPECIAL";
 				} else if (this.aantalspecials == 1) {
@@ -685,7 +673,6 @@
 		}, {
 			key: 'generateBigEnemies',
 			value: function generateBigEnemies() {
-	
 				var enemieX = this.game.rnd.integerInRange(100, this.game.width - 100);
 	
 				var enemie = new _objectsEnemiesBigEnemie2['default'](this.game, enemieX, 0);
@@ -725,7 +712,6 @@
 			key: 'enemieShoot',
 			value: function enemieShoot(x, y) {
 				var randomspread = this.game.rnd.realInRange(-this.spread, this.spread);
-	
 				var bullet = new _objectsBulletsEnemieBullet2['default'](this.game, x, y);
 				this.enemiebullets.add(bullet, true);
 				bullet.reset(x, y);
@@ -736,7 +722,6 @@
 			key: 'generateEnemies',
 			value: function generateEnemies() {
 				var enemieX = this.game.rnd.integerInRange(38, this.game.width - 38);
-	
 				var enemie = new _objectsEnemiesEnemie2['default'](this.game, enemieX, 0);
 				this.enemies.add(enemie, true);
 				enemie.reset(enemieX, 0);
@@ -770,7 +755,6 @@
 						}
 						this.shootSound.play();
 						break;
-	
 				}
 			}
 		}, {
@@ -872,7 +856,6 @@
 				b.kill();
 				if (this.player.alpha == 1) {
 					a.kill();
-	
 					this.lives = this.player.lives;
 					this.livesText.text = "lives: " + this.lives.toString();
 					if (this.lives == 0) {
@@ -891,10 +874,8 @@
 			key: 'hitenemie',
 			value: function hitenemie(a, b) {
 				this.updateScore(a.points);
-	
 				a.kill();
 				b.kill();
-	
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
 					var chancepowerup = this.game.rnd.integerInRange(1, 10);
@@ -976,7 +957,6 @@
 		}, {
 			key: 'makeExplosion',
 			value: function makeExplosion(x, y) {
-	
 				var explosie = new _objectsExplosie2['default'](this.game, x, y);
 				this.game.add.existing(explosie);
 			}
@@ -1032,9 +1012,7 @@
 	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.lives = 3;
 		}
@@ -1042,7 +1020,6 @@
 		_createClass(Player, [{
 			key: 'kill',
 			value: function kill() {
-	
 				this.alpha = 0;
 				this.lives--;
 				if (this.lives == 0) {
@@ -1094,12 +1071,8 @@
 	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
-	
-			//this.body.velocity.y = -300;
 		}
 	
 		_createClass(Bullet, [{
@@ -1110,7 +1083,6 @@
 		}, {
 			key: 'reset',
 			value: function reset(x, y) {
-				//this.reset(0, 0);
 				this.body.velocity.y = -300;
 				this.x = x;
 				this.y = y;
@@ -1161,9 +1133,7 @@
 	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 		}
 	
@@ -1175,7 +1145,6 @@
 		}, {
 			key: 'reset',
 			value: function reset(x, y) {
-	
 				this.body.velocity.y = -300;
 				this.x = x;
 				this.y = y;
@@ -1223,12 +1192,9 @@
 			_classCallCheck(this, Enemie);
 	
 			_get(Object.getPrototypeOf(Enemie.prototype), 'constructor', this).call(this, game, x, y, 'enemie', frame);
-	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.points = 5;
@@ -1239,7 +1205,6 @@
 		_createClass(Enemie, [{
 			key: 'reset',
 			value: function reset(x, y) {
-	
 				this.body.velocity.y = 100;
 				this.x = x;
 				this.y = y;
@@ -1317,24 +1282,19 @@
 	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(1, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.lives = 10;
-	
 			this.speedy = 20;
 			this.speedx = 30;
 			this.points = 15;
-	
 			this.deathSound = this.game.add.audio('bigdeathSound');
 		}
 	
 		_createClass(BigEnemie, [{
 			key: 'reset',
 			value: function reset(x, y) {
-	
 				this.body.velocity.y = this.speedy;
 				this.body.velocity.x = this.speedx;
 				this.x = x;
@@ -1425,16 +1385,12 @@
 	
 			this.animations.add('boem');
 			this.animations.play('boem', 12, false, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
-			//this.game.physics.arcade.enableBody(this);
 		}
 	
 		_createClass(Explosie, [{
 			key: 'reset',
 			value: function reset(x, y) {
-	
 				this.body.velocity.y = 100;
 				this.x = x;
 				this.y = y;
@@ -1485,9 +1441,7 @@
 	
 			this.animations.add('flikker');
 			this.animations.play('flikker', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 		}
 	
@@ -1546,7 +1500,6 @@
 			this.animations.play('flikker', 12, true);
 			this.scale.setTo(.5);
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 		}
 	
@@ -1579,34 +1532,6 @@
 /* 14 */
 /***/ function(module, exports) {
 
-	// export default class Deathlaser extends Phaser.Sprite {
-	// 	constructor(game, x, y, frame) {
-	// 		super(game, x, y, 'deathlaser', frame);
-	// 		// this.autoScroll(-200,0);
-	
-	// 		this.animations.add('flikker');
-	// 		this.animations.play('flikker', 12, true);
-	
-	// 		this.anchor.setTo(0.5, 0.5);
-	
-	// 		this.game.physics.arcade.enableBody(this);
-	
-	// 	}
-	// 	reset(x,y){
-	// 		this.body.velocity.y = 50;
-	// 		this.x = x;
-	// 		this.y = y;
-	// 		this.exists = true;
-	// 		this.hasScored = false;
-	// 	}
-	
-	// 	update(){
-	// 		if(!this.inWorld) {
-	// 			this.exists = false;
-	// 			this.destroy();
-	// 		}
-	// 	}
-	// }
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
@@ -1629,12 +1554,7 @@
 	
 			_get(Object.getPrototypeOf(Deathlaser.prototype), 'constructor', this).call(this, game, x, y, width, height, 'deathlaser');
 			this.autoScroll(-400, 0);
-	
-			// this.animations.add('flikker');
-			// this.animations.play('flikker', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 		}
 	
@@ -1796,16 +1716,12 @@
 			_classCallCheck(this, Meteor);
 	
 			_get(Object.getPrototypeOf(Meteor.prototype), 'constructor', this).call(this, game, x, y, 'meteor', frame);
-	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.lives = 100000;
-	
 			this.body.immovable = true;
 		}
 	
@@ -1869,12 +1785,9 @@
 			_classCallCheck(this, Pikachu);
 	
 			_get(Object.getPrototypeOf(Pikachu.prototype), 'constructor', this).call(this, game, x, y, 'pikachu', frame);
-	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 4, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.alive = true;
 			this.points = 15;
@@ -1888,7 +1801,6 @@
 		_createClass(Pikachu, [{
 			key: 'reset',
 			value: function reset(x, y) {
-	
 				this.body.velocity.y = 50;
 				this.x = x;
 				this.y = y;
@@ -1966,14 +1878,9 @@
 	
 			this.animations.add('vuur');
 			this.animations.play('vuur', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 			this.scale.setTo(.5, -.5);
-			//lives
-	
-			//this.body.velocity.y = -300;
 		}
 	
 		_createClass(Thunder, [{
@@ -1984,7 +1891,6 @@
 		}, {
 			key: 'reset',
 			value: function reset(x, y) {
-				//this.reset(0, 0);
 				this.body.velocity.y = -300;
 				this.x = x;
 				this.y = y;
@@ -2014,7 +1920,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -2034,142 +1940,131 @@
 	var dataSend = false;
 	
 	var Gameover = (function (_Phaser$State) {
-	    _inherits(Gameover, _Phaser$State);
+	  _inherits(Gameover, _Phaser$State);
 	
-	    function Gameover() {
-	        _classCallCheck(this, Gameover);
+	  function Gameover() {
+	    _classCallCheck(this, Gameover);
 	
-	        _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Gameover, [{
+	    key: 'create',
+	    value: function create() {
+	      console.log('Gameover State');
+	
+	      this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
+	      this.game.add.existing(this.space);
+	
+	      this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
+	      this.start.anchor.setTo(.5, .5);
+	      this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
+	      this.menu.anchor.setTo(.5, .5);
+	
+	      this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	
+	      this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+	      this.key2.onDown.add(this.upload, this);
+	      this.gotData = false;
+	      //this.getData();
+	      var resultHTML = '<h1>Your score:</h1>';
+	      resultHTML += '<ul>';
+	
+	      resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ' + this.score + '</li>';
+	
+	      resultHTML += '</ul>';
+	      document.getElementById('leader-result').innerHTML = resultHTML;
 	    }
+	  }, {
+	    key: 'init',
+	    value: function init(score) {
+	      this.score = score;
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update() {
+	      if (dataSend) {
 	
-	    _createClass(Gameover, [{
-	        key: 'create',
-	        value: function create() {
-	            console.log('Gameover State');
-	
-	            this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
-	            this.game.add.existing(this.space);
-	
-	            this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
-	            //this.start.scale.setTo(.7);
-	            this.start.anchor.setTo(.5, .5);
-	
-	            this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
-	            //this.menu.scale.setTo(.7);
-	            this.menu.anchor.setTo(.5, .5);
-	
-	            this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	
-	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-	            this.key2.onDown.add(this.upload, this);
-	            this.gotData = false;
-	            //this.getData();
-	
-	            var resultHTML = '<h1>Your score:</h1>';
-	            resultHTML += '<ul>';
-	
-	            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ' + this.score + '</li>';
-	
-	            resultHTML += '</ul>';
-	            document.getElementById('leader-result').innerHTML = resultHTML;
-	
-	            ///this.sendData();
+	        this.key1.onDown.add(this.startClick, this);
+	        dataSend = false;
+	        this.getData();
+	      }
+	    }
+	  }, {
+	    key: 'upload',
+	    value: function upload() {
+	      if (document.querySelector('.inputVeld')) {
+	        var inputVeld = document.querySelector('.inputVeld');
+	        if (inputVeld.value != '') {
+	          var data = {};
+	          data.name = inputVeld.value;
+	          data.score = this.score;
+	          this.sendData(data);
 	        }
-	    }, {
-	        key: 'init',
-	        value: function init(score) {
-	            this.score = score;
+	      }
+	    }
+	  }, {
+	    key: 'startClick',
+	    value: function startClick() {
+	      document.getElementById('leader-result').innerHTML = '';
+	      this.game.state.start('Play');
+	    }
+	  }, {
+	    key: 'menuClick',
+	    value: function menuClick() {
+	      document.getElementById('leader-result').className += 'hidden';
+	      this.game.state.start('Menu');
+	    }
+	  }, {
+	    key: 'sendData',
+	    value: function sendData(data) {
+	      var xhr = new XMLHttpRequest();
+	      xhr.open('POST', './api/astral');
+	      xhr.setRequestHeader('Content-Type', 'application/json');
+	      xhr.onload = function () {
+	        if (xhr.status === 200) {
+	          dataSend = true;
 	        }
-	    }, {
-	        key: 'update',
-	        value: function update() {
+	      };
+	      xhr.send(JSON.stringify(data));
+	    }
+	  }, {
+	    key: 'getData',
+	    value: function getData() {
+	      document.getElementById('leader-result').className = '';
+	      var xhr = new XMLHttpRequest();
+	      xhr.open('GET', './api/astraltop10');
+	      xhr.setRequestHeader('Content-Type', 'application/json');
+	      var varScore = this.score;
+	      xhr.onload = function () {
+	        if (xhr.status === 200) {
 	
-	            if (dataSend) {
+	          var data = xhr.responseText;
+	          var json = JSON.parse(data);
 	
-	                this.key1.onDown.add(this.startClick, this);
-	                dataSend = false;
-	                this.getData();
-	            }
+	          var itemsResultEl = document.getElementById('leader-result');
+	
+	          var resultHTML = '<h1>LEADERBOARD</h1>';
+	          resultHTML += '<ol>';
+	
+	          var teller = 0;
+	          var inputNotPlaced = true;
+	
+	          for (var i = 0; i < json.length; i++) {
+	            resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
+	            teller++;
+	          };
+	
+	          resultHTML += '</ol>';
+	          itemsResultEl.innerHTML = resultHTML;
 	        }
-	    }, {
-	        key: 'upload',
-	        value: function upload() {
-	            if (document.querySelector('.inputVeld')) {
-	                var inputVeld = document.querySelector('.inputVeld');
-	                if (inputVeld.value != '') {
-	                    var data = {};
-	                    data.name = inputVeld.value;
-	                    data.score = this.score;
-	                    this.sendData(data);
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'startClick',
-	        value: function startClick() {
+	      };
 	
-	            document.getElementById('leader-result').innerHTML = '';
-	            this.game.state.start('Play');
-	        }
-	    }, {
-	        key: 'menuClick',
-	        value: function menuClick() {
-	            document.getElementById('leader-result').className += 'hidden';
-	            this.game.state.start('Menu');
-	        }
-	    }, {
-	        key: 'sendData',
-	        value: function sendData(data) {
+	      xhr.send();
+	    }
+	  }]);
 	
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('POST', './api/astral');
-	            xhr.setRequestHeader('Content-Type', 'application/json');
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	                    dataSend = true;
-	                }
-	            };
-	            xhr.send(JSON.stringify(data));
-	        }
-	    }, {
-	        key: 'getData',
-	        value: function getData() {
-	            document.getElementById('leader-result').className = '';
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('GET', './api/astraltop10');
-	            xhr.setRequestHeader('Content-Type', 'application/json');
-	            var varScore = this.score;
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	
-	                    var data = xhr.responseText;
-	                    var json = JSON.parse(data);
-	
-	                    var itemsResultEl = document.getElementById('leader-result');
-	
-	                    var resultHTML = '<h1>LEADERBOARD</h1>';
-	                    resultHTML += '<ol>';
-	
-	                    var teller = 0;
-	                    var inputNotPlaced = true;
-	
-	                    for (var i = 0; i < json.length; i++) {
-	
-	                        resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
-	
-	                        teller++;
-	                    };
-	
-	                    resultHTML += '</ol>';
-	                    itemsResultEl.innerHTML = resultHTML;
-	                }
-	            };
-	
-	            xhr.send();
-	        }
-	    }]);
-	
-	    return Gameover;
+	  return Gameover;
 	})(Phaser.State);
 	
 	exports['default'] = Gameover;
@@ -2200,12 +2095,9 @@
 			_classCallCheck(this, Points);
 	
 			_get(Object.getPrototypeOf(Points.prototype), 'constructor', this).call(this, game, x, y, 'points', frame);
-	
 			this.animations.add('flikker');
 			this.animations.play('flikker', 12, true);
-	
 			this.anchor.setTo(0.5, 0.5);
-	
 			this.game.physics.arcade.enableBody(this);
 		}
 	

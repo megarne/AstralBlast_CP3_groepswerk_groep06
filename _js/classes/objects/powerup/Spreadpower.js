@@ -4,13 +4,8 @@ export default class Explosie extends Phaser.Sprite {
 
 		this.animations.add('flikker');
 		this.animations.play('flikker', 12, true);
-
 		this.anchor.setTo(0.5, 0.5);
-
 		this.game.physics.arcade.enableBody(this);
-
-
-
 	}
 	reset(x,y){
 		this.body.velocity.y = 50;

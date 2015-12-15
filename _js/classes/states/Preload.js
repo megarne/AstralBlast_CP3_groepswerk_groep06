@@ -29,23 +29,17 @@ export default class Preload extends Phaser.State{
         this.load.image('keyboardbutton', 'assets/keyboard_button.png');
         this.load.image('keyboardmovement', 'assets/keyboard_movement.png');
         this.load.image('evilLaserPattern', 'assets/evillaserpattern.png');
-
-		
 		this.load.image('deathlaser', 'assets/laser.png');
-
 
 		this.load.audio('bigdeathSound', 'assets/sounds/bigdeath.wav');
 		this.load.audio('laserSound', 'assets/sounds/laser.wav'); 
 		this.load.audio('musicSound', 'assets/sounds/music.wav');
 		this.load.audio('powerupSound', 'assets/sounds/powerup.wav');
 		this.load.audio('shootSound', 'assets/sounds/shoot.wav');
-
-				this.load.audio('pikachuDeathSound', 'assets/sounds/pikadeath.wav');
+		this.load.audio('pikachuDeathSound', 'assets/sounds/pikadeath.wav');
 		this.load.audio('pikachuSound', 'assets/sounds/pikachu.wav');
-
 		this.load.audio('smalldeathSound', 'assets/sounds/smalldeath.wav');
-				this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
-
+		this.load.audio('evillaserSound', 'assets/sounds/evillaser.wav');
 	}
 
 	create(){
@@ -53,11 +47,8 @@ export default class Preload extends Phaser.State{
 	}
 
 	onLoadComplete(){
-
 		console.log('load complete');
 		this.game.state.start('Menu');
 
 	}
-
-
 }
