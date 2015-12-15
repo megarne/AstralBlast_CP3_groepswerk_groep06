@@ -578,11 +578,11 @@
 					this.createEvilLaser();
 				}
 	
-				if (this.teller % 6 === 0 && this.score > 1000) {
+				if (this.teller % 6 === 0 && this.score > 1500) {
 					this.createMeteor();
 				}
 	
-				if ((this.teller + 3) % 6 === 0 && this.score > 2000) {
+				if ((this.teller + 3) % 6 === 0 && this.score > 3000 && this.aantalshots > 15) {
 					this.createPikachu();
 				}
 				this.updateScore(10);
@@ -815,12 +815,12 @@
 				b.kill();
 				if (a.lives == 0) {
 					this.makeExplosion(a.x, a.y);
-					var chancepowerup = this.game.rnd.integerInRange(1, 10);
-					if (chancepowerup == 1) {
+					var chancepowerup = this.game.rnd.integerInRange(1, 20);
+					if (chancepowerup == 1 || chancepowerup == 2) {
 						if (this.aantalshots <= 30) {
 							this.powerupspreadcreate(a.x, a.y);
 						};
-					} else if (chancepowerup == 2) {
+					} else if (chancepowerup == 3 || chancepowerup == 4) {
 						this.poweruplasercreate(a.x, a.y);
 					} else if (chancepowerup == 5) {
 						this.poweruppointscreate(a.x, a.y);
