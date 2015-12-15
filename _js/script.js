@@ -14,6 +14,7 @@ const init = () => {
 	game.state.add('Menu', Menu, false);
 	game.state.add('Play', Play, false);
 	game.state.add('Gameover', Gameover, false);
+	game.sound.mute = false;
 	// $(".hidden").hide();
 };
 

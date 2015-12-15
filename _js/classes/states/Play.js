@@ -34,8 +34,7 @@ export default class Play extends Phaser.State{
 		this.muteSoundBtn = this.game.add.button(this.game.width - 30,this.game.height - 30,'soundmuter', this.muteSPlayound, this);
 		this.muteSoundBtn.alpha = 0.5;
 		this.muteSoundBtn.scale.setTo(.5);
-		//did op false zetten om alle geluid uit te zetten
-		this.sound.mute = true;
+
 		if(this.sound.mute){
 			this.muteSoundBtn.frame = 1;
 		}else{
@@ -93,59 +92,6 @@ export default class Play extends Phaser.State{
 		console.log('Play State');
 
 		this.teller = 0;
-
-		this.knopRechts = document.querySelector('.rechts');
-		this.knopRechtsvalue = false; 
-		this.knopRechts.addEventListener('mousedown', e =>{
-
-			this.knopRechtsvalue = true; 
-		});
-		this.knopRechts.addEventListener('mouseup', e=>{
-			this.knopRechtsvalue = false; 
-		});
-
-		this.knopLinks = document.querySelector('.links');
-		this.knopLinksvalue = false; 
-		this.knopLinks.addEventListener('mousedown', e =>{
-			this.knopLinksvalue = true; 
-		});
-		this.knopLinks.addEventListener('mouseup', e=>{
-			this.knopLinksvalue = false; 
-		});
-
-
-				this.knopBoven = document.querySelector('.boven');
-		this.knopBovenvalue = false; 
-		this.knopBoven.addEventListener('mousedown', e =>{
-			this.knopBovenvalue = true; 
-		});
-		this.knopBoven.addEventListener('mouseup', e=>{
-			this.knopBovenvalue = false; 
-
-		});
-
-		this.knopOnder = document.querySelector('.onder');
-		this.knopOndervalue = false; 
-		this.knopOnder.addEventListener('mousedown', e =>{
-			this.knopOndervalue = true; 
-		});
-		this.knopOnder.addEventListener('mouseup', e=>{
-			this.knopOndervalue = false; 
-		});
-
-		this.knopShoot = document.querySelector('.shoot');
-		this.knopShoot.addEventListener('mousedown', e =>{
-
-			this.generatePlayerBullets();
-		});
-
-		this.knopSpecial = document.querySelector('.special');
-		this.knopSpecial.addEventListener('mousedown', e =>{
-
-			if (this.aantalspecials > 0) {
-				this.launchLaser();
-			}
-		});
 	}
 
 	laserReady(a,b){
@@ -338,29 +284,29 @@ export default class Play extends Phaser.State{
 	}
 
 	update(){
-		//console.log(this.knopRechtsvalue);
+
 		if(this.player.body){
 			this.player.body.velocity.x = 0;
 			this.player.body.velocity.y = 0;
 
-			if(this.cursors.left.isDown || this.knopLinksvalue){
+			if(this.cursors.left.isDown){
 				this.player.body.velocity.x = -this.speedPlayer;
-				//this.player.rotation = Math.PI*1.5;
+
 			}
 
-			if(this.cursors.right.isDown || this.knopRechtsvalue){
+			if(this.cursors.right.isDown ){
 				this.player.body.velocity.x = this.speedPlayer;
-				//this.player.rotation = Math.PI*0.5;
+
 			}
 
-			if(this.cursors.up.isDown || this.knopBovenvalue){
+			if(this.cursors.up.isDown ){
 				this.player.body.velocity.y = -this.speedPlayer;
-				//this.player.rotation = Math.PI*0;
+
 			}
 
-			if(this.cursors.down.isDown || this.knopOndervalue) {
+			if(this.cursors.down.isDown ) {
 				this.player.body.velocity.y = this.speedPlayer;
-				//this.player.rotation = Math.PI;
+
 			}
 
 			this.playerbullets.forEach(playerbulletstest => { 
