@@ -203,7 +203,7 @@
 			key: 'create',
 			value: function create() {
 	
-				this.sound.mute = true;
+				this.sound.mute = false;
 			}
 		}, {
 			key: 'onLoadComplete',
@@ -582,7 +582,7 @@
 					this.createMeteor();
 				}
 	
-				if ((this.teller + 3) % 6 === 0 && this.score > 3000 && this.aantalshots > 15) {
+				if ((this.teller + 3) % 6 === 0 && this.score > 3000) {
 					this.createPikachu();
 				}
 				this.updateScore(10);

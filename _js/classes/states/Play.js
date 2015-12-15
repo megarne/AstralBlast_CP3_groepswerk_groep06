@@ -163,7 +163,7 @@ export default class Play extends Phaser.State{
 			this.createMeteor();
 		}
 
-		if ((this.teller + 3) % 6 === 0 && this.score > 3000 && this.aantalshots > 15) {
+		if ((this.teller + 3) % 6 === 0 && this.score > 3000) {
 			this.createPikachu();
 		}
 		this.updateScore(10);
