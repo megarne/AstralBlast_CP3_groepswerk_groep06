@@ -485,7 +485,7 @@ export default class Play extends Phaser.State{
 				
 			}else if(chancepowerup == 2){
 				this.poweruplasercreate(a.x,a.y);
-			}else if(chancepowerup == 5,3,4,6,7){
+			}else if(chancepowerup == 5){
 				this.poweruppointscreate(a.x,a.y);
 			}
 		}
