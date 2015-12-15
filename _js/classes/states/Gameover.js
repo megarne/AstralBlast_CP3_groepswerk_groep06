@@ -14,70 +14,70 @@ export default class Gameover extends Phaser.State{
 		this.menu = this.game.add.button(this.game.width/2 + 100,this.game.height/2+200,'menu', this.menuClick, this);
 		this.menu.anchor.setTo(.5,.5);
 
-    this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-    this.key2.onDown.add(this.upload, this);
-    this.gotData = false;
-    //this.getData();
-    let resultHTML = '<h1>Your score:</h1>';
-    resultHTML += '<ul>';
 
-    resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ${this.score}</li>`
+        this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.key2.onDown.add(this.upload, this);
+        this.gotData = false;
 
-    resultHTML += '</ul>';
-    document.getElementById('leader-result').innerHTML = resultHTML;
+        let resultHTML = '<h1>Your score:</h1>';
+        resultHTML += '<ul>';
 
-  }
+        resultHTML += `<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus> --- ${this.score}</li>`
 
-  init(score){
-  	this.score = score;
-  }
+        resultHTML += '</ul>';
+        document.getElementById('leader-result').innerHTML = resultHTML;
 
-  update(){
-      if(dataSend){
-          
+    }
+
+    init(score){
+     this.score = score;
+ }
+
+ update(){
+    if(dataSend){
+        this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.key1.onDown.add(this.startClick, this);
         dataSend = false;
         this.getData();
-      }
-  }
+    }
+}
 
-  upload(){
-      if(document.querySelector('.inputVeld')){
-          let inputVeld = document.querySelector('.inputVeld');
-          if(inputVeld.value != ''){
-              let data = {};
-              data.name = inputVeld.value;
-              data.score = this.score;
-              this.sendData(data);
-          }
-      }
-  }
+upload(){
+    if(document.querySelector('.inputVeld')){
+        let inputVeld = document.querySelector('.inputVeld');
+        if(inputVeld.value != ''){
+            let data = {};
+            data.name = inputVeld.value;
+            data.score = this.score;
+            this.sendData(data);
+        }
+    }
+}
 
-  startClick(){
+startClick(){
     document.getElementById('leader-result').innerHTML = '';
     this.game.state.start('Play');
-  }
+}
 
-  menuClick(){
+menuClick(){
     document.getElementById('leader-result').className += 'hidden';		
     this.game.state.start('Menu');
-  }
+}
 
-  sendData(data){
+sendData(data){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', './api/astral');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
         if (xhr.status === 200) {
           dataSend = true;
-        } 
-    };
-    xhr.send(JSON.stringify(data));
-  }
+      } 
+  };
+  xhr.send(JSON.stringify(data));
+}
 
-  getData(){
+getData(){
     document.getElementById('leader-result').className = '';
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './api/astraltop10');
@@ -100,16 +100,16 @@ export default class Gameover extends Phaser.State{
           let inputNotPlaced = true;
 
           for (var i = 0; i < json.length; i++) {
-           resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
-           teller++;
-          };
+             resultHTML += `<li>${json[teller]['name']} --- ${json[teller]['score']}</li>`
+             teller++;
+         };
 
          resultHTML += '</ol>';
          itemsResultEl.innerHTML = resultHTML;
-        }
-    };
+     }
+ };
 
-  xhr.send();
+ xhr.send();
 
-  }
+}
 }

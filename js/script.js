@@ -78,7 +78,7 @@
 		game.state.add('Menu', _classesStatesMenu2['default'], false);
 		game.state.add('Play', _classesStatesPlay2['default'], false);
 		game.state.add('Gameover', _classesStatesGameover2['default'], false);
-		game.sound.mute = false;
+	
 		// $(".hidden").hide();
 	};
 	
@@ -203,7 +203,10 @@
 			}
 		}, {
 			key: 'create',
-			value: function create() {}
+			value: function create() {
+	
+				this.sound.mute = true;
+			}
 		}, {
 			key: 'onLoadComplete',
 			value: function onLoadComplete() {
@@ -638,7 +641,7 @@
 						_this.enemieShoot(enemiestest.x, enemiestest.y);
 					}
 					if (enemiestest.key == "pikachu") {
-						//console.log(enemiestest.x,enemiestest.y);
+	
 						_this.schootThunder(enemiestest.x, enemiestest.y);
 					}
 				});
@@ -653,7 +656,6 @@
 				bullet.body.velocity.x = -(x - this.player.x) / 2;
 	
 				var angle = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x) - Math.PI / 2;
-				console.log(angle);
 				bullet.rotation = angle;
 			}
 		}, {
@@ -694,10 +696,6 @@
 							var bullet = new _objectsBulletsBullet2['default'](this.game, this.player.body.x + this.player.body.width / 2, this.player.body.y);
 							this.playerbullets.add(bullet, true);
 							bullet.reset(this.player.body.x + this.player.body.width / 2, this.player.body.y);
-							//bullet.body.velocity.y = -300+Math.abs(randomspread);
-							//bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
-							//bullet.rotation = randomspread*360/Math.PI;
-	
 							bullet.body.velocity.y = -300 + Math.abs(i - (this.aantalshots / 2 - 1)) * 3;
 							bullet.body.velocity.x = (i - (this.aantalshots / 2 - 1)) * 25 + randomspread;
 						}
@@ -915,8 +913,10 @@
 				this.spreadpowerups.destroy();
 				this.deathlaserpowerups.destroy();
 				this.lasers.destroy();
+	
 				// this.enemieGenerator.timer.stop();
 				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
+				this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 				this.game.state.start('Gameover', false, false, this.score);
 			}
 		}]);
@@ -1919,7 +1919,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -1939,131 +1939,129 @@
 	var dataSend = false;
 	
 	var Gameover = (function (_Phaser$State) {
-	  _inherits(Gameover, _Phaser$State);
+	    _inherits(Gameover, _Phaser$State);
 	
-	  function Gameover() {
-	    _classCallCheck(this, Gameover);
+	    function Gameover() {
+	        _classCallCheck(this, Gameover);
 	
-	    _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Gameover, [{
-	    key: 'create',
-	    value: function create() {
-	      console.log('Gameover State');
-	
-	      this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
-	      this.game.add.existing(this.space);
-	
-	      this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
-	      this.start.anchor.setTo(.5, .5);
-	      this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
-	      this.menu.anchor.setTo(.5, .5);
-	
-	      this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	
-	      this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-	      this.key2.onDown.add(this.upload, this);
-	      this.gotData = false;
-	      //this.getData();
-	      var resultHTML = '<h1>Your score:</h1>';
-	      resultHTML += '<ul>';
-	
-	      resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="15" name="alias" placeholder="INSERT NAME"> --- ' + this.score + '</li>';
-	
-	      resultHTML += '</ul>';
-	      document.getElementById('leader-result').innerHTML = resultHTML;
+	        _get(Object.getPrototypeOf(Gameover.prototype), 'constructor', this).apply(this, arguments);
 	    }
-	  }, {
-	    key: 'init',
-	    value: function init(score) {
-	      this.score = score;
-	    }
-	  }, {
-	    key: 'update',
-	    value: function update() {
-	      if (dataSend) {
 	
-	        this.key1.onDown.add(this.startClick, this);
-	        dataSend = false;
-	        this.getData();
-	      }
-	    }
-	  }, {
-	    key: 'upload',
-	    value: function upload() {
-	      if (document.querySelector('.inputVeld')) {
-	        var inputVeld = document.querySelector('.inputVeld');
-	        if (inputVeld.value != '') {
-	          var data = {};
-	          data.name = inputVeld.value;
-	          data.score = this.score;
-	          this.sendData(data);
+	    _createClass(Gameover, [{
+	        key: 'create',
+	        value: function create() {
+	            console.log('Gameover State');
+	
+	            this.space = new _objectsSpace2['default'](this.game, -10, 0, this.game.width, this.game.height);
+	            this.game.add.existing(this.space);
+	
+	            this.start = this.game.add.button(this.game.width / 2 - 100, this.game.height / 2 + 200, 'restartbtn', this.startClick, this);
+	            this.start.anchor.setTo(.5, .5);
+	            this.menu = this.game.add.button(this.game.width / 2 + 100, this.game.height / 2 + 200, 'menu', this.menuClick, this);
+	            this.menu.anchor.setTo(.5, .5);
+	
+	            this.key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+	            this.key2.onDown.add(this.upload, this);
+	            this.gotData = false;
+	
+	            var resultHTML = '<h1>Your score:</h1>';
+	            resultHTML += '<ul>';
+	
+	            resultHTML += '<li class="inputList"><input type="text" class="inputVeld" maxlength="20" name="alias" placeholder="INSERT NAME" autofocus> --- ' + this.score + '</li>';
+	
+	            resultHTML += '</ul>';
+	            document.getElementById('leader-result').innerHTML = resultHTML;
 	        }
-	      }
-	    }
-	  }, {
-	    key: 'startClick',
-	    value: function startClick() {
-	      document.getElementById('leader-result').innerHTML = '';
-	      this.game.state.start('Play');
-	    }
-	  }, {
-	    key: 'menuClick',
-	    value: function menuClick() {
-	      document.getElementById('leader-result').className += 'hidden';
-	      this.game.state.start('Menu');
-	    }
-	  }, {
-	    key: 'sendData',
-	    value: function sendData(data) {
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('POST', './api/astral');
-	      xhr.setRequestHeader('Content-Type', 'application/json');
-	      xhr.onload = function () {
-	        if (xhr.status === 200) {
-	          dataSend = true;
+	    }, {
+	        key: 'init',
+	        value: function init(score) {
+	            this.score = score;
 	        }
-	      };
-	      xhr.send(JSON.stringify(data));
-	    }
-	  }, {
-	    key: 'getData',
-	    value: function getData() {
-	      document.getElementById('leader-result').className = '';
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('GET', './api/astraltop10');
-	      xhr.setRequestHeader('Content-Type', 'application/json');
-	      var varScore = this.score;
-	      xhr.onload = function () {
-	        if (xhr.status === 200) {
-	
-	          var data = xhr.responseText;
-	          var json = JSON.parse(data);
-	
-	          var itemsResultEl = document.getElementById('leader-result');
-	
-	          var resultHTML = '<h1>LEADERBOARD</h1>';
-	          resultHTML += '<ol>';
-	
-	          var teller = 0;
-	          var inputNotPlaced = true;
-	
-	          for (var i = 0; i < json.length; i++) {
-	            resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
-	            teller++;
-	          };
-	
-	          resultHTML += '</ol>';
-	          itemsResultEl.innerHTML = resultHTML;
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            if (dataSend) {
+	                this.key1 = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	                this.key1.onDown.add(this.startClick, this);
+	                dataSend = false;
+	                this.getData();
+	            }
 	        }
-	      };
+	    }, {
+	        key: 'upload',
+	        value: function upload() {
+	            if (document.querySelector('.inputVeld')) {
+	                var inputVeld = document.querySelector('.inputVeld');
+	                if (inputVeld.value != '') {
+	                    var data = {};
+	                    data.name = inputVeld.value;
+	                    data.score = this.score;
+	                    this.sendData(data);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'startClick',
+	        value: function startClick() {
+	            document.getElementById('leader-result').innerHTML = '';
+	            this.game.state.start('Play');
+	        }
+	    }, {
+	        key: 'menuClick',
+	        value: function menuClick() {
+	            document.getElementById('leader-result').className += 'hidden';
+	            this.game.state.start('Menu');
+	        }
+	    }, {
+	        key: 'sendData',
+	        value: function sendData(data) {
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', './api/astral');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	                    dataSend = true;
+	                }
+	            };
+	            xhr.send(JSON.stringify(data));
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            document.getElementById('leader-result').className = '';
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('GET', './api/astraltop10');
+	            xhr.setRequestHeader('Content-Type', 'application/json');
+	            var varScore = this.score;
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
 	
-	      xhr.send();
-	    }
-	  }]);
+	                    var data = xhr.responseText;
+	                    var json = JSON.parse(data);
 	
-	  return Gameover;
+	                    var itemsResultEl = document.getElementById('leader-result');
+	
+	                    var resultHTML = '<h1>LEADERBOARD</h1>';
+	                    resultHTML += '<ol>';
+	
+	                    var teller = 0;
+	                    var inputNotPlaced = true;
+	
+	                    for (var i = 0; i < json.length; i++) {
+	                        resultHTML += '<li>' + json[teller]['name'] + ' --- ' + json[teller]['score'] + '</li>';
+	                        teller++;
+	                    };
+	
+	                    resultHTML += '</ol>';
+	                    itemsResultEl.innerHTML = resultHTML;
+	                }
+	            };
+	
+	            xhr.send();
+	        }
+	    }]);
+	
+	    return Gameover;
 	})(Phaser.State);
 	
 	exports['default'] = Gameover;

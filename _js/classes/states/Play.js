@@ -214,7 +214,7 @@ export default class Play extends Phaser.State{
 				this.enemieShoot(enemiestest.x,enemiestest.y);
 			}
 			if (enemiestest.key =="pikachu"){
-				//console.log(enemiestest.x,enemiestest.y);
+				
 				this.schootThunder(enemiestest.x,enemiestest.y);
 			}
 		});
@@ -228,7 +228,6 @@ export default class Play extends Phaser.State{
 		bullet.body.velocity.x = -(x-this.player.x)/2;
 
 		var angle = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x) - Math.PI / 2;
-		console.log(angle);
 		bullet.rotation = angle;
 	}
 
@@ -266,10 +265,6 @@ export default class Play extends Phaser.State{
 				var bullet = new Bullet(this.game, this.player.body.x+this.player.body.width/2, this.player.body.y); 
 				this.playerbullets.add(bullet,true);
 				bullet.reset(this.player.body.x+this.player.body.width/2, this.player.body.y);
-				//bullet.body.velocity.y = -300+Math.abs(randomspread);
-				//bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
-				//bullet.rotation = randomspread*360/Math.PI;
-
 				bullet.body.velocity.y = -300+(Math.abs(i-(this.aantalshots/2-1))*3);
 				bullet.body.velocity.x = (i-(this.aantalshots/2-1))*25 + randomspread;
 
@@ -487,8 +482,10 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups.destroy();
 		this.deathlaserpowerups.destroy();
 		this.lasers.destroy();
+		
 		// this.enemieGenerator.timer.stop();
 				this.special = this.game.input.keyboard.removeKey(Phaser.Keyboard.S);
+								this.key1 = this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 		this.game.state.start('Gameover', false,false, this.score);
 
 	}
