@@ -46,7 +46,7 @@ export default class Preload extends Phaser.State{
 
 	create(){
 
-			this.sound.mute = true;
+			this.sound.mute = false;
 	}
 
 	onLoadComplete(){
