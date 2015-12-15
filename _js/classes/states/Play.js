@@ -7,6 +7,7 @@ import BigEnemie from '../objects/enemies/BigEnemie';
 import Explosie from '../objects/Explosie';
 import Spreadpower from '../objects/powerup/Spreadpower';
 import DeathlaserPowerup from '../objects/powerup/Deathlaser';
+import Points from '../objects/powerup/Points';
 import Deathlaser from '../objects/bullets/Deathlaser';
 import Evillaser from '../objects/enemies/EvilLaser';
 import Meteor from '../objects/enemies/Meteor';
@@ -53,6 +54,7 @@ export default class Play extends Phaser.State{
 		this.spreadpowerups = this.game.add.group();
 		this.enemiebullets = this.game.add.group();
 		this.deathlaserpowerups = this.game.add.group();
+		this.pointpowerups = this.game.add.group();
 		this.meteors = this.game.add.group();
 
 		this.gameMusic = this.game.add.audio('musicSound');
@@ -429,6 +431,11 @@ export default class Play extends Phaser.State{
 				this.game.physics.arcade.collide(powerup, this.player,
 					this.laserReady, null, this); 
 			});
+			this.pointpowerups.forEach(powerup => { 
+
+				this.game.physics.arcade.collide(powerup, this.player,
+					this.extrapoints, null, this); 
+			});
 
 			this.lasers.forEach(laser => { 
 
@@ -436,6 +443,12 @@ export default class Play extends Phaser.State{
 					this.laserkill, null, this); 
 			});
 		};
+	}
+
+	extrapoints(a,b){
+		this.powerupSound.play();
+		a.destroy();
+		this.updateScore(500);
 	}
 
 	hitmeteor(a,b){
@@ -472,7 +485,9 @@ export default class Play extends Phaser.State{
 				
 			}else if(chancepowerup == 2){
 				this.poweruplasercreate(a.x,a.y);
-			};
+			}else if(chancepowerup == 5,3,4,6,7){
+				this.poweruppointscreate(a.x,a.y);
+			}
 		}
 
 		
@@ -496,6 +511,13 @@ export default class Play extends Phaser.State{
 		this.powerupSound.play();
 		a.destroy();
 		this.aantalshots = this.aantalshots + 2;
+	}
+
+	poweruppointscreate(x,y){
+		var points = new Points(this.game, x, y); 
+		this.pointpowerups.add(points,true);
+		points.reset(x, y);
+		points.body.velocity.y = 50;
 	}
 
 	powerupspreadcreate(x, y){
