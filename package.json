@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ./main.js",
+    "install": "electron-rebuild",
+    "development": "webpack-dev-server"
   },
+  "dependencies": {
+  "electron": "^1.4.5",
+  "johnny-five": "^0.10.5"
+},
   "keywords": [],
   "author": "Freek Heyman <freek.heyman@student.howest.be>",
   "license": "ISC",
